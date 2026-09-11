@@ -23,6 +23,9 @@ GRAY = BASE  # de-emphasis for the emphasis form (one hue + gray)
 # The first three reference slots are the only ones validated all-pairs (scatter); never cycle past them.
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a"]
 CHANNELS = ["신규·A_Submitted", "신규·표식 없음", "한도 증액"]
+# Chart-facing names: the internal labels stay in data and doc tables; charts spell out what the marker means.
+CHANNEL_DISPLAY = {"신규·A_Submitted": "신규·A_Submitted 있음", "신규·표식 없음": "신규·A_Submitted 없음",
+                   "한도 증액": "한도 증액"}
 
 
 def setup() -> None:
@@ -77,7 +80,7 @@ def save(fig, name: str) -> str:
 
 def _band_label(band: str) -> str:
     if band == ZERO_BAND:
-        return "0(미기재)"
+        return "금액 미기재"
     lo, hi = (float(x) for x in re.findall(r"[\d.]+", band))
     if lo != round(lo):  # qcut nudges the lowest edge below the minimum
         return f"{hi:,.0f} 이하"
@@ -87,8 +90,8 @@ def _band_label(band: str) -> str:
 
 
 def pretty_segment(segment: str) -> str:
-    band, *rest = segment.split(" | ")
-    return " · ".join([_band_label(band), *rest])
+    band, channel, *goal = segment.split(" | ")
+    return " · ".join([_band_label(band), CHANNEL_DISPLAY.get(channel, channel), *goal])
 
 
 def channel_of(segment: str) -> str:
