@@ -18,14 +18,14 @@ def test_intake_frame_flags_submitted():
 
 def test_amount_band_keeps_zero_separate():
     b = amount_band(pd.Series([0, 100, 200, 300, 400], index=list("abcde"), dtype=float), q=2)
-    assert b["a"] == "0 (미기재)"
+    assert b["a"] == "금액 미기재"
     assert b["b"] == b["c"] and b["d"] == b["e"] and b["b"] != b["d"]
 
 
 def test_channel_combines_type_and_submitted():
     frame = pd.DataFrame({"case:ApplicationType": ["Limit raise", "New credit", "New credit"],
                           "has_submitted": [False, True, False]}, index=list("abc"))
-    assert channel(frame).to_dict() == {"a": "한도 증액", "b": "신규·A_Submitted", "c": "신규·표식 없음"}
+    assert channel(frame).to_dict() == {"a": "한도 증액", "b": "신규·A_Submitted 있음", "c": "신규·A_Submitted 없음"}
 
 
 def test_goal_group_merges_uninformative_and_small():

@@ -5,7 +5,7 @@ import pandas as pd
 
 from config import ACT, CASE, INTAKE_ATTRS
 
-ZERO_BAND = "0 (미기재)"
+ZERO_BAND = "금액 미기재"
 
 
 def intake_frame(events: pd.DataFrame) -> pd.DataFrame:
@@ -25,8 +25,8 @@ def amount_band(requested: pd.Series, q: int = 5) -> pd.Series:
 
 CHANNEL_LABELS = {
     ("Limit raise", False): "한도 증액",
-    ("New credit", True): "신규·A_Submitted",
-    ("New credit", False): "신규·표식 없음",
+    ("New credit", True): "신규·A_Submitted 있음",
+    ("New credit", False): "신규·A_Submitted 없음",
 }
 UNINFORMATIVE_GOALS = ("Other, see explanation", "Unknown", "Not speficied")
 
