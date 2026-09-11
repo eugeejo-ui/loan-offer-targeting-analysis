@@ -1,0 +1,14 @@
+﻿milestone,cancelled,denied,success,all
+A_Create Application,9692,3441,15998,29131
+A_Submitted,7033,2473,9336,18842
+A_Concept,9692,3441,15998,29131
+A_Accepted,9692,3441,15998,29131
+O_Create Offer,9692,3441,15998,29131
+O_Sent,9593,3408,15998,28999
+A_Complete,9593,3408,15998,28999
+O_Returned,910,3247,15998,20155
+A_Validating,963,3289,15998,20250
+A_Incomplete,907,1208,11683,13798
+A_Pending,0,0,15998,15998
+A_Denied,0,3441,0,3441
+A_Cancelled,9692,0,0,9692

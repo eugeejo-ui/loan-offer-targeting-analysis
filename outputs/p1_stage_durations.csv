@@ -1,0 +1,6 @@
+﻿,count,50%,90%
+A_Create Application→O_Sent,28999.0,0.95,3.64
+O_Sent→O_Returned,20155.0,7.8,18.14
+O_Returned→A_Pending,15998.0,4.96,16.0
+O_Returned→A_Denied,3247.0,4.02,9.81
+O_Sent→A_Cancelled,9593.0,30.7,33.92
