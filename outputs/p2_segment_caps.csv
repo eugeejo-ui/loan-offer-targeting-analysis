@@ -1,0 +1,9 @@
+﻿concept:name,cap_hours_p99
+W_Assess potential fraud,9.617
+W_Call after offers,0.65
+W_Call incomplete files,0.403
+W_Complete application,0.509
+W_Handle leads,0.271
+W_Personal Loan collection,0.036
+W_Shortened completion ,1.031
+W_Validate application,0.992
