@@ -638,3 +638,22 @@ git add docs/01_process_baseline.md docs/plans/phase-01-process-baseline.md CLAU
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 사전 탐색 신호(취소 대부분 회신 전 멈춤, 30일 규칙, ate_abort–A_Validating 인접, A_Submitted 일부 케이스)를 Task 2~4에 반영. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
+| 2026-09-11 | 실행 중 변경 ①: `06_ate_abort_context.py`에 인접 전이 없는 abort의 직전 이벤트 분석을 추가 (`p1_ate_abort_unmatched_prev.csv`) |
+| 2026-09-11 | 실행 중 변경 ②: 처음 규칙으로는 오퍼 후 전화 ate_abort의 32.3%가 "인접 전이 없음"이었고, 그 대부분이 O_Cancelled 직후였다. 오퍼 취소·거절도 종료로 인정하도록 `process.CLOSING_EVENTS`를 추가하고 테스트 1개를 더함 → 테스트 24개, "인접 전이 없음" 3.7% |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/01_process_baseline.md`](../01_process_baseline.md) |
+
+**결과 요약 (판단 지점별):**
+1. 이탈의 주체는 고객 — 취소 9,692건 중 8,630건이 오퍼 발송 후 회신 없이 멈춤
+2. 경과시간의 82.2%가 고객 보유 → Phase 8 예비 결론 "처리 속도 개선만으로는 풀리지 않는다"
+3. 30일 무응답 자동 취소 확정 (P7) — 29~32일 구간 77.0%, 그 안 시스템 처리 99.5%, 밖 0.0%. 취소는 자동과 수동 두 유형
+4. ate_abort는 케이스 진행에 따른 자동 종료와 부합 — 인접 전이 없음은 오퍼 후 전화 3.7%, 보완 요청 전화 0.1%. sap-btm 해석과 충돌
+5. A_Submitted 유무를 접수 시점 변수 후보로 채택 — 생성 후 0.1초 안에 시스템 기록, 성사율 49.5% vs 64.7%
+
+**커밋:**
+- `b52b775` docs: move phase plans to docs/plans and add phase 1 plan
+- `4b9a812` feat: add analysis population loader
+- `55d7a83` feat: reconstruct process funnel and dropout points
+- `d694461` feat: split bank vs customer held time and check 30-day cancel rule
+- `91154ef` feat: classify case transitions adjacent to contact work-item aborts
+- (이 기록과 결론 문서) docs: record phase 1 process baseline
