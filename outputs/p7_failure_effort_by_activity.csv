@@ -1,0 +1,35 @@
+﻿failure_type,concept:name,after_first_sent,share_of_all_effort
+auto_cancel,W_Complete application,False,0.0678
+auto_cancel,W_Call after offers,True,0.0348
+auto_cancel,W_Handle leads,False,0.0025
+auto_cancel,W_Assess potential fraud,False,0.0008
+auto_cancel,W_Shortened completion ,True,0.0001
+auto_cancel,W_Shortened completion ,False,0.0
+denied,W_Validate application,True,0.0716
+denied,W_Complete application,False,0.0312
+denied,W_Assess potential fraud,True,0.0291
+denied,W_Call after offers,True,0.0167
+denied,W_Call incomplete files,True,0.0136
+denied,W_Handle leads,False,0.0015
+denied,W_Shortened completion ,False,0.0
+denied,W_Personal Loan collection,True,0.0
+denied,W_Assess potential fraud,False,0.0
+manual_cancel,W_Validate application,True,0.0218
+manual_cancel,W_Complete application,False,0.0216
+manual_cancel,W_Call incomplete files,True,0.0155
+manual_cancel,W_Call after offers,True,0.0104
+manual_cancel,W_Assess potential fraud,True,0.002
+manual_cancel,W_Handle leads,False,0.0007
+manual_cancel,W_Assess potential fraud,False,0.0001
+manual_cancel,W_Shortened completion ,False,0.0001
+manual_cancel,W_Shortened completion ,True,0.0001
+success,W_Validate application,True,0.3175
+success,W_Complete application,False,0.1352
+success,W_Call incomplete files,True,0.1222
+success,W_Call after offers,True,0.0738
+success,W_Assess potential fraud,True,0.0059
+success,W_Handle leads,False,0.0029
+success,W_Assess potential fraud,False,0.0006
+success,W_Shortened completion ,False,0.0002
+success,W_Shortened completion ,True,0.0
+success,W_Personal Loan collection,True,0.0

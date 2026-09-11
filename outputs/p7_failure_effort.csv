@@ -1,0 +1,5 @@
+﻿failure_type,cases,mean_hours,effort_before,effort_after,effort_total,share_of_all_effort,after_sent_share_of_all
+auto_cancel,7375,0.258,1276.7245,626.1351,1902.8596,0.106,0.0349
+denied,3441,0.854,586.8393,2351.9152,2938.7545,0.1636,0.131
+manual_cancel,2317,0.5597,403.2374,893.4918,1296.7292,0.0722,0.0498
+success,15998,0.7388,2493.583,9325.8061,11819.3891,0.6582,0.5193
