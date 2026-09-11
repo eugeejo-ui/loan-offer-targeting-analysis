@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 
-from efficiency import (bootstrap_rank_corr, cm_scan, min_margin_share, quadrant,
-                        rank_alignment, targeting_curve, volume_at_effort_share)
+from efficiency import (bootstrap_rank_corr, cm_scan, incremental_eta, min_margin_share,
+                        quadrant, rank_alignment, stratified_diff, targeting_curve,
+                        volume_at_effort_share)
 
 
 def _table():
@@ -59,3 +60,37 @@ def test_bootstrap_rank_corr_shape_and_bounds():
     rhos = bootstrap_rank_corr(frame, "seg", "r", "e", n_boot=10)
     assert len(rhos) == 10
     assert np.all((rhos >= -1) & (rhos <= 1))
+
+
+def test_stratified_diff_weights_by_stratum_size():
+    frame = pd.DataFrame({
+        "s": ["a"] * 8 + ["b"] * 4,
+        "g": ["base"] * 4 + ["other"] * 4 + ["base"] * 2 + ["other"] * 2,
+        "v": [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+    })
+    diff, table = stratified_diff(frame, "g", "base", "other", "s", "v", min_n=2)
+    assert list(table["diff"]) == [0.25, 0.5]
+    assert round(diff, 6) == round((0.25 * 8 + 0.5 * 4) / 12, 6)
+
+
+def test_incremental_eta_and_class():
+    frame = pd.DataFrame({
+        "s": ["x"] * 4,
+        "g": ["base", "base", "other", "other"],
+        "reached_pending": [True, True, True, True],
+        "r": [100.0, 100.0, 150.0, 150.0],
+        "e": [1.0, 1.0, 2.0, 2.0],
+    })
+    inc = incremental_eta(frame, "g", "base", "other", "s", "r", "e", min_n=2)
+    assert inc.loc["x", "eta_base"] == 100.0
+    assert inc.loc["x", "incremental_eta"] == 50.0
+    assert inc.loc["x", "class"] == "공수↑·가치↑"
+
+
+def test_incremental_eta_flags_reversal():
+    frame = pd.DataFrame({
+        "s": ["x"] * 4, "g": ["base", "base", "other", "other"],
+        "reached_pending": [True, True, True, False],
+        "r": [100.0, 100.0, 100.0, np.nan], "e": [1.0, 1.0, 2.0, 2.0],
+    })
+    assert incremental_eta(frame, "g", "base", "other", "s", "r", "e", min_n=2).loc["x", "class"] == "공수↑·가치↓"

@@ -44,3 +44,37 @@ def conversion_by_offer_group(outcomes: pd.DataFrame, n_offers: pd.Series,
     res = df.groupby("group", observed=False)["success"].agg(n="size", n_success="sum")
     res["rate"] = res["n_success"] / res["n"]
     return res
+
+
+SENT_ACTIVITIES = ("O_Sent (mail and online)", "O_Sent (online only)")
+
+
+def offer_first_sent(events: pd.DataFrame) -> pd.Series:
+    sent = events[events[ACT].isin(SENT_ACTIVITIES)]
+    return sent.groupby(OFFER_ID)[TS].min().rename("first_sent")
+
+
+def conversation_split(offers: pd.DataFrame, first_sent: pd.Series, same_day: float = 1.0) -> pd.DataFrame:
+    """Per case: offer count and whether extra offers came in a later conversation.
+
+    d1_later: offers created more than `same_day` days apart.
+    d2_later: an offer was created after the case's first offer had been sent.
+    """
+    o = offers.assign(first_sent=offers["offer_id"].map(first_sent))
+    g = o.groupby(CASE)
+    out = pd.DataFrame({
+        "n_offers": g.size(),
+        "span_days": (g["created_ts"].max() - g["created_ts"].min()).dt.total_seconds() / 86400,
+        "first_sent": g["first_sent"].min(),
+        "last_created": g["created_ts"].max(),
+    })
+    multi = out["n_offers"] >= 2
+    out["d1_later"] = multi & (out["span_days"] > same_day)
+    out["d2_later"] = multi & (out["last_created"] > out["first_sent"])
+    return out.drop(columns=["first_sent", "last_created"])
+
+
+def offer_group(split: pd.DataFrame, later_col: str) -> pd.Series:
+    multi = split["n_offers"] >= 2
+    label = pd.Series("single", index=split.index)
+    return label.mask(multi & ~split[later_col], "multi_same").mask(split[later_col], "multi_later")

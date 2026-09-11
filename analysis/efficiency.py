@@ -79,3 +79,53 @@ def bootstrap_rank_corr(frame: pd.DataFrame, by: str, r_col: str, e_col: str,
             eta.append(r_mean * rate / e[idx].mean())
         rhos[b] = pd.Series(p).corr(pd.Series(eta), method="spearman")
     return rhos
+
+
+INCREMENT_CLASSES = ["공수↑·가치↑", "공수↑·가치↓", "공수↓·가치↑"]
+
+
+def stratified_diff(frame: pd.DataFrame, group_col: str, base: str, other: str, strata: str,
+                    value_col: str, min_n: int = 50) -> tuple[float, pd.DataFrame]:
+    """Mean difference (other − base) within strata where both groups have ≥ min_n, and its
+    average weighted by the stratum's combined size."""
+    sub = frame[frame[group_col].isin([base, other])]
+    t = sub.groupby([strata, group_col], observed=True)[value_col].agg(["mean", "size"]).unstack(group_col)
+    out = pd.DataFrame({
+        "n_base": t[("size", base)], "n_other": t[("size", other)],
+        "mean_base": t[("mean", base)], "mean_other": t[("mean", other)],
+    })
+    out = out[(out["n_base"] >= min_n) & (out["n_other"] >= min_n)]
+    out["diff"] = out["mean_other"] - out["mean_base"]
+    weight = out["n_base"] + out["n_other"]
+    return float((out["diff"] * weight).sum() / weight.sum()), out
+
+
+def _expected_value(x: pd.DataFrame, r_col: str, success_col: str) -> float:
+    return x.loc[x[success_col], r_col].mean() * x[success_col].mean()
+
+
+def incremental_eta(frame: pd.DataFrame, group_col: str, base: str, other: str, strata: str,
+                    r_col: str, e_col: str, success_col: str = "reached_pending",
+                    min_n: int = 50) -> pd.DataFrame:
+    """Per stratum: extra expected loan volume per extra effort hour of `other` over `base`,
+    Δ(R̄·p)/ΔĒ, next to the base group's own η."""
+    rows = {}
+    for key, s in frame.groupby(strata, observed=True):
+        a, b = s[s[group_col] == base], s[s[group_col] == other]
+        if len(a) < min_n or len(b) < min_n:
+            continue
+        va, vb = _expected_value(a, r_col, success_col), _expected_value(b, r_col, success_col)
+        ea, eb = a[e_col].mean(), b[e_col].mean()
+        rows[key] = {
+            "n_base": len(a), "n_other": len(b),
+            "p_base": a[success_col].mean(), "p_other": b[success_col].mean(),
+            "value_base": va, "value_other": vb, "e_base": ea, "e_other": eb,
+            "eta_base": va / ea, "delta_value": vb - va, "delta_effort": eb - ea,
+            "incremental_eta": (vb - va) / (eb - ea) if eb != ea else np.nan,
+        }
+    out = pd.DataFrame.from_dict(rows, orient="index")
+    if out.empty:
+        return out
+    more, gain = out["delta_effort"] > 0, out["delta_value"] > 0
+    out["class"] = np.select([more & gain, more & ~gain, ~more & gain], INCREMENT_CLASSES, default="공수↓·가치↓")
+    return out

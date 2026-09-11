@@ -1,7 +1,8 @@
 import pandas as pd
 
-from offers import (conversion_by_offer_group, offer_final_state, offer_table,
-                    offers_per_case, unlinked_offer_ids)
+from offers import (conversation_split, conversion_by_offer_group, offer_final_state,
+                    offer_first_sent, offer_group, offer_table, offers_per_case,
+                    unlinked_offer_ids)
 
 
 def _events():
@@ -53,3 +54,28 @@ def test_conversion_by_offer_group():
     assert res.loc["1", "n"] == 2 and res.loc["1", "rate"] == 0.5
     assert res.loc["2+", "n"] == 2 and res.loc["2+", "n_success"] == 1
     assert res.loc["0", "n"] == 1
+
+
+def test_offer_first_sent_takes_earliest_send():
+    ev = pd.DataFrame({
+        "concept:name": ["O_Sent (mail and online)", "O_Sent (online only)", "O_Created"],
+        "OfferID": ["Offer_1", "Offer_1", "Offer_2"],
+        "time:timestamp": pd.to_datetime(["2016-01-03", "2016-01-02", "2016-01-01"], utc=True),
+    })
+    assert offer_first_sent(ev).to_dict() == {"Offer_1": pd.Timestamp("2016-01-02", tz="UTC")}
+
+
+def test_conversation_split_and_group():
+    ts = lambda d: pd.Timestamp(d, tz="UTC")  # noqa: E731
+    offers = pd.DataFrame({
+        "case:concept:name": ["S", "M", "M", "L", "L"],
+        "offer_id": ["o1", "o2", "o3", "o4", "o5"],
+        "created_ts": [ts("2016-01-01"), ts("2016-01-01 10:00"), ts("2016-01-01 11:00"),
+                       ts("2016-01-01"), ts("2016-01-05")],
+    })
+    first_sent = pd.Series({"o1": ts("2016-01-02"), "o2": ts("2016-01-02"), "o4": ts("2016-01-02")})
+    split = conversation_split(offers, first_sent)
+    assert split.loc["S", "n_offers"] == 1 and not split.loc["S", "d1_later"]
+    assert not split.loc["M", "d1_later"] and not split.loc["M", "d2_later"]
+    assert split.loc["L", "d1_later"] and split.loc["L", "d2_later"]
+    assert offer_group(split, "d1_later").to_dict() == {"L": "multi_later", "M": "multi_same", "S": "single"}
