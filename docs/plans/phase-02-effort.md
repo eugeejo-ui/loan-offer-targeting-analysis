@@ -386,3 +386,21 @@ git add docs/02_effort.md docs/plans/phase-02-effort.md CLAUDE.md; git commit -m
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 사전 탐색(구간 길이 분포, 긴 꼬리, 시작·종료 직원 일치, User_1 미시작, abort는 suspend 상태에서만)을 캡 규칙과 견고성 검증 설계에 반영. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
+| 2026-09-11 | 실행 중 변경: `08_case_effort.py`에 공수 0 케이스의 결과·W_ 이벤트 구성 출력 추가 (판단 지점 5 확인용). 출력을 중간에 끊어 한 번 비정상 종료돼, 끝까지 다시 실행해 산출 파일을 확정함 |
+| 2026-09-11 | 판정 규칙 적용 방식: 견고성 최솟값 0.707은 직원 이벤트 수에서 나왔고, 캡 대안끼리는 0.996 이상이었다. 규칙대로 대안을 Phase 5에 넘기되, 의미 있는 대안인 이벤트 수만 넘기고 동등한 캡 대안은 제외 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/02_effort.md`](../02_effort.md) |
+
+**결과 요약 (판단 지점별):**
+1. 활동별 p99 캡을 주 지표로 확정 — 1시간 초과 구간 0.66%가 시간의 28.5%. 총 공수 22,906.0 → 17,957.7시간
+2. 캡 선택은 순위에 무관(≥ 0.996). 직원 이벤트 수와는 0.707 → 이벤트 수 기반 공수를 Phase 5 민감도용으로 병행
+3. W_Handle leads 0.8% 포함
+4. 총 공수 비중 성사 65.8% / 취소 17.8% / 거절 16.4%, 케이스당 평균 거절 최대(0.854시간)
+5. 공수 0 케이스 9건은 예약 후 작업 없이 철회 → 실제 0
+
+**커밋:**
+- `297b464` docs: record sap-btm decision and add phase 2 effort plan
+- `22ffab2` feat: add effort measurement module
+- `74a094a` feat: extract active work segments and per-activity caps
+- (Task 3) feat: measure case effort and check ranking robustness
+- (이 기록과 결론 문서) docs: record phase 2 effort measurement
