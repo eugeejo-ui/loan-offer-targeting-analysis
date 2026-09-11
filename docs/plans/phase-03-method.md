@@ -455,3 +455,22 @@ git add docs/03_method.md docs/plans/phase-03-method.md CLAUDE.md; git commit -m
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 사전 탐색(수락 오퍼 1:1 연결, 오퍼 조건 분포, 역산 금리)을 R 후보와 참조선 설계에 반영. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
+| 2026-09-11 | Task 4: Eurostat Statistics Explained 페이지에서는 국가·업종별 값을 얻지 못했다. Eurostat 공식 API(`lc_lci_lev`, geo=NL, nace_r2=K, time=2016, lcstruct=D1_D4_MD5, unit=EUR)로 57.6유로/시간을 확인함 |
+| 2026-09-11 | 판정 결과가 설계를 바꿈: R 순위 상관 최솟값 0.833 → R 2종 병행. 참조선 비교 결과(η_I가 모두 인건비보다 높음)에 따라 Phase 5의 결과 표현을 "필요 최소 순마진 비중"으로 전환 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/03_method.md`](../03_method.md) |
+
+**결과 요약 (판단 지점별):**
+1. 성사 15,998건 모두 수락 오퍼 1건과 연결 → R 정의 가능
+2. 대출 용도에서 순위 상관 0.833 → R 2종(수락 금액, 금액×기간) 모두 Phase 5로
+3. 역산 금리 20% 초과 14건 → 참조선에 포함
+4. 오퍼 금액 = 신청 금액 77.3% → 축과 R 분리 선언
+5. 참조 인건비 57.6유로/시간 < 잠정 η_I 최솟값 876 → 부호는 순마진 비중이 결정
+6. c/m 스캔: 로그 축, Phase 5 η의 1/10 ~ 10배
+
+**커밋:**
+- `e0ad431` docs: add phase 3 method plan
+- `5f3717d` feat: add revenue base and intake variable modules
+- `85b4084` feat: derive revenue bases from accepted offers
+- (Task 3) feat: check eta ranking stability across revenue bases
+- (이 기록과 결론 문서) docs: declare phase 3 method
