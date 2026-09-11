@@ -1,0 +1,8 @@
+﻿experiment,target,base_rate,delta,delta_source,n_per_arm,eligible_per_month,months_needed,verdict
+"first-conversation single offer, randomised at the decision point",cases about to get several offers in the first conversation (D1),0.4831,0.026,"observed, stratified D1 (Phase 6)",5804,309,37.5,enlarge effect or extend
+"first-conversation single offer, randomised at the decision point",cases about to get several offers in the first conversation (D1),0.4831,0.055,"observed, stratified D2 (Phase 6)",1296,309,8.4,enlarge effect or extend
+"first-conversation single offer, randomised at the decision point",cases about to get several offers in the first conversation (D1),0.4831,0.02,design minimum,9809,309,63.4,enlarge effect or extend
+"first-conversation single offer, randomised over all applications (diluted)",all applications,0.5342,0.003,D1 effect diluted by the share of affected cases,433825,2648,327.6,enlarge effect or extend
+contact policy after offer,offer-sent applications,0.2543,-0.01,design,29379,2636,22.3,enlarge effect or extend
+contact policy after offer,offer-sent applications,0.2543,-0.02,design,7245,2636,5.5,feasible
+contact policy after offer,offer-sent applications,0.2543,-0.03,design,3175,2636,2.4,feasible
