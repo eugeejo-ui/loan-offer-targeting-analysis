@@ -1,6 +1,6 @@
 # Phase 0 — 데이터 확인과 범위 확정
 
-> 2026-09-11 · 실행안 [`superpowers/plans/2026-09-11-phase0-data-scope.md`](superpowers/plans/2026-09-11-phase0-data-scope.md) · 스크립트 `analysis/00~03` · 테스트 15 passed
+> 2026-09-11 · 진행계획·기록 [`plans/phase-00-data-scope.md`](plans/phase-00-data-scope.md) · 스크립트 `analysis/00~03` · 테스트 15 passed
 
 ## 1. 분석 모집단
 

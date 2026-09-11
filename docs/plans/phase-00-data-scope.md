@@ -951,3 +951,22 @@ git add analysis/offers.py analysis/03_replicate_prior.py tests/test_offers.py o
 ```powershell
 git add docs/00_scope.md CLAUDE.md; git commit -m "docs: record phase 0 scope decisions"
 ```
+
+---
+
+## 진행 기록
+
+| 날짜 | 내용 |
+|---|---|
+| 2026-09-11 | 진행계획 작성, 사용자 승인 (로컬 git, 이 대화에서 직접 실행) |
+| 2026-09-11 | 실행 완료 — 테스트 15 passed. 결론은 [`docs/00_scope.md`](../00_scope.md) |
+| 2026-09-11 | 파일 위치 이동: `docs/superpowers/plans/2026-09-11-phase0-data-scope.md` → `docs/plans/phase-00-data-scope.md` (Phase별 진행 기록 폴더로 통합) |
+
+**결과 요약:** 분석 모집단 29,131건(접수 2016-01~11, 종료 케이스) / 주 성공 정의 = A_Pending 도달 / 선행 수치 완전 재현(22,950 · 8,559, 53.06% · 59.00%) / CreditScore·Selected·Accepted 결과 누수로 사용 금지 / 추가 오퍼의 요청 주체 식별 불가
+
+**커밋:**
+- `5a28f19` chore: set up phase 0 environment and project proposal
+- `5ebb475` feat: add cached BPI 2017 loader
+- `c4ffbab` feat: classify case outcomes and fix observation window at 2016-11
+- `28b5356` feat: profile attributes and reproduce prior offer conversion figures
+- `e3b20fe` docs: record phase 0 scope decisions and revise direction
