@@ -102,3 +102,20 @@ def classify_abort_context(nearest: pd.DataFrame, window_s: float = 60.0) -> pd.
     labels = np.select([moved, closed], ["case_moved_to_validation", "case_closed"],
                        default="no_adjacent_transition")
     return pd.Series(labels, index=nearest.index, name="context")
+
+
+def group_holder_summary(held: pd.DataFrame, group: pd.Series, effort_hours: pd.Series) -> pd.DataFrame:
+    """Per group: customer share of elapsed days, median bank/customer days, and the median share
+    of bank-held time that was hands-on work (effort hours / bank-held hours)."""
+    df = held.assign(group=group.reindex(held.index), effort=effort_hours.reindex(held.index))
+    df["bank_active_share"] = df["effort"] / (df["bank_days"] * 24)
+    g = df.groupby("group")
+    out = pd.DataFrame({
+        "n": g.size(),
+        "customer_share": g["customer_days"].sum() / (g["customer_days"].sum() + g["bank_days"].sum()),
+        "bank_days_median": g["bank_days"].median(),
+        "customer_days_median": g["customer_days"].median(),
+        "bank_active_share_median": g["bank_active_share"].median(),
+    })
+    out.index.name = None
+    return out

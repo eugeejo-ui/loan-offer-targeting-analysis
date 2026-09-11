@@ -1,8 +1,9 @@
 import pandas as pd
 
 from process import (cancel_after_last_sent, classify_abort_context,
-                     funnel_by_outcome, holder_time, last_milestone_before_end,
-                     milestone_first_ts, nearest_case_events, pair_durations)
+                     funnel_by_outcome, group_holder_summary, holder_time,
+                     last_milestone_before_end, milestone_first_ts, nearest_case_events,
+                     pair_durations)
 
 DAY = pd.Timedelta(days=1)
 T0 = pd.Timestamp("2016-01-01", tz="UTC")
@@ -94,3 +95,15 @@ def test_classify_treats_offer_cancellation_as_closure():
                             "time:timestamp": [T0 + pd.Timedelta(minutes=5, seconds=1)]})
     cls = classify_abort_context(nearest_case_events(anchors, context), window_s=60)
     assert list(cls) == ["case_closed"]
+
+
+def test_group_holder_summary():
+    held = pd.DataFrame({"bank_days": [1.0, 3.0, 2.0], "customer_days": [3.0, 1.0, 2.0]},
+                        index=["a", "b", "c"])
+    group = pd.Series({"a": "g1", "b": "g1", "c": "g2"})
+    effort = pd.Series({"a": 2.4, "b": 7.2, "c": 4.8})
+    out = group_holder_summary(held, group, effort)
+    assert out.loc["g1", "n"] == 2 and out.loc["g1", "customer_share"] == 0.5
+    assert out.loc["g1", "bank_days_median"] == 2.0
+    assert round(out.loc["g1", "bank_active_share_median"], 6) == 0.1
+    assert out.loc["g2", "customer_share"] == 0.5
