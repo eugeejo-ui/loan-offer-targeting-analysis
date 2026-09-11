@@ -229,3 +229,19 @@ git add docs/08_intervention.md docs/plans/phase-08-intervention.md CLAUDE.md; g
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 새 분석은 권고의 전제 두 가지(세그먼트별 고객 보유, 현재 처리 순서)로 제한하고 나머지는 Phase 1~7 인용으로 구성. 판정 규칙 고정. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
+| 2026-09-11 | 수단 매트릭스 확정: η 순 우선순위 조정은 초안에서 "채택 권고 또는 조건부"였다. 판정 2·3은 성립했지만 인력 제약이 신호 수준(영업시간 미보정)이고 순서 변경 후 성사율 유지가 미확인이라, 등급 규칙 ④에 따라 **조건부(1순위)**로 확정 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/08_intervention.md`](../08_intervention.md). CLAUDE.md Phase 9(필요 역량·데이터 공백), Phase 10(수단 등급 입력), §10(면접 답변) 갱신 |
+
+**결과 요약 (판정 규칙별):**
+1. 고객 보유 ≥ 50% 세그먼트 39/39 → 처리 속도 결론 세그먼트 단위 확인
+2. ρ(η, 은행 보유 일수) = +0.346 → 현재 순서는 η와 반대 방향, 순서 변경 전제 성립
+3. 은행 보유 시간 중 작업 비중 중앙값 0.61% → 대기열 신호
+4. 등급: η 순 우선순위 조건부 1순위 / 단일 오퍼·접촉 정책 A/B 후 / 앞단 필터·앞단 경량화 보류 / 속도 단독 비권고
+5. 데이터 공백 7종 확정
+
+**커밋:**
+- `30166d0` docs: add phase 8 intervention plan
+- (Task 1) feat: summarize bank vs customer held time by group
+- (Task 2) feat: check intervention premises by segment
+- (이 기록과 판정 문서) docs: record phase 8 intervention judgement
