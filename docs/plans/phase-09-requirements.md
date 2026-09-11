@@ -228,3 +228,20 @@ git add docs/09_requirements.md docs/plans/phase-09-requirements.md CLAUDE.md; g
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 사용자 결정: 계산기는 산출물 단계로 미룸. 진행계획 작성 — 요구사항 4층 구조, A/B 필요 표본·기간 계산 추가, 판정 규칙 고정. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
+| 2026-09-11 | **실행 중 변경 (설계 오류 정정):** 계획서의 스크립트는 첫 상담 단일 오퍼 실험의 대상을 "전체 신청"(월 2,648건)으로 잡았다. 그런데 이 규칙이 바꾸는 신청은 첫 상담에서 복수 오퍼를 받을 신청(D1 3,403건 = 11.7%)뿐이다. 전체 배정 시 효과가 희석되므로, 배정 대상을 의사결정 지점(월 309건)으로 바꾸고 희석 설계는 비교용 한 줄로 남겼다. 결과: 관측 효과 크기에서도 8.4~37.5개월 → 불가 |
+| 2026-09-11 | 판정 결과가 설계를 바꿈: FR3(첫 상담 단일 오퍼)을 Should → Could로 낮추고 MR3(시범 규칙 + 전후 비교)를 추가. FR5에 의사결정 지점 단위 배정 요구를 넣음. FR7은 규칙 ③에 명시되지 않았지만 1순위 수단의 전제 확인에 필요해 Must로 분류 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/09_requirements.md`](../09_requirements.md) |
+
+**결과 요약 (판정 규칙별):**
+1. 요구사항 26개 모두 근거·수용 기준 보유, 추적 매트릭스 작성
+2. 제품 중립 검색 0건 (Task 3 Step 2)
+3. MoSCoW — Must 17개(FR1·FR2·FR5·FR6·FR7, DR6~8, MR1·MR4·MR5, NFR1~6), Should 6개(FR4, DR1·DR2·DR4·DR5, MR2), Could 3개(FR3, DR3, MR3), Won't 4개 범주
+4. A/B: 접촉 정책 −2%p 5.5개월 가능 / 첫 상담 단일 오퍼 8.4~37.5개월 불가 → 시범·전후 비교
+5. 계산기 미제작
+
+**커밋:**
+- `31d9928` docs: defer calculator and add phase 9 requirements plan
+- `5eb43a4` feat: add A/B sample size helper
+- (Task 2) feat: size A/B tests for measurement requirements
+- (이 기록과 요구사항 문서) docs: record phase 9 requirements
