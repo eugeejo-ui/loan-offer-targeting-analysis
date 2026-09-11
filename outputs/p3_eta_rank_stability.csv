@@ -1,0 +1,5 @@
+﻿grouping,groups,groups_n_ge_min,spearman_amount_vs_amount_years
+case:ApplicationType,2,2,1.0
+case:LoanGoal,14,9,0.833
+has_submitted,2,2,1.0
+amount_band,6,6,1.0
