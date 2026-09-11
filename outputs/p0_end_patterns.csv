@@ -1,0 +1,6 @@
+﻿end_pattern,cases
+A_Pending,17228
+A_Cancelled,10431
+A_Denied,3751
+(none),98
+A_Denied>A_Denied,1

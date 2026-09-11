@@ -1,0 +1,8 @@
+{
+  "threshold": 0.99,
+  "cutoff_month": "2016-11",
+  "n_cases": 31509,
+  "n_excluded": 2366,
+  "n_population": 29131,
+  "observation_end": "2017-02-01 14:11:03.499000+00:00"
+}
