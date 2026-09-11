@@ -451,3 +451,19 @@ git add docs/06_multi_offer.md docs/plans/phase-06-multi-offer.md CLAUDE.md; git
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 사전 탐색(복수 오퍼 우위가 전부 나중 상담에서 나오고 같은 상담 복수는 단일보다 성사율이 낮음)을 설계에 반영해 상담 구분 2정의와 증분 분류를 핵심으로 둠. 판정 규칙 고정. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/06_multi_offer.md`](../06_multi_offer.md). CLAUDE.md §3(보고서 불일치 정리), §7(시나리오 1 기각), Phase 9 요구사항 2 근거 갱신 |
+
+**결과 요약 (판정 규칙별):**
+1. 복수 전체 층화 Δ성사율 +6.62%p → 우위 유지
+2. 같은 상담 복수 −2.64%p(D1) / −5.49%p(D2), 나중 상담 복수 +13.31%p / +11.71%p → 정의에 강건 (metafinanz 방향)
+3. 복수 전체는 6개 구간 모두 공수↑·가치↑지만, 5개 구간에서 증분 η < 그 구간 단일 η. 같은 상담 복수는 D2 기준 6개 구간 모두 가치↓
+4. 반전 시나리오 1 기각 (소액 구간 증분 η 6,704 > 4,374). 약한 증분: 0(미기재) 3,485(필요 순마진 비중 71.7%), 15,500~25,000 4,011
+5. 세그먼트 35개 사용: 공수↑·가치↑ 33, 공수↓·가치↑ 2, 증분 η가 세그먼트 최솟값 미만 5
+
+**커밋:**
+- `a52676f` docs: add phase 6 multi-offer plan
+- `08e074f` feat: add offer conversation split and incremental efficiency
+- `08ef911` feat: split multi-offer cases by conversation timing
+- (Task 3) feat: stratify multi-offer differences and measure incremental efficiency
+- (이 기록과 결론 문서) docs: record phase 6 multi-offer results
