@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from value import accepted_offers, group_eta, implied_annual_rate, revenue_bases
+from value import (accepted_offers, bootstrap_eta, group_eta, implied_annual_rate,
+                   revenue_bases)
 
 CASE = "case:concept:name"
 
@@ -40,3 +41,10 @@ def test_group_eta_uses_success_mean_r_and_all_case_effort():
     out = group_eta(frame, "g", "r", "e")
     assert out.loc["x", "eta"] == 10 * 0.5 / 2.0
     assert out.loc["y", "eta"] == 30 * 1.0 / 2.0
+
+
+def test_bootstrap_eta_constant_group_has_degenerate_interval():
+    frame = pd.DataFrame({"g": ["x"] * 5, "reached_pending": [True] * 5,
+                          "r": [10.0] * 5, "e": [2.0] * 5})
+    ci = bootstrap_eta(frame, "g", "r", "e", n_boot=20)
+    assert ci.loc["x", "eta_lo"] == 5.0 and ci.loc["x", "eta_hi"] == 5.0
