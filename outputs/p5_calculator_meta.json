@@ -1,0 +1,10 @@
+{
+  "reference_cost_eur_per_hour": 57.6,
+  "reference_cost_source": "Eurostat lc_lci_lev, geo=NL, nace_r2=K, time=2016, lcstruct=D1_D4_MD5",
+  "primary_combo": {
+    "R": "r_amount",
+    "E": "effort_hours"
+  },
+  "segments": 39,
+  "note": "Observed segment values; allocation comparisons are hypothetical, not intervention effects."
+}
