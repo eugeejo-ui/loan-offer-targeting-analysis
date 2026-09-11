@@ -412,3 +412,21 @@ git add docs/07_failed_effort.md docs/plans/phase-07-failed-effort.md CLAUDE.md;
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 사용자 승인으로 Phase 7을 Phase 8 앞으로 당김. 진행계획 작성. 사전 탐색(자동 취소의 발송 후 공수 약 3.5%, 거절 공수 중 심사·사기 심사 비중, 세그먼트별 유형 비율 범위)을 판정 규칙에 반영. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
+| 2026-09-11 | 실행 중 변경 ①: `test_screen_failure_rates_identifiable`이 실패함. 원인 확인 결과 0.3/0.1 = 2.9999999999999996의 부동소수점 비교 문제(코드 결함 아님) → 테스트를 반올림 비교로 수정 |
+| 2026-09-11 | 실행 중 변경 ②: 거절이 "식별 불가"로 나온 원인이 비율 차이가 아니라 집중도 조건이라, 18에 집중도 조건을 뺀 민감도 출력 1줄을 추가함. 판정은 사전 규칙 그대로 유지 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/07_failed_effort.md`](../07_failed_effort.md). CLAUDE.md Phase 8 절에 개입 수단 4개의 크기 표, §7 시나리오 3 갱신 |
+
+**결과 요약 (판정 규칙별):**
+1. 자동 취소의 발송 후 공수 3.5% < 5% → 공수 레버로는 작음 (발송 전 신청서 완성 공수 6.8%가 더 큼)
+2. 거절 4.64배·자동 취소 3.27배 비율 차이, 구간 분리. 공수 집중 34.0%·35.8% < 40% → 규칙상 차등 처리 근거 미충족
+3. ρ(η, 실패 공수 비중) = −0.651 → 저효율 = 실패 공수 소모처 확인
+4. 시나리오 3: 회수 가능 몫 3.47% < 10% → "규모는 크지만 회수 가능한 몫은 작다" (완화 시 9.1%)
+5. 수동 취소는 기준 충족(41.4%)이지만 사유가 없어 레버 미지정
+
+**커밋:**
+- `d3d71e8` docs: move phase 7 ahead of phase 8 and add its plan
+- `7685e7a` feat: split failed-case effort by type and offer timing
+- (Task 1) feat: add failure type and concentration module
+- (Task 3) feat: test intake identifiability of failure types
+- (이 기록과 결론 문서) docs: record phase 7 failed effort
