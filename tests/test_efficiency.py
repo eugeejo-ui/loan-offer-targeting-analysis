@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from efficiency import (bootstrap_rank_corr, cm_scan, incremental_eta, min_margin_share,
-                        quadrant, rank_alignment, stratified_diff, targeting_curve,
+                        quadrant, rank_alignment, rank_corr_interval, stratified_diff, targeting_curve,
                         volume_at_effort_share)
 
 
@@ -60,6 +60,21 @@ def test_bootstrap_rank_corr_shape_and_bounds():
     rhos = bootstrap_rank_corr(frame, "seg", "r", "e", n_boot=10)
     assert len(rhos) == 10
     assert np.all((rhos >= -1) & (rhos <= 1))
+
+
+def test_rank_corr_interval_one_row_per_seed_matching_direct_quantiles():
+    rng = np.random.default_rng(2)
+    frame = pd.DataFrame({
+        "seg": np.repeat(list("abcd"), 40),
+        "reached_pending": rng.random(160) < 0.5,
+        "r": rng.uniform(1, 10, 160),
+        "e": rng.uniform(0.5, 2, 160),
+    })
+    out = rank_corr_interval(frame, "seg", "r", "e", n_boot=20, seeds=[0, 1])
+    assert list(out["seed"]) == [0, 1]
+    assert (out["rho_ci_lo"] <= out["rho_ci_hi"]).all()
+    lo, hi = np.nanquantile(bootstrap_rank_corr(frame, "seg", "r", "e", n_boot=20, seed=1), [0.05, 0.95])
+    assert out.loc[1, "rho_ci_lo"] == lo and out.loc[1, "rho_ci_hi"] == hi
 
 
 def test_stratified_diff_weights_by_stratum_size():

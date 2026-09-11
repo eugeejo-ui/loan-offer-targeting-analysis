@@ -6,16 +6,17 @@ Run from the project root:
 """
 from __future__ import annotations
 
-import numpy as np
 import pandas as pd
 
 from config import OUT_DIR
-from efficiency import bootstrap_rank_corr, quadrant, rank_alignment
+from efficiency import quadrant, rank_alignment, rank_corr_interval
 from loader import load_analysis_frame
 from value import group_eta
 
 MIN_N = 300
 MIN_RANK_GAP = 10
+SEEDS = 5  # the main interval is seed 0; seeds 1-4 show how much the bound moves with the draws alone
+BOUNDARY = 0.7  # Phase 5 rule ①
 COMBOS = {
     "amount_effort": ("r_amount", "effort_hours"),
     "years_effort": ("r_amount_years", "effort_hours"),
@@ -39,8 +40,9 @@ def main() -> None:
     table.sort_values("eta", ascending=False).round(4).to_csv(
         OUT_DIR / "p5_segment_efficiency.csv", encoding="utf-8-sig")
 
-    rhos = bootstrap_rank_corr(frame, "segment", "r_amount", "effort_hours")
-    lo, hi = np.nanquantile(rhos, [0.05, 0.95])
+    seeds = rank_corr_interval(frame, "segment", "r_amount", "effort_hours", seeds=range(SEEDS))
+    seeds.round(3).to_csv(OUT_DIR / "p5_rho_ci_seeds.csv", index=False, encoding="utf-8-sig")
+    lo, hi = seeds.loc[seeds["seed"] == 0, ["rho_ci_lo", "rho_ci_hi"]].iloc[0]
     alignment = pd.DataFrame([{
         "combo": k,
         "rho_p_eta": t["p"].corr(t["eta"], method="spearman"),
@@ -50,6 +52,10 @@ def main() -> None:
     alignment.loc[alignment["combo"] == "amount_effort", ["rho_ci_lo", "rho_ci_hi"]] = [round(lo, 3), round(hi, 3)]
     alignment.to_csv(OUT_DIR / "p5_rank_alignment.csv", index=False, encoding="utf-8-sig")
     print(f"\n=== rank alignment between success rate and η (39 segments) ===\n{alignment.to_string(index=False)}")
+    print(f"\n=== 90% interval of ρ(success rate, η) by seed (n_boot per seed = 2000) ===\n"
+          f"{seeds.round(3).to_string(index=False)}\n"
+          f"upper bound {seeds['rho_ci_hi'].min():.3f}~{seeds['rho_ci_hi'].max():.3f}, "
+          f"seeds with upper >= {BOUNDARY}: {int((seeds['rho_ci_hi'] >= BOUNDARY).sum())}/{SEEDS}")
 
     eta_cols = [f"eta_{k}" for k in COMBOS]
     eta_corr = table[eta_cols].corr(method="spearman").round(3)

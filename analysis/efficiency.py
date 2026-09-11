@@ -61,7 +61,7 @@ def volume_at_effort_share(curve: pd.DataFrame, share: float) -> float:
 
 
 def bootstrap_rank_corr(frame: pd.DataFrame, by: str, r_col: str, e_col: str,
-                        success_col: str = "reached_pending", n_boot: int = 200,
+                        success_col: str = "reached_pending", n_boot: int = 2000,
                         seed: int = 0) -> np.ndarray:
     """Spearman ρ between segment success rate and η, resampling cases within each segment."""
     rng = np.random.default_rng(seed)
@@ -79,6 +79,16 @@ def bootstrap_rank_corr(frame: pd.DataFrame, by: str, r_col: str, e_col: str,
             eta.append(r_mean * rate / e[idx].mean())
         rhos[b] = pd.Series(p).corr(pd.Series(eta), method="spearman")
     return rhos
+
+
+def rank_corr_interval(frame: pd.DataFrame, by: str, r_col: str, e_col: str, n_boot: int = 2000,
+                       seeds=(0,), q: tuple[float, float] = (0.05, 0.95)) -> pd.DataFrame:
+    """The ρ bootstrap interval once per seed, so the report can show how far the bounds move with the draws alone."""
+    rows = []
+    for seed in seeds:
+        lo, hi = np.nanquantile(bootstrap_rank_corr(frame, by, r_col, e_col, n_boot=n_boot, seed=seed), q)
+        rows.append({"seed": seed, "rho_ci_lo": lo, "rho_ci_hi": hi})
+    return pd.DataFrame(rows)
 
 
 INCREMENT_CLASSES = ["공수↑·가치↑", "공수↑·가치↓", "공수↓·가치↑"]

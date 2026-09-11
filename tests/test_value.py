@@ -48,3 +48,11 @@ def test_bootstrap_eta_constant_group_has_degenerate_interval():
                           "r": [10.0] * 5, "e": [2.0] * 5})
     ci = bootstrap_eta(frame, "g", "r", "e", n_boot=20)
     assert ci.loc["x", "eta_lo"] == 5.0 and ci.loc["x", "eta_hi"] == 5.0
+
+
+def test_bootstrap_eta_handles_draw_count_not_multiple_of_chunk():
+    frame = pd.DataFrame({"g": ["x"] * 5 + ["y"] * 5, "reached_pending": [True] * 10,
+                          "r": [10.0] * 5 + [20.0] * 5, "e": [2.0] * 10})
+    ci = bootstrap_eta(frame, "g", "r", "e", n_boot=450)
+    assert list(ci.index) == ["x", "y"]
+    assert ci.loc["y", "eta_lo"] == 10.0 and ci.loc["y", "eta_hi"] == 10.0

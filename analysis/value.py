@@ -58,18 +58,23 @@ def group_eta(frame: pd.DataFrame, by: str, r_col: str, e_col: str,
 
 
 def bootstrap_eta(frame: pd.DataFrame, by: str, r_col: str, e_col: str,
-                  success_col: str = "reached_pending", n_boot: int = 200, seed: int = 0) -> pd.DataFrame:
-    """90% bootstrap interval of η per group, resampling cases within the group."""
+                  success_col: str = "reached_pending", n_boot: int = 2000, seed: int = 0,
+                  chunk: int = 200) -> pd.DataFrame:
+    """90% bootstrap interval of η per group, resampling cases within the group.
+    Draws are built `chunk` at a time: all at once is ~300MB per array for the largest group (18,842 cases)."""
     rng = np.random.default_rng(seed)
     rows = {}
     for key, g in frame.groupby(by, observed=True):
         success = g[success_col].to_numpy(bool)
         r, e = g[r_col].to_numpy(float), g[e_col].to_numpy(float)
-        idx = rng.integers(0, len(g), size=(n_boot, len(g)))
-        s = success[idx]
-        n_success = s.sum(axis=1)
-        r_sum = np.where(s, r[idx], 0.0).sum(axis=1)
-        r_mean = np.divide(r_sum, n_success, out=np.full(n_boot, np.nan), where=n_success > 0)
-        eta = r_mean * (n_success / len(g)) / e[idx].mean(axis=1)
+        etas = []
+        for start in range(0, n_boot, chunk):
+            idx = rng.integers(0, len(g), size=(min(chunk, n_boot - start), len(g)))
+            s = success[idx]
+            n_success = s.sum(axis=1)
+            r_sum = np.where(s, r[idx], 0.0).sum(axis=1)
+            r_mean = np.divide(r_sum, n_success, out=np.full(len(idx), np.nan), where=n_success > 0)
+            etas.append(r_mean * (n_success / len(g)) / e[idx].mean(axis=1))
+        eta = np.concatenate(etas)
         rows[key] = {"eta_lo": np.nanquantile(eta, 0.05), "eta_hi": np.nanquantile(eta, 0.95)}
     return pd.DataFrame.from_dict(rows, orient="index")
