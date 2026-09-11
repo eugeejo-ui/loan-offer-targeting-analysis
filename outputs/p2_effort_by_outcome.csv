@@ -1,0 +1,4 @@
+﻿outcome,cases,median_hours,mean_hours,total_hours,median_staff_events,total_share
+cancelled,9692,0.233,0.33,3199.589,16.0,0.178
+denied,3441,0.58,0.854,2938.754,31.0,0.164
+success,15998,0.564,0.739,11819.389,38.0,0.658
