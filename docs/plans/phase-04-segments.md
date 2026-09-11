@@ -398,3 +398,19 @@ git add docs/04_segments.md docs/plans/phase-04-segments.md CLAUDE.md; git commi
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 판정 규칙(η 비율 1.25배 + 90% 구간 분리, 최소 셀 300, 계층형 교차)을 착수 전에 고정. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/04_segments.md`](../04_segments.md). 결과가 Phase 5 설계를 바꿈: 성사율 순위 vs η 순위 상관을 Phase 5 첫 과제로 추가 |
+
+**결과 요약 (판단 지점별):**
+1. 세 축 모두 유지 — η 비율 금액 5.84배, 경로 2.21배, 용도 1.50배, 모두 90% 구간 분리. 기각 없음
+2. 최하위 세그먼트가 "용도 불명" 병합 그룹 → 주의 표시. 결론(소액 · 신규·A_Submitted 최하위)은 용도와 무관
+3. 접수 경로 3수준 구성: 18,842 / 7,127 / 3,162
+4. 세그먼트 44개, small 5개(888건) → Phase 5 순위 제외
+5. 대안 R·E에서도 세 축 모두 1.25배 이상
+
+**커밋:**
+- `2d0d211` docs: add phase 4 segments plan
+- `3e1faeb` feat: add segment axes, hierarchical crossing and eta bootstrap
+- `59c867d` feat: screen intake axes for eta separation
+- (Task 3) feat: cross retained axes into segments
+- (이 기록과 결론 문서) docs: record phase 4 segments
