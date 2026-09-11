@@ -1,0 +1,7 @@
+﻿activity,prev_act,aborts
+W_Call after offers,A_Complete,969
+W_Call after offers,O_Sent (mail and online),80
+W_Call after offers,O_Cancelled,17
+W_Call after offers,O_Sent (online only),5
+W_Call incomplete files,A_Incomplete,8
+W_Call incomplete files,O_Returned,2
