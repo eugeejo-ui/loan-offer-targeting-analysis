@@ -1,0 +1,5 @@
+﻿,eta_amount_effort,eta_years_effort,eta_amount_events,eta_years_events
+eta_amount_effort,1.0,0.994,0.98,0.979
+eta_years_effort,0.994,1.0,0.975,0.982
+eta_amount_events,0.98,0.975,1.0,0.995
+eta_years_events,0.979,0.982,0.995,1.0
