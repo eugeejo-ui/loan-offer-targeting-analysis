@@ -1,0 +1,11 @@
+﻿attribute,present,dtype,non_null,non_null_pct,zero_pct,n_unique,level
+case:RequestedAmount,True,float64,31509,100.0,9.77,701,case
+case:LoanGoal,True,str,31509,100.0,,14,case
+case:ApplicationType,True,str,31509,100.0,,2,case
+OfferedAmount,True,float64,42995,100.0,0.0,663,offer
+CreditScore,True,float64,42995,100.0,64.51,520,offer
+MonthlyCost,True,float64,42995,100.0,0.0,5816,offer
+NumberOfTerms,True,float64,42995,100.0,0.0,147,offer
+FirstWithdrawalAmount,True,float64,42995,100.0,29.74,5930,offer
+Selected,True,boolean,42995,100.0,,2,offer
+Accepted,True,boolean,42995,100.0,,2,offer

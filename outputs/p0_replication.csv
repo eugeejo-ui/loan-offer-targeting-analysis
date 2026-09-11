@@ -1,0 +1,13 @@
+﻿population,success_def,group,n,n_success,rate,literature,literature_rate
+full,reached_pending,0,0,0,,,
+full,reached_pending,1,22950,12178,0.5306,22950.0,0.531
+full,reached_pending,2+,8559,5050,0.59,8559.0,0.59
+full,success_last,0,0,0,,,
+full,success_last,1,22950,12178,0.5306,22950.0,0.531
+full,success_last,2+,8559,5050,0.59,8559.0,0.59
+in_population,reached_pending,0,0,0,,,
+in_population,reached_pending,1,21175,11312,0.5342,,
+in_population,reached_pending,2+,7956,4686,0.589,,
+in_population,success_last,0,0,0,,,
+in_population,success_last,1,21175,11312,0.5342,,
+in_population,success_last,2+,7956,4686,0.589,,
