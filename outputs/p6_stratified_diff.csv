@@ -1,0 +1,11 @@
+﻿grouping,comparison,metric,crude_diff,stratified_diff,strata_used
+group_any,multi - single,reached_pending,0.0538,0.0662,35
+group_any,multi - single,effort_hours,0.1704,0.1598,35
+group_d1_later,multi_same - single,reached_pending,-0.0511,-0.0264,26
+group_d1_later,multi_same - single,effort_hours,0.0087,0.0124,26
+group_d1_later,multi_later - single,reached_pending,0.1321,0.1331,34
+group_d1_later,multi_later - single,effort_hours,0.2911,0.2688,34
+group_d2_later,multi_same - single,reached_pending,-0.0791,-0.0549,20
+group_d2_later,multi_same - single,effort_hours,-0.0099,-0.0168,20
+group_d2_later,multi_later - single,reached_pending,0.1144,0.1171,34
+group_d2_later,multi_later - single,effort_hours,0.2528,0.2328,34
