@@ -1,0 +1,10 @@
+﻿,value
+cancelled_cases,9692.0
+with_offer_sent,9593.0
+cancelled_by_system_share,0.761
+gap_median_days,30.67
+gap_p10_days,7.02
+gap_p90_days,30.91
+share_within_29_32_days,0.77
+system_share_within_rule,0.995
+system_share_outside_rule,0.0

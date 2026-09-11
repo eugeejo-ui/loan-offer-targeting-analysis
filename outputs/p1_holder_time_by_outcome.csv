@@ -1,0 +1,5 @@
+﻿outcome,cases,median_bank_days,median_customer_days,bank_days_sum,customer_days_sum,customer_share
+cancelled,9692.0,1.14,30.689,21409.479,269461.212,0.926
+denied,3441.0,4.637,8.833,18891.514,39310.202,0.675
+success,15998.0,3.91,10.065,73563.488,218351.147,0.748
+all,29131.0,2.892,13.89,113864.481,527122.561,0.822
