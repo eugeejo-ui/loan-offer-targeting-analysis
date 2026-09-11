@@ -9,7 +9,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import BOOL_ATTRS, CACHE_PARQUET, CASE, CASE_OUTCOMES, SOURCE_XES, TS
+from config import BOOL_ATTRS, CACHE_PARQUET, CASE, CASE_OUTCOMES, OUT_DIR, SOURCE_XES, TS
+from segments import amount_band, channel, goal_group, intake_frame
 
 _BOOL_MAP = {True: True, False: False, "true": True, "false": False}
 
@@ -46,3 +47,18 @@ def load_population(outcomes_path: Path = CASE_OUTCOMES,
     oc = oc[oc["in_population"]]
     ev = load_events(cache=cache)
     return ev[ev[CASE].isin(oc.index)], oc
+
+
+def load_analysis_frame(min_goal_n: int) -> pd.DataFrame:
+    """Case-level frame for segment analysis: intake axes, outcome, effort and revenue bases."""
+    ev, oc = load_population()
+    frame = intake_frame(ev).reindex(oc.index)
+    frame["amount_band"] = amount_band(frame["case:RequestedAmount"])
+    frame["channel"] = channel(frame)
+    frame["goal_group"] = goal_group(frame["case:LoanGoal"], min_goal_n)
+    frame["outcome"] = oc["outcome"]
+    frame["reached_pending"] = oc["reached_pending"]
+    effort = pd.read_parquet(OUT_DIR / "p2_case_effort.parquet")[["effort_hours", "staff_events"]]
+    revenue = pd.read_parquet(OUT_DIR / "p3_accepted_offers.parquet")[
+        ["r_amount", "r_amount_years", "interest_total"]]
+    return frame.join(effort).join(revenue)

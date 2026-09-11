@@ -1,0 +1,4 @@
+﻿axis,groups_n_ge_min,p_range,e_ratio,eta_ratio,ci_separated,retained,eta_ratio_r_amount_years_effort_hours,eta_ratio_r_amount_staff_events
+amount_band,6,0.2205,1.3816,5.8405,True,True,9.5435,6.7382
+channel,3,0.2379,1.229,2.2061,True,True,2.6221,1.9483
+goal_group,8,0.1462,2.0154,1.498,True,True,1.636,1.4496
