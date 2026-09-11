@@ -1,0 +1,4 @@
+﻿failure_type,rate_min,rate_max,rate_ratio,ci_separated,top_quartile_effort_share,identifiable
+denied,0.0379,0.1761,4.6418,True,0.3396,False
+auto_cancel,0.1169,0.3824,3.2701,True,0.3575,False
+manual_cancel,0.0459,0.1105,2.4078,True,0.4142,True
