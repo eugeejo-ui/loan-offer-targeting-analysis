@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import BOOL_ATTRS, CACHE_PARQUET, SOURCE_XES, TS
+from config import BOOL_ATTRS, CACHE_PARQUET, CASE, CASE_OUTCOMES, SOURCE_XES, TS
 
 _BOOL_MAP = {True: True, False: False, "true": True, "false": False}
 
@@ -37,3 +37,12 @@ def load_events(source: Path = SOURCE_XES, cache: Path = CACHE_PARQUET) -> pd.Da
     cache.parent.mkdir(parents=True, exist_ok=True)
     log.to_parquet(cache, index=False)
     return log
+
+
+def load_population(outcomes_path: Path = CASE_OUTCOMES,
+                    cache: Path = CACHE_PARQUET) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Events and outcomes of the Phase 0 analysis population only."""
+    oc = pd.read_parquet(outcomes_path)
+    oc = oc[oc["in_population"]]
+    ev = load_events(cache=cache)
+    return ev[ev[CASE].isin(oc.index)], oc

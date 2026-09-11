@@ -5,6 +5,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_XES = Path(r"C:\sap-btm-financial-prospecting\data\bpi2017\BPI Challenge 2017.xes")
 CACHE_PARQUET = ROOT / "data" / "bpi2017_events.parquet"
 OUT_DIR = ROOT / "outputs"
+CASE_OUTCOMES = OUT_DIR / "p0_case_outcomes.parquet"
 
 CASE = "case:concept:name"
 ACT = "concept:name"

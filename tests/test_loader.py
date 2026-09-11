@@ -29,3 +29,23 @@ def test_normalize_parses_timestamp_and_booleans():
     assert str(out["time:timestamp"].dt.tz) == "UTC"
     assert bool(out["Accepted"].iloc[0]) is True
     assert out["Selected"].isna().iloc[0]
+
+
+from loader import load_population  # noqa: E402
+
+
+def test_load_population_filters_to_in_population(tmp_path):
+    cache = tmp_path / "events.parquet"
+    pd.DataFrame({
+        "case:concept:name": ["a", "b"],
+        "concept:name": ["A_Create Application", "A_Create Application"],
+        "time:timestamp": pd.to_datetime(["2016-01-01", "2016-01-02"], utc=True),
+    }).to_parquet(cache, index=False)
+    outcomes = tmp_path / "outcomes.parquet"
+    pd.DataFrame(
+        {"outcome": ["success", "open"], "in_population": [True, False]},
+        index=pd.Index(["a", "b"], name="case:concept:name"),
+    ).to_parquet(outcomes)
+    ev, oc = load_population(outcomes_path=outcomes, cache=cache)
+    assert list(oc.index) == ["a"]
+    assert list(ev["case:concept:name"]) == ["a"]
