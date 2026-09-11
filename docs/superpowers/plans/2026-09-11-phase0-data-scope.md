@@ -10,6 +10,12 @@
 
 **Spec:** `C:\loan-offer-targeting-analysis\CLAUDE.md` — §4 데이터, §5 P2·P4, §6 Phase 0
 
+## 실행 중 변경 (2026-09-11, 결과는 `docs/00_scope.md`)
+
+- `offers.offer_final_state()`와 테스트 1개를 추가했다 (결과 누수 판정용). 테스트는 총 15개
+- `01_inspect_schema.py`에 오퍼 최종 상태별 속성(`p0_offer_attrs_by_final_state.csv`)과 RequestedAmount 0값(`p0_requested_amount_zero.csv`) 점검을 추가했다
+- `02_case_outcomes.py`에 `in_population`(관측창 안 + 종료) 컬럼을 추가했다. `03_replicate_prior.py`는 `in_window` 대신 이 컬럼을 쓴다
+
 ## Global Constraints
 
 - 원본 `C:\sap-btm-financial-prospecting\data\bpi2017\BPI Challenge 2017.xes`는 **읽기 전용**이다. 그 폴더에 어떤 파일도 쓰지 않는다 (sap-btm 로더의 gz 해제 로직은 가져오지 않는다).
