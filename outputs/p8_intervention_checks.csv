@@ -1,0 +1,5 @@
+﻿check,value,result
+1 customer share >= 50% in segments,39/39,confirmed at segment level
+"2 Spearman(eta, bank-held median days)",0.346,current order does not reflect eta -> reordering has room
+3 median share of bank-held time that is hands-on work,0.0061,queue signal (not business-hours adjusted)
+"ref Spearman(eta, customer share)",-0.309,descriptive
