@@ -213,7 +213,7 @@ def eta_vs_bank_wait() -> str:
     ax.xaxis.set_major_formatter(THOUSANDS)
     ax.set_ylim(0, None)
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.86), ncol=3)
-    headline(fig, "효율이 높은 세그먼트의 은행 보유 일수가 더 길다",
+    headline(fig, "효율이 높은 세그먼트일수록 은행 처리 대기시간이 증가한다",
              f"ρ(효율, 은행 보유 일수) = {rho:+.2f} · 은행 보유 시간 중 실제 작업 비중은 {active:.1%}, 나머지는 대기")
     footnote(fig, "출처: outputs/p8_segment_holder.csv, p8_intervention_checks.csv · 세그먼트 39개 · 영업시간 미보정")
     return save(fig, "p8_eta_vs_bank_wait.png")
