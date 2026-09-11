@@ -1,0 +1,7 @@
+﻿group,n,p,r_mean,e_mean,eta,share_cancelled,share_denied,share_success,definition,description
+multi_later,4553,0.6681,20629.501,0.8643,15947.8436,0.2344,0.0975,0.6681,d1_later,created more than 1 day apart
+multi_same,3403,0.4831,18223.1892,0.5809,15156.3306,0.4049,0.112,0.4831,d1_later,created more than 1 day apart
+single,21175,0.5342,18453.3921,0.5689,17328.8828,0.3422,0.1235,0.5342,d1_later,created more than 1 day apart
+multi_later,5458,0.6501,20326.097,0.826,15995.8453,0.2501,0.0999,0.6501,d2_later,created after the first offer was sent
+multi_same,2498,0.4556,18099.1854,0.5617,14678.6151,0.4323,0.1121,0.4556,d2_later,created after the first offer was sent
+single,21175,0.5342,18453.3921,0.5689,17328.8828,0.3422,0.1235,0.5342,d2_later,created after the first offer was sent
