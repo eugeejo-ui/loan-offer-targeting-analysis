@@ -444,3 +444,19 @@ git add docs/05_expected_value.md docs/plans/phase-05-efficiency.md CLAUDE.md; g
 | 날짜 | 내용 |
 |---|---|
 | 2026-09-11 | 진행계획 작성. 판정 규칙(ρ 0.9/0.7 경계, 어긋남 10계단, 배분 이득 5%, 순위 견고성 0.9)을 착수 전에 고정. 사용자 확인 대기 |
+| 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/05_expected_value.md`](../05_expected_value.md). CLAUDE.md §7(반전 시나리오)과 §10(면접 결론 한 문장) 갱신 |
+
+**결과 요약 (판정 규칙별):**
+1. ρ(성사율, η) = 0.669, 90% 구간 0.609~0.691 → "다르다" (4조합 0.596~0.685)
+2. 어긋남 10개: 성사율↑·효율↓ = 소액·중액 5개, 성사율↓·효율↑ = 대형 신규·A_Submitted 등 5개
+3. 공수 예산 50%에서 η 순서 배분의 대출 규모 +13.2% (25%: +21.4%, 75%: +7.2%) → 성사율 기준 배분은 실질적으로 비효율
+4. η 4조합 순위 상관 ≥ 0.975 → 주 조합 채택
+5. 필요 최소 순마진 비중 0.58~7.95%, 배율 13.7배 → 부호 불일치 미관측, 결론은 효율 격차
+
+**커밋:**
+- `389ac50` docs: add phase 5 efficiency plan
+- `bc218ad` feat: add segment efficiency module
+- `99d9a4d` feat: measure rank alignment between success rate and eta
+- (Task 3) feat: compare targeting orders, scan c/m and derive margin thresholds
+- (이 기록과 결론 문서) docs: record phase 5 efficiency results
