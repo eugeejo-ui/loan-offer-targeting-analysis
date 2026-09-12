@@ -53,3 +53,4 @@
 | 2026-09-12 | **계산기 완료** — `analysis/calculator.py`(계산) + `app/calculator_app.py`(화면) + 테스트 5개. 테스트 먼저 작성해 실패 확인 후 구현, 전체 68 passed. `requirements.txt`에 streamlit 추가(분석 스크립트는 이 패키지 없이 동작) |
 | 2026-09-12 | 기동 확인: `python -m streamlit run app/calculator_app.py`로 띄워 브라우저로 검증. 기본 가정(57.6유로/시간·순마진 5%)에서 적자 6/39, 신청 18.7%·공수 16.2%. 배분 비교 210.8 대 186.2백만 유로(차이 13.2%)로 Phase 5 산출물과 일치. 손익분기 0.58%~7.95%, 배율 13.6배 |
 | 2026-09-12 | 실행 중 수정: Streamlit 1.63의 `use_container_width` 사용 중단 예고 → `width="stretch"`로 교체 |
+| 2026-09-12 | **영문화 완료** — `05_expected_value.en.md`·`09_requirements.en.md`·`10_options.en.md`. 국문 원본 3개 상단에 언어 전환 링크를 달았고, 영문 README의 링크도 영문판을 가리키게 바꿨다. 세그먼트 라벨은 데이터에서 국문이므로 05 문서 머리에 대응표를 적었다(금액 미기재 = amount not stated 등). 수치·표 구조·한계 표시는 국문과 1:1 |

@@ -1,3 +1,5 @@
+> 한국어 · [English](09_requirements.en.md)
+
 # Phase 9 — 요구사항
 
 > 2026-09-11 · 진행계획·기록 [`plans/phase-09-requirements.md`](plans/phase-09-requirements.md) · 스크립트 `analysis/20` · 테스트 59 passed

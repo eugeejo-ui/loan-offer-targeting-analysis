@@ -1,3 +1,5 @@
+> 한국어 · [English](10_options.en.md)
+
 # Phase 10 — 실현 경로 비교와 조건부 권고
 
 > 2026-09-12 · 진행계획·기록 [`plans/phase-10-options.md`](plans/phase-10-options.md) · 새 분석 없음(Phase 5~9 산출물 인용)

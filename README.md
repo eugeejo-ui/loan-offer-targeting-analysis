@@ -33,7 +33,7 @@ Effort is the sum of active work intervals on work items. Waiting time is exclud
 | The bottleneck | Customers hold 82.2% of elapsed time. Customer time is the majority in all 39 segments |
 | Current processing order | The more efficient the segment, the longer it waits for bank processing (ρ = +0.346). Only 0.61% of bank-held time is hands-on work |
 
-Evidence and decision rules for each phase live in [`docs/`](docs/); plans and execution records are kept in [`docs/plans/`](docs/plans/).
+Evidence and decision rules for each phase live in [`docs/`](docs/), written in Korean with English versions of the three central documents: [the efficiency result](docs/05_expected_value.en.md), [the requirements](docs/09_requirements.en.md) and [the realisation paths](docs/10_options.en.md). Plans and execution records are kept in [`docs/plans/`](docs/plans/).
 
 ## Recommendations
 
@@ -44,7 +44,7 @@ Each recommendation states the condition it rests on.
 3. **Contact policy after the offer — A/B once the field exists.** A rule that cuts the auto-cancellation rate by 2 percentage points is detectable in 5.5 months. Without a recorded call-outcome code, however, there is no way to measure what changed.
 4. **Faster processing on its own is not recommended.** Customers hold the majority of elapsed time in every segment.
 
-Requirements are written without naming products: 26 of them across function (7), data (8), measurement (5) and non-functional (6). Three realisation paths were compared. Changing rules and operations alone meets 11 of the 17 Must requirements and leaves 6 partial. Adding tooling around the core system meets all 17. Covering the missing input fields as well means changing the core, which is the costliest to reverse. See [`docs/09_requirements.md`](docs/09_requirements.md) and [`docs/10_options.md`](docs/10_options.md).
+Requirements are written without naming products: 26 of them across function (7), data (8), measurement (5) and non-functional (6). Three realisation paths were compared. Changing rules and operations alone meets 11 of the 17 Must requirements and leaves 6 partial. Adding tooling around the core system meets all 17. Covering the missing input fields as well means changing the core, which is the costliest to reverse. See [`docs/09_requirements.en.md`](docs/09_requirements.en.md) and [`docs/10_options.en.md`](docs/10_options.en.md).
 
 ## Limitations
 

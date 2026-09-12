@@ -1,3 +1,5 @@
+> 한국어 · [English](05_expected_value.en.md)
+
 # Phase 5 — 효율 지표 산출
 
 > 2026-09-11 · 진행계획·기록 [`plans/phase-05-efficiency.md`](plans/phase-05-efficiency.md) · 스크립트 `analysis/13~14` · 테스트 47 passed · 세그먼트 39개(300건 이상, 28,243건)
