@@ -1,0 +1,7 @@
+﻿threshold,group,n,p,e_mean,eta
+1 day (this project),multi_later,4553,0.6681,0.8643,15947.8436
+1 day (this project),multi_same,3403,0.4831,0.5809,15156.3306
+1 day (this project),single,21175,0.5342,0.5689,17328.8828
+8 hours (KPMG p.11),multi_later,4719,0.6669,0.8563,16038.7555
+8 hours (KPMG p.11),multi_same,3237,0.4754,0.578,14915.2524
+8 hours (KPMG p.11),single,21175,0.5342,0.5689,17328.8828

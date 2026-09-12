@@ -467,3 +467,24 @@ git add docs/06_multi_offer.md docs/plans/phase-06-multi-offer.md CLAUDE.md; git
 - `08ef911` feat: split multi-offer cases by conversation timing
 - (Task 3) feat: stratify multi-offer differences and measure incremental efficiency
 - (이 기록과 결론 문서) docs: record phase 6 multi-offer results
+
+## 사후 교정 (2026-09-12)
+
+**틀린 출처 표시를 바로잡았다.** 위 설계표는 D1(오퍼 생성 간격 1일 초과)을 "KPMG의 '1일 이상 떨어진 대화' 정의"라고 적었다.
+미결 문헌 항목을 정리하며 KPMG 원문(winner professional, p.11)을 직접 확인한 결과, KPMG의 기준은 **8시간**이었다 —
+"When offers for the same application are created less than 8 hours apart from each other, we consider them to be requested
+during 1 conversation." 1일 기준은 이 프로젝트가 선택한 값이다.
+
+**결론에는 영향이 없다.** `conversation_split(same_day=...)`의 임계를 8시간으로 바꿔 다시 계산했다
+(`analysis/15_multi_offer_groups.py` → `outputs/p6_threshold_sensitivity.csv`).
+
+| 기준 | 나중 상담 n | 나중 상담 성사율 | 같은 상담 성사율 | 단일 성사율 | 나중 상담 η | 같은 상담 η |
+|---|---|---|---|---|---|---|
+| 1일 | 4,553 | 0.668 | 0.483 | 0.534 | 15,948 | 15,156 |
+| 8시간 | 4,719 | 0.667 | 0.475 | 0.534 | 16,039 | 14,915 |
+
+166건이 옮겨갈 뿐 세 그룹의 순서(나중 상담 > 단일 > 같은 상담)와 격차는 유지된다. 임계 파라미터가 판정을 실제로 바꾸는지는
+`tests/test_offers.py::test_conversation_split_threshold_moves_borderline_cases`로 검증한다.
+
+**같은 회차에 확인한 KPMG 수치:** 대화 구분별 성사율은 단일 대화 65.34% / 다회 대화 81.75%(p.11), 오퍼 건수별로는
+1건 69.09% / 2건 이상 73.24%(p.12)다. 절대값은 이 프로젝트의 성사 정의와 달라 인용하지 않고, **방향만** 근거로 쓴다.

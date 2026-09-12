@@ -35,6 +35,21 @@ def main() -> None:
     print(f"days between first and last offer (multi): "
           f"{multi['span_days'].describe(percentiles=[0.25, 0.5, 0.75, 0.9]).round(2).to_dict()}")
 
+    # 상담 구분 임계의 민감도 — KPMG는 8시간을 썼다 (winner professional p.11).
+    thresholds = {"1 day (this project)": 1.0, "8 hours (KPMG p.11)": 8 / 24}
+    rows = []
+    base = load_analysis_frame(MIN_N)
+    for name, days in thresholds.items():
+        alt = conversation_split(offers[offers[CASE].isin(oc.index)], offer_first_sent(ev), same_day=days)
+        alt["group"] = offer_group(alt, "d1_later")
+        t = group_eta(base.join(alt), "group", "r_amount", "effort_hours")
+        rows.append(t.reset_index(names="group").assign(threshold=name))
+    sensitivity = pd.concat(rows, ignore_index=True)[["threshold", "group", "n", "p", "e_mean", "eta"]].round(4)
+    sensitivity.to_csv(OUT_DIR / "p6_threshold_sensitivity.csv", index=False, encoding="utf-8-sig")
+    print()
+    print("=== D1 threshold sensitivity ===")
+    print(sensitivity.to_string(index=False))
+
     frame = load_analysis_frame(MIN_N).join(split)
     tables = []
     for d, desc in DEFINITIONS.items():

@@ -65,6 +65,22 @@ def test_offer_first_sent_takes_earliest_send():
     assert offer_first_sent(ev).to_dict() == {"Offer_1": pd.Timestamp("2016-01-02", tz="UTC")}
 
 
+def test_conversation_split_threshold_moves_borderline_cases():
+    """KPMG는 8시간, 이 프로젝트는 1일을 쓴다. 사이에 놓인 케이스만 판정이 달라져야 한다."""
+    ts = lambda d: pd.Timestamp(d, tz="UTC")  # noqa: E731
+    offers = pd.DataFrame({
+        "case:concept:name": ["B", "B", "L", "L"],
+        "offer_id": ["o1", "o2", "o3", "o4"],
+        "created_ts": [ts("2016-01-01 00:00"), ts("2016-01-01 12:00"),
+                       ts("2016-01-01"), ts("2016-01-05")],
+    })
+    first_sent = pd.Series({"o1": ts("2016-01-02"), "o3": ts("2016-01-02")})
+    day = conversation_split(offers, first_sent, same_day=1.0)
+    kpmg = conversation_split(offers, first_sent, same_day=8 / 24)
+    assert not day.loc["B", "d1_later"] and kpmg.loc["B", "d1_later"]
+    assert day.loc["L", "d1_later"] and kpmg.loc["L", "d1_later"]
+
+
 def test_conversation_split_and_group():
     ts = lambda d: pd.Timestamp(d, tz="UTC")  # noqa: E731
     offers = pd.DataFrame({
