@@ -8,7 +8,8 @@
 |---|---|---|
 | README 국·영 | ✅ 2026-09-12 | [`README.ko.md`](../../README.ko.md) · [`README.md`](../../README.md). 국문은 humanize-korean standard 경로 |
 | 차트 7개 | ✅ 2026-09-11 | [`visuals.md`](visuals.md) |
-| 계산기(MVP) | 진행 | **새로 만든다** (2026-09-12 사용자 결정). 외부 TCO 엔진을 상속하지 않고 이 저장소 안에서 완결한다 |
+| 계산기(MVP) | ✅ 2026-09-12 | 새로 만들었다. 계산은 `analysis/calculator.py`, 화면은 대시보드의 마지막 구역. Streamlit 화면은 대시보드로 대체하며 삭제 |
+| 대시보드 | ✅ 2026-09-12 | [`dashboard.md`](dashboard.md). 시안 양식 + 스크롤 연동 사이드바. `outputs/dashboard/index.html` |
 | 영문화 | 대기 | **핵심 3개 문서만** (2026-09-12 사용자 결정) — `05_expected_value` · `09_requirements` · `10_options`. 나머지는 국문 유지 |
 | GitHub 공개 | 미결 | 공개 시 과거 커밋의 CLAUDE.md·JD 처리 필요 |
 

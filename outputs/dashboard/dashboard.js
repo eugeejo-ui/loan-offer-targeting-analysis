@@ -130,13 +130,29 @@
     "수치는 outputs/의 산출물에서 그대로 옮겼다. 배분 비교는 관측된 세그먼트 평균으로 계산한 가상 배분이며 개입 효과가 아니다. " +
     "참조 인건비 " + data.reference_cost + "유로/시간 — 출처: " + data.reference_cost_source;
 
-  /* ---------- 계산기 ---------- */
+  /* ---------- 계산 (analysis/calculator.py와 같은 정의) ---------- */
 
-  var costInput = document.getElementById("cost");
-  var marginInput = document.getElementById("margin");
-  var budgetInput = document.getElementById("budget");
-  costInput.value = data.reference_cost;
-  document.getElementById("cost-hint").textContent = "참조값 " + data.reference_cost + " — 출처: " + data.reference_cost_source;
+  function priceSegments(cost, margin) {
+    return data.segments.map(function (s) {
+      var evPerCase = (margin * s.eta_I - cost) * s.e_mean;
+      return { seg: s, required: cost / s.eta_I, ev: evPerCase, evTotal: evPerCase * s.n, negative: evPerCase < 0 };
+    });
+  }
+
+  function summarise(priced) {
+    var negatives = priced.filter(function (r) { return r.negative; });
+    var sum = function (rows, pick) { return rows.reduce(function (acc, r) { return acc + pick(r); }, 0); };
+    var cases = sum(priced, function (r) { return r.seg.n; });
+    var effort = sum(priced, function (r) { return r.seg.n * r.seg.e_mean; });
+    var required = priced.map(function (r) { return r.required; });
+    return {
+      negatives: negatives,
+      negativeCaseShare: sum(negatives, function (r) { return r.seg.n; }) / cases,
+      negativeEffortShare: sum(negatives, function (r) { return r.seg.n * r.seg.e_mean; }) / effort,
+      firstPositive: Math.min.apply(null, required),
+      allPositive: Math.max.apply(null, required)
+    };
+  }
 
   function curve(order) {
     var sorted = data.segments.slice().sort(function (a, b) { return b[order] - a[order]; });
@@ -154,14 +170,21 @@
     for (var i = 1; i < points.length; i++) {
       if (points[i].share >= share) {
         var a = points[i - 1], b = points[i];
-        var t = (share - a.share) / (b.share - a.share);
-        return a.volume + t * (b.volume - a.volume);
+        return a.volume + (share - a.share) / (b.share - a.share) * (b.volume - a.volume);
       }
     }
     return points[points.length - 1].volume;
   }
 
   var curves = { eta: curve("eta"), p: curve("p") };
+
+  /* ---------- 계산기 화면 ---------- */
+
+  var costInput = document.getElementById("cost");
+  var marginInput = document.getElementById("margin");
+  var budgetInput = document.getElementById("budget");
+  costInput.value = data.reference_cost;
+  document.getElementById("cost-hint").textContent = "참조값 " + data.reference_cost + " — 출처: " + data.reference_cost_source;
 
   function render() {
     var cost = parseFloat(costInput.value);
@@ -172,31 +195,20 @@
     document.getElementById("margin-value").textContent = (margin * 100).toFixed(1) + "%";
     document.getElementById("budget-value").textContent = (budget * 100).toFixed(0) + "%";
 
-    var priced = data.segments.map(function (s) {
-      var required = cost / s.eta_I;
-      var evPerCase = (margin * s.eta_I - cost) * s.e_mean;
-      return { seg: s, required: required, ev: evPerCase, evTotal: evPerCase * s.n, negative: evPerCase < 0 };
-    });
-
-    var negatives = priced.filter(function (r) { return r.negative; });
-    var cases = priced.reduce(function (sum, r) { return sum + r.seg.n; }, 0);
-    var effort = priced.reduce(function (sum, r) { return sum + r.seg.n * r.seg.e_mean; }, 0);
-    var negCases = negatives.reduce(function (sum, r) { return sum + r.seg.n; }, 0);
-    var negEffort = negatives.reduce(function (sum, r) { return sum + r.seg.n * r.seg.e_mean; }, 0);
+    var priced = priceSegments(cost, margin);
+    var totals = summarise(priced);
 
     var box = document.getElementById("calc-cards");
     box.innerHTML = "";
-    box.appendChild(card("적자 세그먼트", negatives.length + "<small> / " + priced.length + "</small>"));
-    box.appendChild(card("적자 신청 비중", fmt.pct(negCases / cases)));
-    box.appendChild(card("적자 공수 비중", fmt.pct(negEffort / effort)));
+    box.appendChild(card("적자 세그먼트", totals.negatives.length + "<small> / " + priced.length + "</small>"));
+    box.appendChild(card("적자 신청 비중", fmt.pct(totals.negativeCaseShare)));
+    box.appendChild(card("적자 공수 비중", fmt.pct(totals.negativeEffortShare)));
 
-    var required = priced.map(function (r) { return r.required; });
-    var lowest = Math.min.apply(null, required), highest = Math.max.apply(null, required);
     var byEta = volumeAt(curves.eta, budget), byRate = volumeAt(curves.p, budget);
     document.getElementById("breakeven").innerHTML =
-      "순마진 비중이 <b>" + fmt.pct(lowest, 2) + "</b>를 넘으면 첫 세그먼트가, <b>" + fmt.pct(highest, 2) +
-      "</b>를 넘으면 " + priced.length + "개 모두 흑자가 된다. 두 값의 배율 " + (highest / lowest).toFixed(1) +
-      "배는 시간당 비용을 바꿔도 변하지 않는다." +
+      "순마진 비중이 <b>" + fmt.pct(totals.firstPositive, 2) + "</b>를 넘으면 첫 세그먼트가, <b>" +
+      fmt.pct(totals.allPositive, 2) + "</b>를 넘으면 " + priced.length + "개 모두 흑자가 된다. 두 값의 배율 " +
+      (totals.allPositive / totals.firstPositive).toFixed(1) + "배는 시간당 비용을 바꿔도 변하지 않는다." +
       "<br><br>공수 " + (budget * 100).toFixed(0) + "%에서 효율 순서 <b>" + fmt.million(byEta) +
       "백만 유로</b>, 성사율 순서 " + fmt.million(byRate) + "백만 유로 (차이 " + fmt.pct(byEta / byRate - 1) + ").";
 
@@ -214,6 +226,29 @@
     input.addEventListener("input", render);
   });
   render();
+
+  /* ---------- 파이썬 계산과의 교차 확인 ---------- */
+
+  (function verify() {
+    var check = data.reference_check;
+    if (!check) { return; }
+    var totals = summarise(priceSegments(check.cost, check.margin_share));
+    var close = function (a, b, tol) { return Math.abs(a - b) <= (tol || 1e-6) * Math.max(1, Math.abs(b)); };
+    var problems = [];
+    if (totals.negatives.length !== check.negative_segments) { problems.push("적자 세그먼트 수"); }
+    if (!close(totals.negativeCaseShare, check.negative_case_share)) { problems.push("적자 신청 비중"); }
+    if (!close(totals.negativeEffortShare, check.negative_effort_share)) { problems.push("적자 공수 비중"); }
+    if (!close(totals.firstPositive, check.first_positive)) { problems.push("첫 흑자 비중"); }
+    if (!close(totals.allPositive, check.all_positive)) { problems.push("전체 흑자 비중"); }
+    if (!close(volumeAt(curves.eta, check.budget), check.volume_by_eta)) { problems.push("효율 순서 배분"); }
+    if (!close(volumeAt(curves.p, check.budget), check.volume_by_success_rate)) { problems.push("성사율 순서 배분"); }
+    if (problems.length) {
+      console.warn("화면 계산이 analysis/calculator.py의 기준값과 다르다: " + problems.join(", "));
+    } else {
+      console.info("계산 교차 확인 통과 — 시간당 " + check.cost + "유로, 순마진 " +
+                   (check.margin_share * 100).toFixed(1) + "%에서 파이썬 기준값과 일치");
+    }
+  })();
 
   /* ---------- 스크롤 ---------- */
 

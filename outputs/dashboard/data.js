@@ -779,5 +779,17 @@ window.DASHBOARD = {
    "rank_gap": -11
   }
  ],
- "built_on": "2026-09-12"
+ "built_on": "2026-09-12",
+ "reference_check": {
+  "cost": 57.6,
+  "margin_share": 0.05,
+  "budget": 0.5,
+  "negative_segments": 6,
+  "negative_case_share": 0.18666572247990654,
+  "negative_effort_share": 0.1618595520922143,
+  "first_positive": 0.00584321871186913,
+  "all_positive": 0.07952072198188832,
+  "volume_by_eta": 210798002.9435207,
+  "volume_by_success_rate": 186160543.8299408
+ }
 };

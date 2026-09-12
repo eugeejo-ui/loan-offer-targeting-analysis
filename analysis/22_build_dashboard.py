@@ -13,8 +13,12 @@ from pathlib import Path
 
 import pandas as pd
 
+from calculator import allocation_compare, breakeven_margin_shares, load_segments, segment_economics, summarise
 from config import OUT_DIR, ROOT
 from dashboard import build_payload
+
+CHECK_MARGIN_SHARE = 0.05  # 화면 기본값과 같아야 한다
+CHECK_BUDGET = 0.5
 
 SOURCE = ROOT / "app" / "dashboard"
 TARGET = OUT_DIR / "dashboard"
@@ -47,6 +51,26 @@ def main() -> None:
 
     payload = build_payload(frames)
     payload["built_on"] = date.today().isoformat()
+
+    # 화면의 계산은 브라우저가 한다. 같은 입력에서 파이썬(analysis/calculator.py)과 값이 같은지
+    # 페이지가 스스로 확인할 수 있도록 기준값을 함께 넣는다.
+    reference_cost = float(frames["meta"]["reference_cost_eur_per_hour"])
+    segments = load_segments()
+    totals = summarise(segment_economics(segments, reference_cost, CHECK_MARGIN_SHARE))
+    breakeven = breakeven_margin_shares(segments, reference_cost)
+    allocation = allocation_compare(segments, CHECK_BUDGET)
+    payload["reference_check"] = {
+        "cost": reference_cost,
+        "margin_share": CHECK_MARGIN_SHARE,
+        "budget": CHECK_BUDGET,
+        "negative_segments": totals["negative_segments"],
+        "negative_case_share": totals["negative_case_share"],
+        "negative_effort_share": totals["negative_effort_share"],
+        "first_positive": breakeven["first_positive"],
+        "all_positive": breakeven["all_positive"],
+        "volume_by_eta": allocation["volume_by_eta"],
+        "volume_by_success_rate": allocation["volume_by_success_rate"],
+    }
 
     TARGET.mkdir(parents=True, exist_ok=True)
     (TARGET / "data.js").write_text(
