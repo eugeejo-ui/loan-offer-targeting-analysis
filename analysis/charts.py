@@ -30,11 +30,13 @@ CHANNELS = [CHANNEL_LABELS[("New credit", True)], CHANNEL_LABELS[("New credit", 
 AMOUNT_TIERS = [(6_500, "소액"), (10_000, "중소액"), (15_500, "중액"), (25_000, "고액")]
 TOP_TIER = "초고액"
 CHANNEL_DISPLAY = {"신규·A_Submitted 있음": "신규(표식 있음)", "신규·A_Submitted 없음": "신규(표식 없음)",
-                   "한도 증액": "한도 증액"}
+                   "한도 증액": "한도 증액", "기타": "그 외 경로"}
+# "기타"는 그 상위 셀 안에서 300건에 못 미친 하위 수준을 묶은 나머지이고,
+# "기타 소수 용도"는 전체에서 300건에 못 미친 용도를 묶은 범주다. 둘은 다르므로 이름도 나눈다.
 GOAL_DISPLAY = {"Car": "자동차 구입", "Home improvement": "주택 개량", "Existing loan takeover": "대출 대환",
                 "Remaining debt home": "주택 잔여 대출", "Extra spending limit": "추가 한도",
                 "Caravan / Camper": "레저 차량", "용도 불명": "용도 미기재",
-                "기타": "소수 용도 묶음", "기타 소수 용도": "소수 용도 묶음"}
+                "기타": "그 외 용도", "기타 소수 용도": "소수 용도"}
 ALL_GOALS = "용도 전체"  # 용도 축으로 쪼개지지 않은 세그먼트
 
 

@@ -4,7 +4,7 @@
 
 > 2026-09-11 · plan and record [`plans/phase-05-efficiency.md`](plans/phase-05-efficiency.md) · scripts `analysis/13~14` · 39 segments (at least 300 applications each, 28,243 in total)
 
-Segment labels keep their Korean form in the data. In this document they read: **amount not stated** (금액 미기재), **new credit · A_Submitted present / absent** (신규·A_Submitted 있음/없음), **limit raise** (한도 증액), **purpose not stated** (용도 불명), **other** (기타).
+Segment names read **amount tier · intake route · loan purpose**. The tiers are Small (6,500 and below), Lower-mid (to 10,000), Mid (to 15,500), Large (to 25,000), Very large (above 25,000) and Amount not stated. The intake marker is the system value A_Submitted, whose business meaning is unconfirmed. Data files keep the original Korean labels.
 
 ## Summary — the answer to the core question
 
@@ -43,17 +43,17 @@ Ten segments differ by at least 10 rank positions (`outputs/p5_mismatch.csv`). R
 | Segment | n | Conversion | R̄ (EUR) | η | Conversion rank | η rank |
 |---|---|---|---|---|---|---|
 | **Converts well, runs inefficiently** | | | | | | |
-| 6,500–10,000 · limit raise | 369 | 0.694 | 9,170 | 13,235 | 6 | 25 |
-| 10,000–15,500 · new credit, A_Submitted absent | 960 | 0.640 | 14,485 | 13,318 | 10 | 24 |
-| 6,500–10,000 · new credit, A_Submitted absent · other | 579 | 0.598 | 9,514 | 8,473 | 16 | 30 |
-| 6,500 and below · new credit, A_Submitted absent | 686 | 0.520 | 6,136 | 5,512 | 24 | 35 |
-| 6,500–10,000 · new credit, A_Submitted present · Home improvement | 1,015 | 0.570 | 9,820 | 10,024 | 18 | 28 |
+| Lower-mid · Limit raise · All purposes | 369 | 0.694 | 9,170 | 13,235 | 6 | 25 |
+| Mid · New (marker absent) · All purposes | 960 | 0.640 | 14,485 | 13,318 | 10 | 24 |
+| Lower-mid · New (marker absent) · Other purposes | 579 | 0.598 | 9,514 | 8,473 | 16 | 30 |
+| Small · New (marker absent) · All purposes | 686 | 0.520 | 6,136 | 5,512 | 24 | 35 |
+| Lower-mid · New (marker present) · Home improvement | 1,015 | 0.570 | 9,820 | 10,024 | 18 | 28 |
 | **Converts poorly, runs efficiently** | | | | | | |
-| Above 25,000 · new credit, A_Submitted present · purpose not stated | 543 | 0.442 | 39,184 | 26,240 | 34 | 9 |
-| Above 25,000 · new credit, A_Submitted present · Home improvement | 755 | 0.473 | 37,463 | 25,921 | 31 | 10 |
-| Above 25,000 · new credit, A_Submitted present · Car | 336 | 0.497 | 32,334 | 21,885 | 28 | 11 |
-| Above 25,000 · new credit, A_Submitted present · Existing loan takeover | 1,003 | 0.553 | 40,001 | 28,711 | 20 | 8 |
-| 15,500–25,000 · new credit, A_Submitted present · purpose not stated | 477 | 0.497 | 21,776 | 16,796 | 29 | 19 |
+| Very large · New (marker present) · Purpose not stated | 543 | 0.442 | 39,184 | 26,240 | 34 | 9 |
+| Very large · New (marker present) · Home improvement | 755 | 0.473 | 37,463 | 25,921 | 31 | 10 |
+| Very large · New (marker present) · Car purchase | 336 | 0.497 | 32,334 | 21,885 | 28 | 11 |
+| Very large · New (marker present) · Refinancing | 1,003 | 0.553 | 40,001 | 28,711 | 20 | 8 |
+| Large · New (marker present) · Purpose not stated | 477 | 0.497 | 21,776 | 16,796 | 29 | 19 |
 
 - The high-conversion, low-efficiency side is **small and mid-sized**. Even on routes that convert well, such as limit raises or applications without the A_Submitted marker, a small loan returns little per hour of effort.
 - The low-conversion, high-efficiency side is **new credit above EUR 25,000 with the A_Submitted marker**. More than one in two does not convert, but the ones that do are large.
@@ -88,18 +88,18 @@ Expected loan volume (Σ applications × conversion × R̄) when the effort budg
 | 32,266 | 38 | 97.3% | 97.0% |
 | 45,516 and above | 39 | 100% | 100% |
 
-The first segment turns negative at c/m = 4,374 (6,500 and below · new credit, A_Submitted present · purpose not stated).
+The first segment turns negative at c/m = 4,374 (Small · New (marker present) · Purpose not stated).
 
 **Required minimum margin share** — the share of total interest that must remain as net margin for EV ≥ 0 at the reference labour cost of EUR 57.6 per hour (`outputs/p5_margin_share.csv`):
 
 | Segment | η_I (EUR per hour) | Required minimum margin share |
 |---|---|---|
-| 6,500 and below · new credit, A_Submitted present · Car | 724 | **7.95%** (highest) |
-| 6,500 and below · new credit, A_Submitted present · purpose not stated | 778 | 7.40% |
-| 6,500 and below · new credit, A_Submitted present · Existing loan takeover | 872 | 6.60% |
+| Small · New (marker present) · Car purchase | 724 | **7.95%** (highest) |
+| Small · New (marker present) · Purpose not stated | 778 | 7.40% |
+| Small · New (marker present) · Refinancing | 872 | 6.60% |
 | … | | |
-| Amount not stated · limit raise · purpose not stated | 7,381 | 0.78% |
-| Above 25,000 · limit raise | 9,858 | **0.58%** (lowest) |
+| Amount not stated · Limit raise · Purpose not stated | 7,381 | 0.78% |
+| Very large · Limit raise · All purposes | 9,858 | **0.58%** (lowest) |
 
 - **Verdict (rule ⑤):** even the least favourable segment is profitable once net margin reaches 7.95% of total interest. Whether that share is realistic is not judged here, since funding cost and credit loss data are absent (P6).
 - **Effect of the cost assumption:** the reference figure excludes overhead such as systems, space and management. If the true hourly cost is k times the reference, every required share scales by k. The **13.6x spread between segments does not change** (`14_targeting_and_scan.py` output).
