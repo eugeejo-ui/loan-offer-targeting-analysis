@@ -55,7 +55,7 @@ def cancel_gap() -> str:
     ax.hist([days[system], days[~system]], bins=bins, stacked=True, rwidth=0.8,
             color=[SERIES[0], SERIES[1]], label=["시스템 처리 취소", "직원 처리 취소"], zorder=3)
     peak = np.histogram(days, bins=bins)[0].max()
-    ax.annotate(f"29~32일: 취소의 {summary['share_within_29_32_days']:.0%}\n"
+    ax.annotate(f"29~32일 구간 취소 {summary['share_within_29_32_days']:.0%} 집중\n"
                 f"그중 시스템 처리 {summary['system_share_within_rule']:.1%}",
                 xy=(31, peak * 0.95), xytext=(40, peak * 0.7), fontsize=9, color=INK2,
                 arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8))
@@ -64,8 +64,8 @@ def cancel_gap() -> str:
     ax.yaxis.set_major_formatter(THOUSANDS)
     ax.set_xlim(0, 61)
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.88), ncol=2)
-    headline(fig, "취소는 마지막 오퍼 발송 30일 뒤에 집중된다",
-             "고객이 30일간 응답하지 않으면 시스템이 자동 취소 · 취소 케이스의 소요시간은 은행 처리가 아닌 이 규칙에 따라 결정")
+    headline(fig, "마지막 오퍼 발송 30일 후 취소 집중",
+             "고객 무응답 30일 경과 시 시스템 자동 취소 · 취소 케이스 소요시간의 결정 요인은 은행 처리가 아닌 이 규칙")
     footnote(fig, "출처: outputs/p1_cancel_gap_summary.csv · 오퍼가 발송된 취소 9,593건 · 60일 이상은 60일 구간에 합산")
     return save(fig, "p1_cancel_gap.png")
 
@@ -91,11 +91,11 @@ def rate_vs_eta() -> str:
     ax.xaxis.set_major_formatter(PercentFormatter(1.0, decimals=0))
     ax.yaxis.set_major_formatter(THOUSANDS)
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.86), ncol=3)
-    headline(fig, "성사율이 높은 세그먼트와 효율이 높은 세그먼트는 일치하지 않는다",
-             f"세그먼트 39개의 성사율 순위와 효율 순위 간 상관 ρ = {align['rho_p_eta']:.2f} "
+    headline(fig, "성사율 순위와 효율 순위 불일치",
+             f"세그먼트 39개 대상 순위 상관 ρ = {align['rho_p_eta']:.2f} "
              f"(90% 구간 {align['rho_ci_lo']:.2f}~{align['rho_ci_hi']:.2f})")
     footnote(fig, "출처: outputs/p5_segment_efficiency.csv, p5_rank_alignment.csv · 가로·세로 선은 중앙값 · "
-                  "라벨이 붙은 점은 두 순위 차이가 가장 큰 세그먼트")
+                  "라벨이 붙은 점은 두 순위의 차이가 가장 큰 세그먼트")
     return save(fig, "p5_rate_vs_eta.png")
 
 
@@ -122,9 +122,9 @@ def targeting() -> str:
     ax.set_xlim(0, 100)
     ax.set_ylim(0, None)
     ax.legend(loc="lower right")
-    headline(fig, "같은 공수를 효율 순서로 배분하면 대출 규모가 13% 늘어난다",
-             "공수 예산 50% 지점에서 효율 순서와 성사율 순서 비교 · 관측된 세그먼트 평균으로 계산한 가상 배분")
-    footnote(fig, "출처: outputs/p5_targeting_compare.csv · 세그먼트 39개 · 배분 순서의 가치 비교(개입 효과 아님)")
+    headline(fig, "같은 공수로 효율 순서 배분 시 대출 규모 13% 증가",
+             "공수 예산 50% 지점의 효율 순서와 성사율 순서 비교 · 관측된 세그먼트 평균으로 산출한 가상 배분")
+    footnote(fig, "출처: outputs/p5_targeting_compare.csv · 세그먼트 39개 · 배분 순서 간 가치 비교 · 개입 효과와 무관")
     return save(fig, "p5_targeting_curve.png")
 
 
@@ -151,9 +151,9 @@ def multi_offer() -> str:
     right.set_ylim(0, 1.0)
     same = d.loc["multi_same - single", "stratified_diff"] * 100
     later = d.loc["multi_later - single", "stratified_diff"] * 100
-    headline(fig, "복수 오퍼의 성사율 우위는 '나중 상담'에서만 나타난다",
+    headline(fig, "복수 오퍼 성사율 우위는 나중 상담에 한정",
              f"세그먼트 층화 후 단일 오퍼 대비 성사율 차이는 같은 상담 {same:+.1f}%p, 나중 상담 {later:+.1f}%p"
-             " (고객이 남아 있어야 생기므로 상한)")
+             " · 나중 상담은 고객이 이탈하지 않은 경우에만 성립하는 상한")
     footnote(fig, "출처: outputs/p6_group_summary.csv, p6_stratified_diff.csv · 상담 구분은 D1(생성 간격 1일 초과) 기준 · "
                   "D2(첫 오퍼 발송 후 추가)에서도 방향 동일")
     return save(fig, "p6_multi_offer.png")
@@ -177,7 +177,7 @@ def failure_effort() -> str:
             if width >= 2.5:
                 ax.text(start + width / 2, yi, f"{width:.1f}%", ha="center", va="center", fontsize=9, color=ink)
         ax.text(b + a + 0.3, yi, f"합계 {b + a:.1f}%", va="center", fontsize=9, color=INK2)
-    ax.annotate("접촉 정책이 다룰 수 있는 부분", (before[1] + after[1] / 2, y[1] - 0.2), xytext=(0, -18),
+    ax.annotate("접촉 정책의 적용 범위", (before[1] + after[1] / 2, y[1] - 0.2), xytext=(0, -18),
                 textcoords="offset points", ha="center", fontsize=9, color=INK2,
                 arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8))
     ax.set_yticks(y, [name for _, name in rows])
@@ -189,10 +189,10 @@ def failure_effort() -> str:
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.84), ncol=2)
     auto_before = f.loc["auto_cancel", "effort_before"] / f.loc["auto_cancel", "effort_total"]
     denied_after = f.loc["denied", "effort_after"] / f.loc["denied", "effort_total"]
-    headline(fig, "실패 신청에 공수의 34%가 투입되고 접촉 정책의 감축 여지는 3.5%다",
-             f"자동 취소 공수의 {auto_before:.0%}는 첫 오퍼 발송 전에 이미 투입 · "
+    headline(fig, "실패 신청에 투입된 공수 34%",
+             f"접촉 정책의 감축 가능 범위는 3.5% · 자동 취소 공수의 {auto_before:.0%}는 첫 오퍼 발송 전에 투입 · "
              f"거절 공수의 {denied_after:.0%}는 발송 후 투입")
-    footnote(fig, f"출처: outputs/p7_failure_effort.csv · 공수 = 활동별 p99 캡 작업시간, 총 {total:,.1f}시간")
+    footnote(fig, f"출처: outputs/p7_failure_effort.csv · 공수는 활동별 p99 캡 작업시간 · 합계 {total:,.1f}시간")
     return save(fig, "p7_failure_effort.png")
 
 
@@ -213,8 +213,8 @@ def eta_vs_bank_wait() -> str:
     ax.xaxis.set_major_formatter(THOUSANDS)
     ax.set_ylim(0, None)
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.86), ncol=3)
-    headline(fig, "효율이 높은 세그먼트일수록 은행 처리 대기시간이 증가한다",
-             f"ρ(효율, 은행 보유 일수) = {rho:+.2f} · 은행 보유 시간 중 실제 작업 비중은 {active:.1%}, 나머지는 대기")
+    headline(fig, "효율이 높은 세그먼트일수록 긴 은행 처리 대기시간",
+             f"ρ(효율, 은행 보유 일수) = {rho:+.2f} · 은행 보유 시간 중 실제 작업 비중 {active:.1%} · 잔여는 대기 시간")
     footnote(fig, "출처: outputs/p8_segment_holder.csv, p8_intervention_checks.csv · 세그먼트 39개 · 영업시간 미보정")
     return save(fig, "p8_eta_vs_bank_wait.png")
 
@@ -243,11 +243,11 @@ def ab_duration() -> str:
     ax.grid(axis="y", visible=False)
     fig.legend(loc="upper right", bbox_to_anchor=(0.99, 0.84), ncol=2)
     flows = a.groupby(a["experiment"].str.startswith("first"))["eligible_per_month"].first()
-    headline(fig, "접촉 정책은 6개월 내 A/B 검증이 가능하나 첫 상담 단일 오퍼는 어렵다",
+    headline(fig, "접촉 정책 6개월 내 검증 가능 · 단일 오퍼는 기간 과도",
              f"단일 오퍼 규칙의 실제 영향 대상은 월 {flows[True]:,}건, 접촉 정책 대상은 월 {flows[False]:,}건 "
-             "(α 0.05 양측, 검정력 0.8, 1:1)")
-    footnote(fig, "출처: outputs/p9_ab_sample_sizes.csv · 효과 크기는 설계 파라미터(추정치 아님) · "
-                  "단일 오퍼를 전체 신청에 배정하면 효과가 희석돼 327.6개월(그림 제외)")
+             "· α 0.05 양측, 검정력 0.8, 1:1 배정")
+    footnote(fig, "출처: outputs/p9_ab_sample_sizes.csv · 효과 크기는 설계 파라미터 · 추정치 아님 · "
+                  "단일 오퍼를 전체 신청에 배정 시 효과 희석으로 327.6개월 소요(그림에서 제외)")
     return save(fig, "p9_ab_duration.png")
 
 
