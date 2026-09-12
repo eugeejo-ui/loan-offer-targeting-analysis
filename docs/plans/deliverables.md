@@ -11,7 +11,7 @@
 | 계산기(MVP) | ✅ 2026-09-12 | 새로 만들었다. 계산은 `analysis/calculator.py`, 화면은 대시보드의 마지막 구역. Streamlit 화면은 대시보드로 대체하며 삭제 |
 | 대시보드 | ✅ 2026-09-12 | [`dashboard.md`](dashboard.md). 시안 양식 + 스크롤 연동 사이드바. `outputs/dashboard/index.html` |
 | 영문화 | ✅ 2026-09-12 | 핵심 3개 완료 — [`05`](../05_expected_value.en.md) · [`09`](../09_requirements.en.md) · [`10`](../10_options.en.md) |
-| GitHub 공개 준비 | ✅ 2026-09-12 | 저장소 전용이 아닌 로컬 파일 2종(진행 제안서, 참고 자료 폴더)을 `git filter-branch`로 전 이력에서 제거했다. 커밋 73건과 메시지는 그대로이고 해시만 바뀌었다. 백업 번들은 저장소 밖에 보관한다. 실제 공개(원격 생성·푸시)는 별도 결정 |
+| GitHub 공개 준비 | ✅ 2026-09-12 | 저장소 전용이 아닌 로컬 파일 2종(진행 제안서, 참고 자료 폴더)을 `git filter-branch`로 전 이력에서 제거했다. 커밋 73건과 메시지는 그대로이고 해시만 바뀌었다. 백업 번들은 저장소 밖에 보관한다. 2026-09-12 public으로 공개 — https://github.com/eugeejo-ui/loan-offer-targeting-analysis |
 
 ## 계산기(MVP)
 
