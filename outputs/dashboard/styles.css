@@ -1,0 +1,184 @@
+/* 시안(Analytics Dashboard)의 양식 — 좌측 사이드바, 흰 카드 격자, 파란 강조색. 외부 폰트·CDN을 쓰지 않는다. */
+
+:root {
+  --page: #f6f7f9;
+  --surface: #ffffff;
+  --line: #eceef2;
+  --ink: #111827;
+  --ink-2: #4b5563;
+  --muted: #9aa1ac;
+  --accent: #2f6bff;
+  --accent-soft: #e9f0ff;
+  --good: #16c784;
+  --warn: #f97316;
+  --bad: #ef4444;
+  --radius: 16px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.04);
+  --sidebar-width: 248px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Malgun Gothic", "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 레이아웃 ---------- */
+
+.app { display: flex; min-height: 100vh; }
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  width: var(--sidebar-width);
+  height: 100vh;
+  flex: 0 0 var(--sidebar-width);
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.brand { padding: 0 12px 28px; }
+.brand-mark { font-size: 15px; font-weight: 700; letter-spacing: 0.22em; color: var(--accent); }
+.brand-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; margin-top: 4px; }
+
+.nav-group { font-size: 13px; font-weight: 700; color: var(--muted); padding: 18px 12px 8px; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav-item:hover { background: #f3f5f8; }
+.nav-item .dot {
+  width: 18px; height: 18px; border-radius: 5px;
+  background: #d7dbe2; flex: 0 0 18px;
+  transition: background 0.15s ease;
+}
+.nav-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-item.active .dot { background: var(--accent); }
+
+.main { flex: 1; min-width: 0; padding: 28px 36px 80px; }
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+.topbar h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+.topbar .meta { font-size: 13px; color: var(--muted); }
+
+/* ---------- 구역 ---------- */
+
+.section { scroll-margin-top: 24px; padding: 10px 0 42px; }
+.section-head { margin-bottom: 16px; }
+.section-head h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.section-head p { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 78ch; }
+
+.grid { display: grid; gap: 16px; }
+.grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid.split { grid-template-columns: minmax(0, 320px) minmax(0, 1fr); }
+
+@media (max-width: 1180px) {
+  .grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid.cols-3, .grid.split { grid-template-columns: minmax(0, 1fr); }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.card h3 { margin: 0 0 14px; font-size: 15px; color: var(--ink-2); font-weight: 600; }
+.card .note { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
+
+.metric .label { font-size: 13.5px; color: var(--ink-2); }
+.metric .value { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin-top: 6px; }
+.metric .value small { font-size: 16px; font-weight: 600; color: var(--muted); }
+.metric .sub { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+
+.figure img { width: 100%; height: auto; display: block; border-radius: 12px; }
+
+/* ---------- 표 ---------- */
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 10px 8px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+th:first-child, td:first-child { text-align: left; white-space: normal; }
+tbody tr:last-child td { border-bottom: none; }
+td.pos { color: var(--good); font-weight: 600; }
+td.neg { color: var(--bad); font-weight: 600; }
+
+.scroll-x { overflow-x: auto; }
+
+/* ---------- 막대 ---------- */
+
+.bar-row { display: grid; grid-template-columns: minmax(0, 1fr) 96px; align-items: center; gap: 14px; margin-bottom: 12px; }
+.bar-row .name { font-size: 13.5px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-row .value { text-align: right; font-size: 13.5px; color: var(--ink-2); }
+.bar-track { height: 8px; border-radius: 999px; background: #eef1f6; overflow: hidden; margin-top: 6px; }
+.bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #2f6bff, #6ea2ff); }
+.bar-fill.warm { background: linear-gradient(90deg, var(--warn), var(--bad)); }
+.bar-fill.cool { background: linear-gradient(90deg, #12b981, #6ee7b7); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.chip b { color: var(--ink); font-weight: 600; }
+
+/* ---------- 계산기 ---------- */
+
+.control { margin-bottom: 18px; }
+.control label { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); margin-bottom: 8px; }
+.control label b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.control input[type="range"] { width: 100%; accent-color: var(--accent); }
+.control .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+
+.verdict { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.verdict .pill { border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.pill.ok { background: #e7f8f1; color: #0f9d6e; }
+.pill.no { background: #fdecec; color: #d93a3a; }
+
+footer.page-note {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

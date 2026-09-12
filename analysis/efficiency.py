@@ -42,6 +42,17 @@ def min_margin_share(table: pd.DataFrame, cost: float) -> pd.Series:
     return (cost / table["eta_I"]).rename("min_margin_share")
 
 
+def margin_share_spread(table: pd.DataFrame, cost_per_hour: float) -> dict:
+    """필요 최소 순마진 비중의 최저·최고와 그 배율.
+
+    배율은 반올림 **전** 값으로 나눈다. 저장용으로 4자리에서 반올림한 비중(0.0795 / 0.0058)으로
+    나누면 13.7배가 되지만, 원래 값으로는 13.6배다.
+    """
+    share = min_margin_share(table, cost_per_hour)
+    best, worst = float(share.min()), float(share.max())
+    return {"best": best, "worst": worst, "ratio": worst / best}
+
+
 def targeting_curve(table: pd.DataFrame, order_col: str) -> pd.DataFrame:
     """Serve segments in descending order_col; cumulative effort share and expected loan volume."""
     t = table.sort_values(order_col, ascending=False, kind="stable")

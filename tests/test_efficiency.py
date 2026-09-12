@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from efficiency import (bootstrap_rank_corr, cm_scan, incremental_eta, min_margin_share,
+from efficiency import (bootstrap_rank_corr, cm_scan, incremental_eta, margin_share_spread, min_margin_share,
                         quadrant, rank_alignment, rank_corr_interval, stratified_diff, targeting_curve,
                         volume_at_effort_share)
 
@@ -75,6 +75,15 @@ def test_rank_corr_interval_one_row_per_seed_matching_direct_quantiles():
     assert (out["rho_ci_lo"] <= out["rho_ci_hi"]).all()
     lo, hi = np.nanquantile(bootstrap_rank_corr(frame, "seg", "r", "e", n_boot=20, seed=1), [0.05, 0.95])
     assert out.loc[1, "rho_ci_lo"] == lo and out.loc[1, "rho_ci_hi"] == hi
+
+
+def test_margin_share_spread_divides_before_rounding():
+    table = pd.DataFrame({"eta_I": [9857.5807, 724.3395]}, index=["big", "small"])
+    out = margin_share_spread(table, cost_per_hour=57.6)
+    assert round(out["best"], 9) == round(57.6 / 9857.5807, 9)
+    assert round(out["worst"], 9) == round(57.6 / 724.3395, 9)
+    # rounding the shares to 4 decimals first (0.0795 / 0.0058) would report 13.7
+    assert round(out["ratio"], 2) == 13.61
 
 
 def test_stratified_diff_weights_by_stratum_size():

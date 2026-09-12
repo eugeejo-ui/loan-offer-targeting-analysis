@@ -27,7 +27,7 @@ Effort is the sum of active work intervals on work items. Waiting time is exclud
 | Where applications drop out | 8,630 of 9,692 cancellations stopped after the offer was sent and before the customer replied |
 | The 30-day rule | 77.0% of cancellations with a sent offer fall 29–32 days after the last offer, and 99.5% of those were processed by the system account. This is why elapsed time is not treated as a cause of conversion |
 | Segments | All three intake axes separate η — amount 5.84x, intake route 2.21x, purpose 1.50x between the extremes. Crossing them gives 44 segments, 39 of which hold at least 300 applications |
-| Profitability sign | Every segment is profitable at the reference labour cost of EUR 57.6 per hour. The minimum net margin share required runs from 0.58% to 7.95%, and the 13.7x spread between segments is independent of the cost assumption |
+| Profitability sign | Every segment is profitable at the reference labour cost of EUR 57.6 per hour. The minimum net margin share required runs from 0.58% to 7.95%, and the 13.6x spread between segments is independent of the cost assumption |
 | Multiple offers | The stratified +6.62%p conversion advantage comes entirely from later conversations (+13.31%p). Multiple offers within the first conversation convert below single offers (−2.64%p) |
 | Effort on failures | Failed applications consume 34.2% of all effort, but only 3.5% of it is recoverable through available levers |
 | The bottleneck | Customers hold 82.2% of elapsed time. Customer time is the majority in all 39 segments |
@@ -72,6 +72,7 @@ The raw log is not included in this repository. Download the BPI Challenge 2017 
 - `tests/` — module-level tests
 - `docs/` — 11 phase conclusion documents
 - `docs/plans/` — phase plans and execution records
+- `app/dashboard/` — a single-page dashboard (results plus the calculator); `analysis/22_build_dashboard.py` builds it into `outputs/dashboard/index.html`
 - `outputs/` — generated CSV and parquet files, plus 7 charts
 
 ## References

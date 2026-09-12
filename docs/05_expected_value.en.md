@@ -13,7 +13,7 @@ Segment labels keep their Korean form in the data. In this document they read: *
 - Across 39 segments, **the rank correlation between conversion rate and efficiency (η) is 0.669**. The bootstrap 90% interval (0.610–0.692) stays below the 0.7 decision boundary.
 - The direction of the mismatch is clear: **small and mid-sized applications convert well but run at low efficiency, while large new-credit applications convert poorly and run at high efficiency.**
 - Spending the same effort in η order rather than conversion order yields **13.2% more loan volume** at half the effort budget (hypothetical reallocation).
-- At the reference labour cost (EUR 57.6 per hour) every segment is profitable. The least favourable one breaks even once net margin reaches **7.95%** of total interest. The conclusion is therefore not a sign flip but an **efficiency gap**: the required margin share differs **13.7x** between segments, and that ratio does not depend on the cost assumption.
+- At the reference labour cost (EUR 57.6 per hour) every segment is profitable. The least favourable one breaks even once net margin reaches **7.95%** of total interest. The conclusion is therefore not a sign flip but an **efficiency gap**: the required margin share differs **13.6x** between segments, and that ratio does not depend on the cost assumption.
 
 The structure mirrors the earlier subscription analysis, where the target turned out to be light buyers rather than heavy ones. Here effort belongs first with **large applications rather than likely ones**.
 
@@ -102,8 +102,8 @@ The first segment turns negative at c/m = 4,374 (6,500 and below · new credit, 
 | Above 25,000 · limit raise | 9,858 | **0.58%** (lowest) |
 
 - **Verdict (rule ⑤):** even the least favourable segment is profitable once net margin reaches 7.95% of total interest. Whether that share is realistic is not judged here, since funding cost and credit loss data are absent (P6).
-- **Effect of the cost assumption:** the reference figure excludes overhead such as systems, space and management. If the true hourly cost is k times the reference, every required share scales by k. The **13.7x spread between segments does not change** (`14_targeting_and_scan.py` output).
-- The conclusion is therefore not "which segment loses money" but **"the same hour of effort produces 13.7x different value depending on the segment."**
+- **Effect of the cost assumption:** the reference figure excludes overhead such as systems, space and management. If the true hourly cost is k times the reference, every required share scales by k. The **13.6x spread between segments does not change** (`14_targeting_and_scan.py` output).
+- The conclusion is therefore not "which segment loses money" but **"the same hour of effort produces 13.6x different value depending on the segment."**
 
 ## 5. Reversal scenarios (the three defined at design time)
 

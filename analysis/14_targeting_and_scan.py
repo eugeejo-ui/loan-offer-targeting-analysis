@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 from config import OUT_DIR
-from efficiency import cm_scan, min_margin_share, targeting_curve, volume_at_effort_share
+from efficiency import cm_scan, margin_share_spread, min_margin_share, targeting_curve, volume_at_effort_share
 
 REFERENCE_COST = 57.6  # EUR/hour — Eurostat lc_lci_lev, NL, NACE K, 2016 (docs/03_method.md §3)
 EFFORT_BUDGETS = [0.25, 0.5, 0.75]
@@ -45,10 +45,11 @@ def main() -> None:
     margin = table[["n", "p", "eta", "eta_I", "min_margin_share"]].sort_values(
         "min_margin_share", ascending=False).round(4)
     margin.to_csv(OUT_DIR / "p5_margin_share.csv", encoding="utf-8-sig")
-    worst, best = margin["min_margin_share"].max(), margin["min_margin_share"].min()
+    spread = margin_share_spread(table, REFERENCE_COST)  # ratio from unrounded shares, not from the saved table
     print(f"\n=== minimum net-margin share of interest for EV >= 0 at {REFERENCE_COST} EUR/h ===\n"
           f"{margin.head(5).to_string()}\n...\n{margin.tail(3).to_string()}")
-    print(f"worst {worst:.2%}  best {best:.2%}  worst/best {worst / best:.1f}x (independent of the cost assumed)")
+    print(f"worst {spread['worst']:.2%}  best {spread['best']:.2%}  "
+          f"worst/best {spread['ratio']:.1f}x (independent of the cost assumed)")
 
     calc_cols = ["n", "p", "r_mean", "e_mean", "eta", "eta_amount_effort", "eta_years_effort",
                  "eta_amount_events", "eta_years_events", "eta_I", "min_margin_share", "quadrant"]
