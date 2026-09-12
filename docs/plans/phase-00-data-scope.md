@@ -4,7 +4,7 @@
 
 **Goal:** BPI 2017 로그의 속성·결측·0값을 확인하고, 케이스 결과 정의와 관측창 컷오프를 확정하고, 선행 수치(27% / 53.1% / 59.0%)를 재현한다. 결과는 `docs/00_scope.md`에 쓰고 CLAUDE.md에 반영한다.
 
-**Architecture:** 판정 로직은 `analysis/`의 작은 모듈(config, loader, profiling, outcomes, offers)에 두고 pytest로 합성 데이터에 대해 검증한다. 실데이터는 번호가 붙은 스크립트(00~03)가 모듈을 호출해 `outputs/p0_*`로 떨군다. 원본 XES는 한 번만 파싱해 parquet로 캐시한다.
+**Architecture:** 판정 로직은 `analysis/`의 작은 모듈(config, loader, profiling, outcomes, offers)에 두고 pytest로 합성 데이터에 대해 검증한다. 실데이터는 번호가 붙은 스크립트(00\~03)가 모듈을 호출해 `outputs/p0_*`로 떨군다. 원본 XES는 한 번만 파싱해 parquet로 캐시한다.
 
 **Tech Stack:** Python 3.12, pandas, pm4py, pyarrow, pytest (Windows PowerShell 5.1)
 
@@ -962,7 +962,7 @@ git add docs/00_scope.md CLAUDE.md; git commit -m "docs: record phase 0 scope de
 | 2026-09-11 | 실행 완료 — 테스트 15 passed. 결론은 [`docs/00_scope.md`](../00_scope.md) |
 | 2026-09-11 | 파일 위치 이동: `docs/superpowers/plans/2026-09-11-phase0-data-scope.md` → `docs/plans/phase-00-data-scope.md` (Phase별 진행 기록 폴더로 통합) |
 
-**결과 요약:** 분석 모집단 29,131건(접수 2016-01~11, 종료 케이스) / 주 성공 정의 = A_Pending 도달 / 선행 수치 완전 재현(22,950 · 8,559, 53.06% · 59.00%) / CreditScore·Selected·Accepted 결과 누수로 사용 금지 / 추가 오퍼의 요청 주체 식별 불가
+**결과 요약:** 분석 모집단 29,131건(접수 2016-01\~11, 종료 케이스) / 주 성공 정의 = A_Pending 도달 / 선행 수치 완전 재현(22,950 · 8,559, 53.06% · 59.00%) / CreditScore·Selected·Accepted 결과 누수로 사용 금지 / 추가 오퍼의 요청 주체 식별 불가
 
 **커밋:**
 - `5a28f19` chore: set up phase 0 environment and project proposal

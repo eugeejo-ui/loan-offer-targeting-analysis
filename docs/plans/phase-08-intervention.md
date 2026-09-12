@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Phase 1~7의 결과를 모아 개입 수단마다 조건부 권고를 내린다 (P8). 권고의 전제 가운데 데이터로 확인할 수 있는 두 가지를 먼저 검증한다. ① "처리 속도 개선만으로는 풀리지 않는다"가 세그먼트 단위에서도 성립하는가 ② 현재 은행의 처리 순서가 η를 반영하고 있는가(반영하지 않아야 순서 변경 수단에 여지가 있다). 끝으로 수단마다 필요한 역량과 데이터 공백을 추려 Phase 9·10에 넘긴다.
+**Goal:** Phase 1\~7의 결과를 모아 개입 수단마다 조건부 권고를 내린다 (P8). 권고의 전제 가운데 데이터로 확인할 수 있는 두 가지를 먼저 검증한다. ① "처리 속도 개선만으로는 풀리지 않는다"가 세그먼트 단위에서도 성립하는가 ② 현재 은행의 처리 순서가 η를 반영하고 있는가(반영하지 않아야 순서 변경 수단에 여지가 있다). 끝으로 수단마다 필요한 역량과 데이터 공백을 추려 Phase 9·10에 넘긴다.
 
 **Architecture:** 세그먼트별 보유 주체 요약 함수 하나를 `analysis/process.py`에 추가하고 테스트한다. 스크립트 `19`가 두 전제를 검증한다. 나머지는 이미 나온 산출물(`p5_*`, `p6_*`, `p7_*`)을 인용하는 판정 문서다.
 
@@ -37,7 +37,7 @@
 | 파일 | 책임 |
 |---|---|
 | `analysis/process.py` | `group_holder_summary` 추가 |
-| `analysis/19_intervention_check.py` | 세그먼트별 보유 주체·은행 보유 일수·작업 비중, η와의 상관, 판정 1~3 |
+| `analysis/19_intervention_check.py` | 세그먼트별 보유 주체·은행 보유 일수·작업 비중, η와의 상관, 판정 1\~3 |
 | `tests/test_process.py` | 단위 테스트 1개 추가 |
 | `docs/08_intervention.md` | 판정 문서 — 두 전제, 수단 매트릭스, 조건부 권고, 필요 역량·데이터 공백 |
 
@@ -107,7 +107,7 @@ git add analysis/process.py tests/test_process.py; git commit -m "feat: summariz
 
 **Interfaces:**
 - Consumes: `load_population`, `process.holder_time`, `group_holder_summary`, `p4_segments.parquet`, `p2_case_effort.parquet`, `p5_segment_efficiency.csv`
-- Produces: `outputs/p8_segment_holder.csv`(세그먼트별 n, η, 고객 보유 비중, 은행/고객 보유 일수 중앙값, 은행 작업 비중), `outputs/p8_intervention_checks.csv`(판정 1~3 값과 결과)
+- Produces: `outputs/p8_segment_holder.csv`(세그먼트별 n, η, 고객 보유 비중, 은행/고객 보유 일수 중앙값, 은행 작업 비중), `outputs/p8_intervention_checks.csv`(판정 1\~3 값과 결과)
 
 - [ ] **Step 1: `analysis/19_intervention_check.py` 작성**
 
@@ -219,7 +219,7 @@ git add docs/08_intervention.md docs/plans/phase-08-intervention.md CLAUDE.md; g
 | 수단 | 크기 | 근거의 성격 | 전제 | 예상 등급 |
 |---|---|---|---|---|
 | 공수 배분 순서 (η 순 우선 처리) | 공수 예산 50%에서 대출 규모 +13.2% | 관측값 기반 가상 배분 | 접수 시점 세그먼트 판별 가능(Phase 4 확인) · 현재 순서가 η 미반영(판정 2) · 공수가 제약(판정 3 신호) | 판정 2·3 결과에 따라 채택 권고 또는 조건부 |
-| 첫 상담 단일 오퍼 | 같은 상담 복수의 성사율 −2.6~−5.5%p | 관측 연관 | 음(−) 연관이 인과일 것 | 검증 후 (A/B) |
+| 첫 상담 단일 오퍼 | 같은 상담 복수의 성사율 −2.6\~−5.5%p | 관측 연관 | 음(−) 연관이 인과일 것 | 검증 후 (A/B) |
 | 오퍼 발송 후 접촉 정책 | 공수 절감 3.5%, 회신 전환 효과 미상 | 측정 불가 | 접촉이 회신을 늘릴 것 | 검증 후 (A/B) |
 | 심사 앞단 필터 | 규칙상 근거 미충족 | 비율 차이만 확인 | 거절 공수가 식별 가능한 곳에 몰릴 것 | 보류 |
 | 처리 속도 개선 단독 | 은행 보유 시간이 경과시간의 약 18% | 구조적 상한 | 고객 보유가 작을 것 | 판정 1이 확인되면 권고하지 않음 |
@@ -228,7 +228,7 @@ git add docs/08_intervention.md docs/plans/phase-08-intervention.md CLAUDE.md; g
 
 | 날짜 | 내용 |
 |---|---|
-| 2026-09-11 | 진행계획 작성. 새 분석은 권고의 전제 두 가지(세그먼트별 고객 보유, 현재 처리 순서)로 제한하고 나머지는 Phase 1~7 인용으로 구성. 판정 규칙 고정. 사용자 확인 대기 |
+| 2026-09-11 | 진행계획 작성. 새 분석은 권고의 전제 두 가지(세그먼트별 고객 보유, 현재 처리 순서)로 제한하고 나머지는 Phase 1\~7 인용으로 구성. 판정 규칙 고정. 사용자 확인 대기 |
 | 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
 | 2026-09-11 | 수단 매트릭스 확정: η 순 우선순위 조정은 초안에서 "채택 권고 또는 조건부"였다. 판정 2·3은 성립했지만 인력 제약이 신호 수준(영업시간 미보정)이고 순서 변경 후 성사율 유지가 미확인이라, 등급 규칙 ④에 따라 **조건부(1순위)**로 확정 |
 | 2026-09-11 | 실행 완료 — 결론은 [`docs/08_intervention.md`](../08_intervention.md). CLAUDE.md Phase 9(필요 역량·데이터 공백), Phase 10(수단 등급 입력), 10장(질의응답 답변) 갱신 |

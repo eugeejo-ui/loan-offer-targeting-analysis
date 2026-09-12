@@ -466,7 +466,7 @@ git add docs/03_method.md docs/plans/phase-03-method.md CLAUDE.md; git commit -m
 3. 역산 금리 20% 초과 14건 → 참조선에 포함
 4. 오퍼 금액 = 신청 금액 77.3% → 축과 R 분리 선언
 5. 참조 인건비 57.6유로/시간 < 잠정 η_I 최솟값 876 → 부호는 순마진 비중이 결정
-6. c/m 스캔: 로그 축, Phase 5 η의 1/10 ~ 10배
+6. c/m 스캔: 로그 축, Phase 5 η의 1/10 \~ 10배
 
 **커밋:**
 - `e0ad431` docs: add phase 3 method plan

@@ -68,7 +68,7 @@
 
 - 접수 시점 3종은 모든 케이스 안에서 값이 일정하다 (`01_inspect_schema.py` 출력).
 - ApplicationType: New credit 28,120 / Limit raise 3,389 (`01_inspect_schema.py` 출력).
-- 오퍼: 케이스당 1~10건. 오퍼가 없는 케이스는 0건이고, OfferID 연결 누락도 0건이다 (`03_replicate_prior.py`, `01_inspect_schema.py` 출력).
+- 오퍼: 케이스당 1\~10건. 오퍼가 없는 케이스는 0건이고, OfferID 연결 누락도 0건이다 (`03_replicate_prior.py`, `01_inspect_schema.py` 출력).
 
 **결과 누수 판정 근거** — 오퍼 최종 상태별 속성 (`outputs/p0_offer_attrs_by_final_state.csv`):
 
@@ -102,7 +102,7 @@ CreditScore는 `O_Create Offer` 이벤트에 기록돼 있지만, 수락된 오�
 - **LoanGoal의 정보 없는 범주:** "Other, see explanation" 2,985 / "Unknown" 2,365 / "Not speficied" 1,065 (원문 표기 그대로) (`01_inspect_schema.py` 출력). 용도 축에서 따로 처리해야 한다.
 - **시스템 계정(User_1) 비중:** Application 27.5% / Offer 5.1% / Workflow 9.4% (`outputs/p0_system_resource_share.csv`). Phase 2 공수 측정에서 제외 대상이다.
 - **최종 상태가 없는 오퍼 174건:** 미종료 케이스와 겹칠 가능성이 있다. 분석 모집단 기준으로 Phase 1에서 확인한다.
-- **p90 소요일이 33~43일에 몰려 있다.** 30일 무응답 자동 취소 규칙(P7)과 부합하는지는 Phase 1에서 확인한다. 여기서는 판단하지 않는다.
+- **p90 소요일이 33\~43일에 몰려 있다.** 30일 무응답 자동 취소 규칙(P7)과 부합하는지는 Phase 1에서 확인한다. 여기서는 판단하지 않는다.
 
 ## 6. 다음 Phase로 넘기는 것
 
