@@ -39,7 +39,9 @@
     rows.forEach(function (row) {
       var line = el("tr");
       row.forEach(function (cell) {
-        var td = el("td", cell && cell.cls ? cell.cls : null, cell && cell.text !== undefined ? cell.text : cell);
+        var td = el("td", cell && cell.cls ? cell.cls : null,
+                    cell && cell.html !== undefined ? undefined : (cell && cell.text !== undefined ? cell.text : cell));
+        if (cell && cell.html !== undefined) { td.innerHTML = cell.html; }
         line.appendChild(td);
       });
       tbody.appendChild(line);
@@ -115,8 +117,16 @@
     bar(failureBox, row.name, fmt.pct(row.share) + " (발송 후 " + fmt.pct(row.after) + ")", row.share / 0.2, "warm");
   });
 
-  table(document.getElementById("checks-table"), ["항목", "값"],
-    (data.checks || []).map(function (row) { return [row.check, row.value]; }));
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  table(document.getElementById("checks-table"), ["판정 항목", "값"],
+    (data.checks || []).map(function (row) {
+      var head = escapeHtml(row.check);
+      var body = row.verdict ? '<span class="cell-note">' + escapeHtml(row.verdict) + "</span>" : "";
+      return [{ html: head + body }, row.value];
+    }));
 
   table(document.getElementById("experiments-table"),
     ["실험", "효과", "군당 표본", "필요 기간"],

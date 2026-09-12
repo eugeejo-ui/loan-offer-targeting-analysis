@@ -20,6 +20,46 @@ def _plain(value):
     return value
 
 
+# 판정 표의 표시 이름 — 산출 스크립트(19)의 내부 라벨은 그대로 두고 화면에서만 바꾼다.
+# (이름, 값 형식, 판정 문장). 값 형식: count 그대로 / correlation 부호 붙인 소수 / share 백분율.
+CHECK_DISPLAY = {
+    "1 customer share >= 50% in segments": (
+        "고객 보유 과반 세그먼트 수 (경과시간 기준)", "count",
+        "은행의 처리 시간을 0으로 단축해도 경과시간의 대부분은 잔존합니다. 전 세그먼트가 이에 해당합니다.",
+    ),
+    "2 Spearman(eta, bank-held median days)": (
+        "효율(η)과 은행 보유 일수의 순위 상관", "correlation",
+        "효율이 높은 세그먼트일수록 은행이 더 오래 보유합니다. "
+        "현재 처리 순서가 효율과 반대 방향이므로 이 수치는 순서 조정의 여지를 시사합니다.",
+    ),
+    "3 median share of bank-held time that is hands-on work": (
+        "실제 작업 시간 비중 (은행 보유 시간 대비, 세그먼트 중앙값)", "share",
+        "은행이 신청을 보유한 시간의 대부분을 대기가 차지합니다. 처리 대기열의 존재를 시사하는 신호로 해석합니다.",
+    ),
+    "ref Spearman(eta, customer share)": (
+        "참고 — 효율(η)과 고객 보유 비중의 순위 상관", "correlation",
+        "은행 보유 시간의 비중은 효율 상위 세그먼트에서 더 높습니다.",
+    ),
+}
+
+
+def _check_value(value, kind: str) -> str:
+    if kind == "share":
+        return f"{float(value) * 100:.2f}%"
+    if kind == "correlation":
+        return f"{float(value):+.3f}".replace("-", "−")
+    return str(value)
+
+
+def _checks(frame: pd.DataFrame) -> list[dict]:
+    """판정 행을 화면 표기로 바꾼다. 표시 이름이 없는 행은 원문 그대로 남긴다."""
+    rows = []
+    for name, value in frame.set_index("check")["value"].items():
+        label, kind, verdict = CHECK_DISPLAY.get(str(name), (str(name), "count", ""))
+        rows.append({"check": label, "value": _check_value(value, kind), "verdict": verdict})
+    return rows
+
+
 def _segments(efficiency: pd.DataFrame) -> list[dict]:
     rows = []
     for _, row in efficiency.sort_values("eta", ascending=False).iterrows():
@@ -98,8 +138,7 @@ def build_payload(frames: dict) -> dict:
     if "failures" in frames:
         payload["failures"] = _failures(frames["failures"])
     if "checks" in frames:
-        checks = frames["checks"].set_index("check")["value"]
-        payload["checks"] = [{"check": str(k), "value": str(v)} for k, v in checks.items()]
+        payload["checks"] = _checks(frames["checks"])
     if "experiments" in frames:
         payload["experiments"] = _experiments(frames["experiments"])
     if "mismatch" in frames:

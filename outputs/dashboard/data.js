@@ -591,20 +591,24 @@ window.DASHBOARD = {
  ],
  "checks": [
   {
-   "check": "1 customer share >= 50% in segments",
-   "value": "39/39"
+   "check": "고객 보유 과반 세그먼트 수 (경과시간 기준)",
+   "value": "39/39",
+   "verdict": "은행의 처리 시간을 0으로 단축해도 경과시간의 대부분은 잔존합니다. 전 세그먼트가 이에 해당합니다."
   },
   {
-   "check": "2 Spearman(eta, bank-held median days)",
-   "value": "0.346"
+   "check": "효율(η)과 은행 보유 일수의 순위 상관",
+   "value": "+0.346",
+   "verdict": "효율이 높은 세그먼트일수록 은행이 더 오래 보유합니다. 현재 처리 순서가 효율과 반대 방향이므로 이 수치는 순서 조정의 여지를 시사합니다."
   },
   {
-   "check": "3 median share of bank-held time that is hands-on work",
-   "value": "0.0061"
+   "check": "실제 작업 시간 비중 (은행 보유 시간 대비, 세그먼트 중앙값)",
+   "value": "0.61%",
+   "verdict": "은행이 신청을 보유한 시간의 대부분을 대기가 차지합니다. 처리 대기열의 존재를 시사하는 신호로 해석합니다."
   },
   {
-   "check": "ref Spearman(eta, customer share)",
-   "value": "-0.309"
+   "check": "참고 — 효율(η)과 고객 보유 비중의 순위 상관",
+   "value": "−0.309",
+   "verdict": "은행 보유 시간의 비중은 효율 상위 세그먼트에서 더 높습니다."
   }
  ],
  "experiments": [

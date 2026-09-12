@@ -47,3 +47,29 @@ def test_build_payload_carries_the_allocation_rows_and_reference_cost():
     assert [row["budget"] for row in payload["allocation"]] == [25, 50, 75]
     assert payload["allocation"][1]["gain"] == 0.1323
     assert payload["reference_cost"] == 57.6
+
+
+CHECK_FRAMES = dict(FRAMES, checks=pd.DataFrame({
+    "check": ["1 customer share >= 50% in segments",
+              "2 Spearman(eta, bank-held median days)",
+              "3 median share of bank-held time that is hands-on work",
+              "ref Spearman(eta, customer share)",
+              "9 새로 추가된 판정"],
+    "value": ["39/39", 0.346, 0.0061, -0.309, 1.5],
+}))
+
+
+def test_build_payload_renames_checks_and_formats_their_values():
+    checks = build_payload(CHECK_FRAMES)["checks"]
+    assert checks[0]["check"] == "고객 보유 과반 세그먼트 수 (경과시간 기준)"
+    assert checks[0]["value"] == "39/39"
+    assert checks[1]["check"] == "효율(η)과 은행 보유 일수의 순위 상관"
+    assert checks[1]["value"] == "+0.346"
+    assert checks[2]["value"] == "0.61%"
+    assert checks[3]["value"] == "−0.309"
+    assert checks[1]["verdict"].endswith("시사합니다.")
+
+
+def test_build_payload_keeps_an_unmapped_check_visible_without_a_verdict():
+    checks = build_payload(CHECK_FRAMES)["checks"]
+    assert checks[4] == {"check": "9 새로 추가된 판정", "value": "1.5", "verdict": ""}
