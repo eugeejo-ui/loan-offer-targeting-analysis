@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P3·P7·P8, §6 Phase 8(개입 수단 4개의 크기 표) / `docs/01`·`05`·`06`·`07`
+**Spec:** `CLAUDE.md` 5장 P3·P7·P8, 6장 Phase 8(개입 수단 4개의 크기 표) / `docs/01`·`05`·`06`·`07`
 
 ## Global Constraints
 
@@ -188,7 +188,7 @@ git add analysis/19_intervention_check.py outputs/p8_segment_holder.csv outputs/
 
 **Files:**
 - Create: `docs/08_intervention.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 8 절·Phase 9·10 절, §10, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 8 절·Phase 9·10 절, 10장, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/08_intervention.md` 작성** — 모든 수치 옆에 출처
 
@@ -203,7 +203,7 @@ git add analysis/19_intervention_check.py outputs/p8_segment_holder.csv outputs/
 ## 6. Phase 9·10으로 넘기는 것 — 수단별 필요 역량, 데이터 공백
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 8 절(판정별 결과·수단 등급), Phase 9 절(필요 역량·데이터 공백), Phase 10 절(수단별 경로 입력), §10 면접 답변("무엇을 권고하나"), §12
+- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 8 절(판정별 결과·수단 등급), Phase 9 절(필요 역량·데이터 공백), Phase 10 절(수단별 경로 입력), 10장 질의응답 답변("무엇을 권고하나"), 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — Phase 9 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**
@@ -231,7 +231,7 @@ git add docs/08_intervention.md docs/plans/phase-08-intervention.md CLAUDE.md; g
 | 2026-09-11 | 진행계획 작성. 새 분석은 권고의 전제 두 가지(세그먼트별 고객 보유, 현재 처리 순서)로 제한하고 나머지는 Phase 1~7 인용으로 구성. 판정 규칙 고정. 사용자 확인 대기 |
 | 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
 | 2026-09-11 | 수단 매트릭스 확정: η 순 우선순위 조정은 초안에서 "채택 권고 또는 조건부"였다. 판정 2·3은 성립했지만 인력 제약이 신호 수준(영업시간 미보정)이고 순서 변경 후 성사율 유지가 미확인이라, 등급 규칙 ④에 따라 **조건부(1순위)**로 확정 |
-| 2026-09-11 | 실행 완료 — 결론은 [`docs/08_intervention.md`](../08_intervention.md). CLAUDE.md Phase 9(필요 역량·데이터 공백), Phase 10(수단 등급 입력), §10(면접 답변) 갱신 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/08_intervention.md`](../08_intervention.md). CLAUDE.md Phase 9(필요 역량·데이터 공백), Phase 10(수단 등급 입력), 10장(질의응답 답변) 갱신 |
 
 **결과 요약 (판정 규칙별):**
 1. 고객 보유 ≥ 50% 세그먼트 39/39 → 처리 속도 결론 세그먼트 단위 확인

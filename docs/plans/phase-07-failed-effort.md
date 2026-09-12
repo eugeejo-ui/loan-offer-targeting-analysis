@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, numpy, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §6 Phase 7·8, §7 시나리오 3 / Phase 1 §4(자동·수동 취소), Phase 2 §5(결과별 공수), Phase 5(세그먼트 η)
+**Spec:** `CLAUDE.md` 6장 Phase 7·8, 7장 시나리오 3 / Phase 1 4장(자동·수동 취소), Phase 2 5장(결과별 공수), Phase 5(세그먼트 η)
 
 ## 순서 변경 (2026-09-11 사용자 승인)
 
@@ -20,7 +20,7 @@
 - 실패 유형: 거절 = A_Denied / **자동 취소** = A_Cancelled를 시스템 계정(User_1)이 기록 / **수동 취소** = 그 외 A_Cancelled. Phase 1에서 시스템 취소의 99.5%가 마지막 오퍼 발송 후 29~32일에 있었다.
 - 시점 기준: 케이스의 첫 오퍼 발송 시각(`offers.offer_first_sent`의 케이스별 최솟값). 오퍼가 발송되지 않은 케이스의 공수는 전부 "발송 전"이다.
 - 식별 판정은 Phase 4 세그먼트(300건 이상 39개)로 한다. 접수 시점 변수만 쓴다 (P2).
-- 통화 결과·취소 사유는 로그에 없다. 접촉 정책이 회신을 늘리는 효과는 **측정하지 않는다** (§2-2와 같은 원칙).
+- 통화 결과·취소 사유는 로그에 없다. 접촉 정책이 회신을 늘리는 효과는 **측정하지 않는다** (2-2장와 같은 원칙).
 - 스크립트 번호 `17~18`, 산출 파일 접두어 `p7_`. 차트는 만들지 않는다.
 - PowerShell 5.1: `&&` 대신 `;`. 커밋 메시지 끝에 `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
 
@@ -381,7 +381,7 @@ git add analysis/18_failure_segments.py outputs/p7_segment_failures.csv outputs/
 
 **Files:**
 - Create: `docs/07_failed_effort.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 7 절·Phase 8 절, §7 시나리오 3, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 7 절·Phase 8 절, 7장 시나리오 3, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/07_failed_effort.md` 작성** — 모든 수치 옆에 `outputs/p7_*` 출처
 
@@ -396,7 +396,7 @@ git add analysis/18_failure_segments.py outputs/p7_segment_failures.csv outputs/
 ## 6. Phase 8로 넘기는 것 — 개입 수단 4개의 크기 표
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 7 절(판정별 결과), Phase 8 절(수단 4개의 크기 표), §7 시나리오 3, §12
+- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 7 절(판정별 결과), Phase 8 절(수단 4개의 크기 표), 7장 시나리오 3, 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — Phase 8 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**
@@ -415,7 +415,7 @@ git add docs/07_failed_effort.md docs/plans/phase-07-failed-effort.md CLAUDE.md;
 | 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행 |
 | 2026-09-11 | 실행 중 변경 ①: `test_screen_failure_rates_identifiable`이 실패함. 원인 확인 결과 0.3/0.1 = 2.9999999999999996의 부동소수점 비교 문제(코드 결함 아님) → 테스트를 반올림 비교로 수정 |
 | 2026-09-11 | 실행 중 변경 ②: 거절이 "식별 불가"로 나온 원인이 비율 차이가 아니라 집중도 조건이라, 18에 집중도 조건을 뺀 민감도 출력 1줄을 추가함. 판정은 사전 규칙 그대로 유지 |
-| 2026-09-11 | 실행 완료 — 결론은 [`docs/07_failed_effort.md`](../07_failed_effort.md). CLAUDE.md Phase 8 절에 개입 수단 4개의 크기 표, §7 시나리오 3 갱신 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/07_failed_effort.md`](../07_failed_effort.md). CLAUDE.md Phase 8 절에 개입 수단 4개의 크기 표, 7장 시나리오 3 갱신 |
 
 **결과 요약 (판정 규칙별):**
 1. 자동 취소의 발송 후 공수 3.5% < 5% → 공수 레버로는 작음 (발송 전 신청서 완성 공수 6.8%가 더 큼)

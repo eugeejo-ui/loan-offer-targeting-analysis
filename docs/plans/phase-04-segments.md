@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, numpy, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P2, §6 Phase 4 / `docs/03_method.md` §6·§7
+**Spec:** `CLAUDE.md` 5장 P2, 6장 Phase 4 / `docs/03_method.md` 6장·7장
 
 ## Global Constraints
 
@@ -360,7 +360,7 @@ git add analysis/12_segments.py outputs/p4_segments.parquet outputs/p4_segment_t
 
 **Files:**
 - Create: `docs/04_segments.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 4 절·Phase 5·6·7 절, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 4 절·Phase 5·6·7 절, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/04_segments.md` 작성** — 모든 수치 옆에 `outputs/p4_*` 출처
 
@@ -374,7 +374,7 @@ git add analysis/12_segments.py outputs/p4_segments.parquet outputs/p4_segment_t
 ## 6. 다음 Phase로 넘기는 것
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 4 절(판단 지점별 결과), Phase 5(세그먼트 입력), Phase 6(층화 변수 = 세그먼트), Phase 7, §12
+- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 4 절(판단 지점별 결과), Phase 5(세그먼트 입력), Phase 6(층화 변수 = 세그먼트), Phase 7, 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — Phase 5 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**

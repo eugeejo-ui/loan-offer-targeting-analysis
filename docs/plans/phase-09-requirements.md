@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12 (표준 라이브러리 `statistics.NormalDist`), pandas 3.0.5, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §1(축 D), §5 P2·P6·P8, §6 Phase 9 / `docs/08_intervention.md` §3~§6(수단 등급·필요 역량·데이터 공백)
+**Spec:** `CLAUDE.md` 1장(축 D), 5장 P2·P6·P8, 6장 Phase 9 / `docs/08_intervention.md` 3장~6장(수단 등급·필요 역량·데이터 공백)
 
 ## 사용자 결정 (2026-09-11)
 
@@ -16,7 +16,7 @@
 
 ## Global Constraints
 
-- **제품·벤더 이름을 쓰지 않는다** (§6 Phase 9 원칙). 기능은 조건과 수용 기준으로만 쓴다. 검증 단계에서 문서를 벤더명으로 검색해 0건인지 확인한다.
+- **제품·벤더 이름을 쓰지 않는다** (6장 Phase 9 원칙). 기능은 조건과 수용 기준으로만 쓴다. 검증 단계에서 문서를 벤더명으로 검색해 0건인지 확인한다.
 - **근거 없는 요구사항은 쓰지 않는다** (P6). 요구사항마다 근거 Phase와 산출 파일, 수치를 적는다.
 - 접수 시점 규칙에는 **접수 시점 변수만** 쓴다. 결과 누수 속성(CreditScore·Selected·Accepted)은 규칙 입력으로 금지한다 (P2).
 - 우선순위는 Phase 8 등급을 따른다. 1순위 수단과 전 수단 공통 역량 = Must, A/B 검증 대상 수단 = Should, 보류 수단 = Won't(이번 범위 아님).
@@ -193,7 +193,7 @@ git add analysis/20_measurement_design.py outputs/p9_ab_sample_sizes.csv; git co
 
 **Files:**
 - Create: `docs/09_requirements.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 9 절·Phase 10 절, §8 산출물, §11, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 9 절·Phase 10 절, 8장 산출물, 11장, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/09_requirements.md` 작성** — 요구사항마다 ID·조건·수용 기준·근거(Phase·파일·수치)·우선순위
 
@@ -212,7 +212,7 @@ git add analysis/20_measurement_design.py outputs/p9_ab_sample_sizes.csv; git co
 ```
 
 - [ ] **Step 2: 제품 중립 검증** — Grep로 `docs/09_requirements.md`에서 `SAP|Signavio|Celonis|LeanIX|WalkMe|IBM|Pega|Salesforce|Appian|UiPath|Camunda|Oracle|Microsoft|AWS|Azure` 검색 → 0건 (판정 2)
-- [ ] **Step 3: CLAUDE.md 반영** — 진행 현황표, Phase 9 절(판정별 결과, 요구사항 목록 요약), Phase 10 절(입력), §8(계산기 연기), §11(계산기 항목), §12
+- [ ] **Step 3: CLAUDE.md 반영** — 진행 현황표, Phase 9 절(판정별 결과, 요구사항 목록 요약), Phase 10 절(입력), 8장(계산기 연기), 11장(계산기 항목), 12장
 - [ ] **Step 4: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 5: 사용자 보고** — Phase 10 또는 산출물 단계 착수 여부 확인
 - [ ] **Step 6: 커밋**

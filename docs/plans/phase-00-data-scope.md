@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas, pm4py, pyarrow, pytest (Windows PowerShell 5.1)
 
-**Spec:** `C:\loan-offer-targeting-analysis\CLAUDE.md` — §4 데이터, §5 P2·P4, §6 Phase 0
+**Spec:** `C:\loan-offer-targeting-analysis\CLAUDE.md` — 4장 데이터, 5장 P2·P4, 6장 Phase 0
 
 ## 실행 중 변경 (2026-09-11, 결과는 `docs/00_scope.md`)
 
@@ -25,7 +25,7 @@
 - Phase 0 산출 파일은 `outputs/p0_*` 접두어를 쓴다.
 - 문서의 수치는 스크립트 출력에서만 옮긴다.
 - PowerShell 5.1에서는 `&&`를 쓸 수 없다. 명령은 `;`로 잇는다.
-- 커밋 단계는 로컬 git 사용이 승인된 경우에만 수행한다 (CLAUDE.md §11 미결 사항).
+- 커밋 단계는 로컬 git 사용이 승인된 경우에만 수행한다 (CLAUDE.md 11장 미결 사항).
 
 ## 헤더 확인으로 이미 알게 된 사실 (2026-09-11, XES 직접 확인)
 
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 - [ ] **Step 6: 실데이터로 실행** (최초 파싱 수 분 소요)
 
 Run: `.venv\Scripts\python analysis/00_build_cache.py`
-Expected: `events=1,202,267  cases=31,509  activities=26  lifecycle states=7` (sap-btm 확인값). 다르면 멈추고 원인을 CLAUDE.md §12에 기록한다.
+Expected: `events=1,202,267  cases=31,509  activities=26  lifecycle states=7` (sap-btm 확인값). 다르면 멈추고 원인을 CLAUDE.md 12장에 기록한다.
 
 - [ ] **Step 7: (git 승인 시) 커밋**
 
@@ -734,7 +734,7 @@ if __name__ == "__main__":
 
 Run: `.venv\Scripts\python analysis/02_case_outcomes.py`
 판단 기준:
-- **종료 이벤트가 2개 이상인 패턴**(예: `A_Pending>A_Cancelled`)이 있으면 건수를 기록한다. "마지막 종료 이벤트 = 결과" 규칙을 유지할지 판단하고, 근거를 CLAUDE.md §12에 남긴다
+- **종료 이벤트가 2개 이상인 패턴**(예: `A_Pending>A_Cancelled`)이 있으면 건수를 기록한다. "마지막 종료 이벤트 = 결과" 규칙을 유지할지 판단하고, 근거를 CLAUDE.md 12장에 남긴다
 - **컷오프 직전 몇 달의 `p90_days_closed`가 급락하면** 완료율 기준만으로는 절단 편향이 남아 있다는 신호다. 이 경우 컷오프를 한 달 앞당기는 안을 검토하고 사유를 기록한다
 - 제외 비율을 기록한다 (00_scope.md에 필수 기재)
 
@@ -817,7 +817,7 @@ Expected: 전체 통과 (loader 3, profiling 2, offers 4, outcomes 5 = 14 passed
 ```python
 """Phase 0 — reproduce the prior-study figures before building on them.
 
-Targets (CLAUDE.md §3): 8,559 multi-offer vs 22,950 single-offer cases;
+Targets (CLAUDE.md 3장): 8,559 multi-offer vs 22,950 single-offer cases;
 conversion 59.0% vs 53.1% (metafinanz p.24/p.28, Badakhshan et al. p.18).
 Literature counts success as "case reaches A_Pending" on the full log.
 
@@ -886,9 +886,9 @@ if __name__ == "__main__":
 Run: `.venv\Scripts\python analysis/03_replicate_prior.py`
 판단 기준:
 - full 모집단에서 건수가 문헌값(22,950 / 8,559)과 같고 성사율이 ±0.5%p 안이면 **재현 성공**으로 기록한다
-- 다르면 멈추지 않는다. 원인 후보(오퍼 수를 O_Create Offer로 셀 때와 OfferID 고유값으로 셀 때의 차이, A_Pending 도달 vs 마지막 종료 이벤트)를 확인하고 정의 차이로 기록한 뒤 진행한다 (CLAUDE.md §6 Phase 0 판정)
+- 다르면 멈추지 않는다. 원인 후보(오퍼 수를 O_Create Offer로 셀 때와 OfferID 고유값으로 셀 때의 차이, A_Pending 도달 vs 마지막 종료 이벤트)를 확인하고 정의 차이로 기록한 뒤 진행한다 (CLAUDE.md 6장 Phase 0 판정)
 - in_window 모집단의 성사율 차이(복수 − 단일)를 기록한다 → Phase 6의 출발값
-- 두 성공 정의의 차이 건수와 재현 결과를 보고 주 정의 하나를 정한다 → CLAUDE.md §12에 기록하고 Phase 5 p_s에 고정
+- 두 성공 정의의 차이 건수와 재현 결과를 보고 주 정의 하나를 정한다 → CLAUDE.md 12장에 기록하고 Phase 5 p_s에 고정
 
 - [ ] **Step 7: (git 승인 시) 커밋**
 
@@ -902,7 +902,7 @@ git add analysis/offers.py analysis/03_replicate_prior.py tests/test_offers.py o
 
 **Files:**
 - Create: `docs/00_scope.md`
-- Modify: `CLAUDE.md` §4, §6 Phase 0, §11, §12
+- Modify: `CLAUDE.md` 4장, 6장 Phase 0, 11장, 12장
 
 **Interfaces:**
 - Consumes: `outputs/p0_attribute_profile.csv`, `p0_system_resource_share.csv`, `p0_end_patterns.csv`, `p0_monthly_completion.csv`, `p0_cutoff.json`, `p0_replication.csv`, 각 스크립트 콘솔 출력
@@ -939,10 +939,10 @@ git add analysis/offers.py analysis/03_replicate_prior.py tests/test_offers.py o
 ```
 
 - [ ] **Step 2: CLAUDE.md 갱신**
-  - §4: "Phase 0에서 확인할 속성 … 미확인" 블록을 확인된 속성명·결측·0값 요약으로 교체하고, 출처로 `docs/00_scope.md`를 적는다
-  - §6 Phase 0: 상태 ⬜ → ✅, "넘기는 것"에 실제 컷오프 월과 모집단 크기를 적는다
-  - §11: 해소된 항목에 체크한다
-  - §12: 결정 로그에 행을 추가한다 (컷오프 결정, 결과 정의 규칙, 재현 결과, 앞으로의 Phase에 영향을 주는 이상점)
+  - 4장: "Phase 0에서 확인할 속성 … 미확인" 블록을 확인된 속성명·결측·0값 요약으로 교체하고, 출처로 `docs/00_scope.md`를 적는다
+  - 6장 Phase 0: 상태 ⬜ → ✅, "넘기는 것"에 실제 컷오프 월과 모집단 크기를 적는다
+  - 11장: 해소된 항목에 체크한다
+  - 12장: 결정 로그에 행을 추가한다 (컷오프 결정, 결과 정의 규칙, 재현 결과, 앞으로의 Phase에 영향을 주는 이상점)
 
 - [ ] **Step 3: 사용자 보고** — 컷오프·제외율·재현 결과·Phase 1에 넘기는 변화를 요약해 보고하고, Phase 1 착수 전에 방향 확인을 받는다
 

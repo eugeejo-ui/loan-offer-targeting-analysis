@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, numpy, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §3(대화 구분 불일치), §5 P3, §6 Phase 6, §7 시나리오 1 / `docs/05_expected_value.md` §5·§6
+**Spec:** `CLAUDE.md` 3장(대화 구분 불일치), 5장 P3, 6장 Phase 6, 7장 시나리오 1 / `docs/05_expected_value.md` 5장·6장
 
 ## Global Constraints
 
@@ -20,7 +20,7 @@
 - 스크립트 번호 `15~16`, 산출 파일 접두어 `p6_`. 차트는 만들지 않는다.
 - PowerShell 5.1: `&&` 대신 `;`. 커밋 메시지 끝에 `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
 
-## 상담 구분 정의 (§3 보고서 간 불일치 대응)
+## 상담 구분 정의 (3장 보고서 간 불일치 대응)
 
 | 정의 | "나중 상담" 판정 | 근거 |
 |---|---|---|
@@ -347,7 +347,7 @@ from loader import load_analysis_frame
 
 MIN_N = 300
 MIN_GROUP_N = 50
-REFERENCE_COST = 57.6  # EUR/hour — docs/03_method.md §3
+REFERENCE_COST = 57.6  # EUR/hour — docs/03_method.md 3장
 COMPARISONS = [("group_any", "multi"), ("group_d1_later", "multi_same"), ("group_d1_later", "multi_later"),
                ("group_d2_later", "multi_same"), ("group_d2_later", "multi_later")]
 
@@ -420,7 +420,7 @@ git add analysis/16_multi_offer_increment.py outputs/p6_stratified_diff.csv outp
 
 **Files:**
 - Create: `docs/06_multi_offer.md`
-- Modify: `CLAUDE.md` (§3 대화 구분 불일치 해소, §6 진행 현황표·Phase 6 절·Phase 9 절, §7 시나리오 1, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (3장 대화 구분 불일치 해소, 6장 진행 현황표·Phase 6 절·Phase 9 절, 7장 시나리오 1, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/06_multi_offer.md` 작성** — 모든 수치 옆에 `outputs/p6_*` 출처
 
@@ -435,7 +435,7 @@ git add analysis/16_multi_offer_increment.py outputs/p6_stratified_diff.csv outp
 ## 6. 다음 Phase로 넘기는 것 (Phase 9 요구사항 2 — 오퍼 규칙 분기의 근거)
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — §3의 보고서 간 불일치 해소 여부, 진행 현황표, Phase 6 절(판정별 결과), §7 시나리오 1 상태, Phase 9 요구사항 2의 근거, §12
+- [ ] **Step 2: CLAUDE.md 반영** — 3장의 보고서 간 불일치 해소 여부, 진행 현황표, Phase 6 절(판정별 결과), 7장 시나리오 1 상태, Phase 9 요구사항 2의 근거, 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — Phase 7 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**
@@ -452,7 +452,7 @@ git add docs/06_multi_offer.md docs/plans/phase-06-multi-offer.md CLAUDE.md; git
 |---|---|
 | 2026-09-11 | 진행계획 작성. 사전 탐색(복수 오퍼 우위가 전부 나중 상담에서 나오고 같은 상담 복수는 단일보다 성사율이 낮음)을 설계에 반영해 상담 구분 2정의와 증분 분류를 핵심으로 둠. 판정 규칙 고정. 사용자 확인 대기 |
 | 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
-| 2026-09-11 | 실행 완료 — 결론은 [`docs/06_multi_offer.md`](../06_multi_offer.md). CLAUDE.md §3(보고서 불일치 정리), §7(시나리오 1 기각), Phase 9 요구사항 2 근거 갱신 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/06_multi_offer.md`](../06_multi_offer.md). CLAUDE.md 3장(보고서 불일치 정리), 7장(시나리오 1 기각), Phase 9 요구사항 2 근거 갱신 |
 
 **결과 요약 (판정 규칙별):**
 1. 복수 전체 층화 Δ성사율 +6.62%p → 우위 유지

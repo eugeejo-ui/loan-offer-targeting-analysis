@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, numpy, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P1, §6 Phase 5 / `docs/03_method.md` §1·§3·§4 / `docs/04_segments.md` §3·§5
+**Spec:** `CLAUDE.md` 5장 P1, 6장 Phase 5 / `docs/03_method.md` 1장·3장·4장 / `docs/04_segments.md` 3장·5장
 
 ## Global Constraints
 
@@ -16,7 +16,7 @@
 - 주 조합은 R = `r_amount`, E = `effort_hours`다. 민감도 조합은 R 2종 × E 2종의 나머지 3개다 (Phase 2·3).
 - 성사 = `reached_pending`. 결과 누수 속성은 쓰지 않는다.
 - 인건비 c와 마진율 m은 추정하지 않는다. 참조 인건비 57.6유로/시간(Eurostat `lc_lci_lev`, NL, K, 2016)은 **필요 최소 순마진 비중을 읽는 눈금**으로만 쓴다 (P1·P6).
-- c/m 스캔 범위: 로그 축, 주 조합 η의 최솟값 1/10 ~ 최댓값 10배, 41점 (Phase 3 §4).
+- c/m 스캔 범위: 로그 축, 주 조합 η의 최솟값 1/10 ~ 최댓값 10배, 41점 (Phase 3 4장).
 - "배분 비교"는 관측된 세그먼트 값으로 계산한 가상 배분이다. 개입 효과가 아니다 (P3). 문서에서도 그렇게 적는다.
 - 스크립트 번호 `13~14`, 산출 파일 접두어 `p5_`. 차트는 만들지 않는다.
 - PowerShell 5.1: `&&` 대신 `;`. 커밋 메시지 끝에 `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.
@@ -346,7 +346,7 @@ import pandas as pd
 from config import OUT_DIR
 from efficiency import cm_scan, min_margin_share, targeting_curve, volume_at_effort_share
 
-REFERENCE_COST = 57.6  # EUR/hour — Eurostat lc_lci_lev, NL, NACE K, 2016 (docs/03_method.md §3)
+REFERENCE_COST = 57.6  # EUR/hour — Eurostat lc_lci_lev, NL, NACE K, 2016 (docs/03_method.md 3장)
 EFFORT_BUDGETS = [0.25, 0.5, 0.75]
 GRID_POINTS = 41
 
@@ -412,7 +412,7 @@ git add analysis/14_targeting_and_scan.py outputs/p5_targeting_compare.csv outpu
 
 **Files:**
 - Create: `docs/05_expected_value.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 5 절·Phase 6·8·9 절, §7 반전 시나리오, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 5 절·Phase 6·8·9 절, 7장 반전 시나리오, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/05_expected_value.md` 작성** — 모든 수치 옆에 `outputs/p5_*` 출처
 
@@ -424,11 +424,11 @@ git add analysis/14_targeting_and_scan.py outputs/p5_targeting_compare.csv outpu
 ## 3. 같은 공수, 다른 배분 (p5_targeting_compare.csv — 가상 배분임을 명시)
 ## 4. c/m 스캔과 필요 최소 순마진 비중 (p5_cm_scan.csv, p5_margin_share.csv)
 ## 5. R·E 조합에 따른 견고성 (p5_eta_rank_corr.csv)
-## 6. 반전 시나리오 점검 (CLAUDE.md §7의 1·2·3)
+## 6. 반전 시나리오 점검 (CLAUDE.md 7장의 1·2·3)
 ## 7. 다음 Phase로 넘기는 것
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 5 절(판단 지점별 결과), §7 반전 시나리오 상태, Phase 6(출발값), Phase 8·9(시사점), §12
+- [ ] **Step 2: CLAUDE.md 반영** — 진행 현황표, Phase 5 절(판단 지점별 결과), 7장 반전 시나리오 상태, Phase 6(출발값), Phase 8·9(시사점), 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — 핵심 질문에 대한 답, Phase 6 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**
@@ -445,7 +445,7 @@ git add docs/05_expected_value.md docs/plans/phase-05-efficiency.md CLAUDE.md; g
 |---|---|
 | 2026-09-11 | 진행계획 작성. 판정 규칙(ρ 0.9/0.7 경계, 어긋남 10계단, 배분 이득 5%, 순위 견고성 0.9)을 착수 전에 고정. 사용자 확인 대기 |
 | 2026-09-11 | 사용자 승인, 이 대화에서 직접 실행. 계획대로 진행했고 실행 중 코드 변경 없음 |
-| 2026-09-11 | 실행 완료 — 결론은 [`docs/05_expected_value.md`](../05_expected_value.md). CLAUDE.md §7(반전 시나리오)과 §10(면접 결론 한 문장) 갱신 |
+| 2026-09-11 | 실행 완료 — 결론은 [`docs/05_expected_value.md`](../05_expected_value.md). CLAUDE.md 7장(반전 시나리오)과 10장(설명 스크립트의 결론 한 문장) 갱신 |
 
 **결과 요약 (판정 규칙별):**
 1. ρ(성사율, η) = 0.669, 90% 구간 0.609~0.691 → "다르다" (4조합 0.596~0.685)

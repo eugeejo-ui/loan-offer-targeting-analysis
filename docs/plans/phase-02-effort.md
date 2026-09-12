@@ -8,12 +8,12 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P5, §6 Phase 2 / Phase 1 결론 `docs/01_process_baseline.md` §7
+**Spec:** `CLAUDE.md` 5장 P5, 6장 Phase 2 / Phase 1 결론 `docs/01_process_baseline.md` 7장
 
 ## Global Constraints
 
 - 모집단은 `loader.load_population()`으로만 불러온다 (29,131건).
-- 공수 = W_ 항목의 작업 구간 시간. **대기 시간(suspend 상태, 고객 보유 구간)은 공수에 넣지 않는다** (Phase 1 §7).
+- 공수 = W_ 항목의 작업 구간 시간. **대기 시간(suspend 상태, 고객 보유 구간)은 공수에 넣지 않는다** (Phase 1 7장).
 - 이벤트 수는 보조 지표다. 시스템 계정(User_1)의 이벤트는 세지 않는다.
 - ate_abort는 사유를 판정하지 않는다. 작업 구간은 abort와 무관하게 측정된다 (사전 탐색: abort는 모두 suspend 상태에서 발생).
 - 스크립트 번호 `07~08`, 산출 파일 접두어 `p2_`. 차트는 만들지 않는다.
@@ -334,7 +334,7 @@ git add analysis/08_case_effort.py outputs/p2_case_effort.parquet outputs/p2_eff
 
 **Files:**
 - Create: `docs/02_effort.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 2 절·영향받는 Phase 절, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 2 절·영향받는 Phase 절, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/02_effort.md` 작성** — 모든 수치 옆에 `outputs/p2_*` 출처
 
@@ -359,7 +359,7 @@ git add analysis/08_case_effort.py outputs/p2_case_effort.parquet outputs/p2_eff
 ## 6. 다음 Phase로 넘기는 것
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — §6 진행 현황표 Phase 2 행(✅, 한 줄 결론), Phase 2 절(판단 지점별 결과), Phase 5(E 정의 확정), Phase 7(실패 케이스 공수 출발값), §12 결정 로그
+- [ ] **Step 2: CLAUDE.md 반영** — 6장 진행 현황표 Phase 2 행(✅, 한 줄 결론), Phase 2 절(판단 지점별 결과), Phase 5(E 정의 확정), Phase 7(실패 케이스 공수 출발값), 12장 결정 로그
 
 - [ ] **Step 3: 이 파일의 "진행 기록"에 실행 중 변경·결과 요약·커밋 목록 추가**
 

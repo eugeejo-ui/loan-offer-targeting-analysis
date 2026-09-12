@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, numpy, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P1·P2·P6, §6 Phase 3 / Phase 2 결론 `docs/02_effort.md` §6
+**Spec:** `CLAUDE.md` 5장 P1·P2·P6, 6장 Phase 3 / Phase 2 결론 `docs/02_effort.md` 6장
 
 ## Global Constraints
 
@@ -414,7 +414,7 @@ git add analysis/10_eta_stability.py outputs/p3_eta_provisional.csv outputs/p3_e
 
 **Files:**
 - Create: `docs/03_method.md`
-- Modify: `CLAUDE.md` (§5 P1, §6 진행 현황표·Phase 3 절·Phase 5 절, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (5장 P1, 6장 진행 현황표·Phase 3 절·Phase 5 절, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/03_method.md` 작성** — 모든 수치 옆에 `outputs/p3_*` 또는 외부 출처
 
@@ -430,7 +430,7 @@ git add analysis/10_eta_stability.py outputs/p3_eta_provisional.csv outputs/p3_e
 ## 7. 다음 Phase로 넘기는 것
 ```
 
-- [ ] **Step 2: CLAUDE.md 반영** — P1에 확정된 R·E 정의, Phase 3 절(판단 지점별 결과), Phase 5 절(R 입력·스캔 범위), §6 진행 현황표, §12
+- [ ] **Step 2: CLAUDE.md 반영** — P1에 확정된 R·E 정의, Phase 3 절(판단 지점별 결과), Phase 5 절(R 입력·스캔 범위), 6장 진행 현황표, 12장
 - [ ] **Step 3: 이 파일의 진행 기록에 실행 중 변경·결과 요약·커밋 추가**
 - [ ] **Step 4: 사용자 보고** — Phase 4 진행계획 착수 여부 확인
 - [ ] **Step 5: 커밋**

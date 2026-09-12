@@ -8,13 +8,13 @@
 
 **Tech Stack:** Python 3.12, pandas 3.0.5, pytest (Windows PowerShell 5.1)
 
-**Spec:** `CLAUDE.md` §5 P2·P7, §6 Phase 1, §2-2 ate_abort 주의 / Phase 0 결론 `docs/00_scope.md`
+**Spec:** `CLAUDE.md` 5장 P2·P7, 6장 Phase 1, 2-2장 ate_abort 주의 / Phase 0 결론 `docs/00_scope.md`
 
 ## Global Constraints
 
 - 모집단은 `outputs/p0_case_outcomes.parquet`의 `in_population == True` (29,131건)만 쓴다. 스크립트는 `loader.load_population()`으로만 불러온다.
 - 결과 판정은 A_ 종료 이벤트로만 한다. CreditScore·Selected·Accepted는 쓰지 않는다 (P2 결과 누수).
-- ate_abort는 **사유를 판정하지 않는다.** 인접한 케이스 전이의 분포만 보고, 결론은 "이 순서로 해석 가능한 범위"로 제한한다 (§2-2).
+- ate_abort는 **사유를 판정하지 않는다.** 인접한 케이스 전이의 분포만 보고, 결론은 "이 순서로 해석 가능한 범위"로 제한한다 (2-2장).
 - 소요시간을 성사의 원인 변수로 해석하지 않는다 (P7).
 - 스크립트 번호 `04~06`, 산출 파일 접두어 `p1_`.
 - 차트는 만들지 않는다. 산출물 단계에서 dataviz 스킬로 일괄 제작한다 (표현 일관성).
@@ -587,7 +587,7 @@ git add analysis/process.py analysis/06_ate_abort_context.py tests/test_process.
 
 **Files:**
 - Create: `docs/01_process_baseline.md`
-- Modify: `CLAUDE.md` (§6 진행 현황표·Phase 1 절·영향받는 Phase 절, §12), 이 파일의 진행 기록
+- Modify: `CLAUDE.md` (6장 진행 현황표·Phase 1 절·영향받는 Phase 절, 12장), 이 파일의 진행 기록
 
 - [ ] **Step 1: `docs/01_process_baseline.md` 작성** — 모든 수치 옆에 `outputs/p1_*` 출처
 
@@ -616,10 +616,10 @@ git add analysis/process.py analysis/06_ate_abort_context.py tests/test_process.
 ```
 
 - [ ] **Step 2: CLAUDE.md 반영**
-  - §6 진행 현황표 Phase 1 행: 상태 ✅, 한 줄 결론
+  - 6장 진행 현황표 Phase 1 행: 상태 ✅, 한 줄 결론
   - Phase 1 절: 상태, 판단 지점별 결과
-  - 판단 결과가 바꾸는 절: Phase 3 제외 표(30일 규칙), Phase 7 레버, Phase 8 예비 결론, P2(접수 채널 변수 추가 여부), §2-2(ate_abort 해석 범위)
-  - §12 결정 로그
+  - 판단 결과가 바꾸는 절: Phase 3 제외 표(30일 규칙), Phase 7 레버, Phase 8 예비 결론, P2(접수 채널 변수 추가 여부), 2-2장(ate_abort 해석 범위)
+  - 12장 결정 로그
 
 - [ ] **Step 3: 이 파일의 "진행 기록"에 실행 중 변경과 결과 요약, 커밋 목록 추가**
 
