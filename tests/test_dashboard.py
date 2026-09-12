@@ -38,8 +38,8 @@ def test_build_payload_sorts_segments_by_efficiency_and_labels_them():
     payload = build_payload(FRAMES)
     segments = payload["segments"]
     assert [s["eta"] for s in segments] == sorted((s["eta"] for s in segments), reverse=True)
-    assert segments[0]["label"] == "25,000 초과 · 한도 증액"
-    assert segments[1]["label"] == "금액 미기재 · 신규·A_Submitted 없음 · 용도 불명"
+    assert segments[0]["label"] == "초고액 · 한도 증액 · 용도 전체"
+    assert segments[1]["label"] == "금액 미기재 · 신규(표식 없음) · 용도 미기재"
 
 
 def test_build_payload_carries_the_allocation_rows_and_reference_cost():

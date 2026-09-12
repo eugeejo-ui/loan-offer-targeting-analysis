@@ -71,7 +71,8 @@
   var cards = document.getElementById("overview-cards");
   cards.appendChild(card("분석 모집단", fmt.int(pop.cases) + "<small>건</small>", "접수 2016-01~11, 결과 확정"));
   cards.appendChild(card("성사율", fmt.pct(pop.success_rate), "성사 " + fmt.int(pop.success_cases) + "건"));
-  cards.appendChild(card("총 공수", fmt.int(pop.effort_hours) + "<small>시간</small>", "활동별 p99 캡 작업시간"));
+  cards.appendChild(card("총 공수", fmt.int(pop.effort_hours) + "<small>시간</small>",
+                         "직원이 실제로 작업한 시간의 합 (대기 시간 제외)"));
   cards.appendChild(card("세그먼트", data.segment_count + "<small>개</small>", "접수 시점 변수 3축 교차"));
 
   document.getElementById("overview-verdict").innerHTML =
@@ -126,7 +127,11 @@
               { text: row.months.toFixed(1) + "개월", cls: row.feasible ? "pos" : "neg" }];
     }));
 
-  document.getElementById("page-note").textContent =
+  document.getElementById("page-note").innerHTML =
+    "세그먼트 이름은 금액 등급 · 접수 경로 · 대출 용도 순으로 표기합니다. 금액 등급은 소액 6,500유로 이하, " +
+    "중소액 10,000유로 이하, 중액 15,500유로 이하, 고액 25,000유로 이하, 초고액 25,000유로 초과입니다. " +
+    "표식은 신규 신청에만 기록되는 시스템 값 A_Submitted이며, 업무상 의미는 확인되지 않았습니다. " +
+    "공수는 직원이 실제로 작업한 시간이며 대기 시간은 제외합니다.<br><br>" +
     "본 화면의 수치는 outputs/의 산출물에서 그대로 인용했습니다. 배분 비교는 관측된 세그먼트 평균으로 산출한 " +
     "가상 배분이며, 개입 효과가 아님을 명시합니다. 참조 인건비 " + data.reference_cost + "유로/시간 — 출처: " +
     data.reference_cost_source;

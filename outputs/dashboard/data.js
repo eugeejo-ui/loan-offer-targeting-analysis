@@ -9,7 +9,7 @@ window.DASHBOARD = {
  "segments": [
   {
    "segment": "(25000.0, 450000.0] | 한도 증액",
-   "label": "25,000 초과 · 한도 증액",
+   "label": "초고액 · 한도 증액 · 용도 전체",
    "n": 762,
    "p": 0.748,
    "r_mean": 39050.3509,
@@ -22,7 +22,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 없음 | Home improvement",
-   "label": "25,000 초과 · 신규·A_Submitted 없음 · Home improvement",
+   "label": "초고액 · 신규(표식 없음) · 주택 개량",
    "n": 334,
    "p": 0.6228,
    "r_mean": 39620.1923,
@@ -35,7 +35,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "금액 미기재 | 한도 증액 | 기타",
-   "label": "금액 미기재 · 한도 증액 · 기타",
+   "label": "금액 미기재 · 한도 증액 · 소수 용도 묶음",
    "n": 325,
    "p": 0.7631,
    "r_mean": 23671.1694,
@@ -48,7 +48,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 없음 | Existing loan takeover",
-   "label": "25,000 초과 · 신규·A_Submitted 없음 · Existing loan takeover",
+   "label": "초고액 · 신규(표식 없음) · 대출 대환",
    "n": 382,
    "p": 0.6152,
    "r_mean": 38988.0851,
@@ -61,7 +61,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "금액 미기재 | 한도 증액 | 용도 불명",
-   "label": "금액 미기재 · 한도 증액 · 용도 불명",
+   "label": "금액 미기재 · 한도 증액 · 용도 미기재",
    "n": 410,
    "p": 0.739,
    "r_mean": 23954.4554,
@@ -74,7 +74,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 한도 증액",
-   "label": "15,500~25,000 · 한도 증액",
+   "label": "고액 · 한도 증액 · 용도 전체",
    "n": 746,
    "p": 0.7359,
    "r_mean": 21342.4044,
@@ -87,7 +87,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 없음 | 기타",
-   "label": "25,000 초과 · 신규·A_Submitted 없음 · 기타",
+   "label": "초고액 · 신규(표식 없음) · 소수 용도 묶음",
    "n": 507,
    "p": 0.6075,
    "r_mean": 37677.6136,
@@ -100,7 +100,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "초고액 · 신규(표식 있음) · 대출 대환",
    "n": 1003,
    "p": 0.5533,
    "r_mean": 40000.6306,
@@ -113,7 +113,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "초고액 · 신규(표식 있음) · 용도 미기재",
    "n": 543,
    "p": 0.442,
    "r_mean": 39184.375,
@@ -126,7 +126,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "초고액 · 신규(표식 있음) · 주택 개량",
    "n": 755,
    "p": 0.4728,
    "r_mean": 37462.605,
@@ -139,7 +139,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Car",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Car",
+   "label": "초고액 · 신규(표식 있음) · 자동차 구입",
    "n": 336,
    "p": 0.497,
    "r_mean": 32334.4311,
@@ -152,7 +152,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "고액 · 신규(표식 있음) · 주택 개량",
    "n": 937,
    "p": 0.555,
    "r_mean": 21760.0962,
@@ -165,7 +165,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 한도 증액",
-   "label": "10,000~15,500 · 한도 증액",
+   "label": "중액 · 한도 증액 · 용도 전체",
    "n": 494,
    "p": 0.7308,
    "r_mean": 14081.9945,
@@ -178,7 +178,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 없음 | 기타",
-   "label": "15,500~25,000 · 신규·A_Submitted 없음 · 기타",
+   "label": "고액 · 신규(표식 없음) · 소수 용도 묶음",
    "n": 848,
    "p": 0.6486,
    "r_mean": 21221.6364,
@@ -191,7 +191,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "금액 미기재 | 신규·A_Submitted 없음 | 기타",
-   "label": "금액 미기재 · 신규·A_Submitted 없음 · 기타",
+   "label": "금액 미기재 · 신규(표식 없음) · 소수 용도 묶음",
    "n": 545,
    "p": 0.6569,
    "r_mean": 20598.1844,
@@ -204,7 +204,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 없음 | Existing loan takeover",
-   "label": "15,500~25,000 · 신규·A_Submitted 없음 · Existing loan takeover",
+   "label": "고액 · 신규(표식 없음) · 대출 대환",
    "n": 308,
    "p": 0.6396,
    "r_mean": 21086.802,
@@ -217,7 +217,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "금액 미기재 | 신규·A_Submitted 없음 | 용도 불명",
-   "label": "금액 미기재 · 신규·A_Submitted 없음 · 용도 불명",
+   "label": "금액 미기재 · 신규(표식 없음) · 용도 미기재",
    "n": 1664,
    "p": 0.6052,
    "r_mean": 20938.4111,
@@ -230,7 +230,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | Car",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · Car",
+   "label": "고액 · 신규(표식 있음) · 자동차 구입",
    "n": 1002,
    "p": 0.5259,
    "r_mean": 19903.0361,
@@ -243,7 +243,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "고액 · 신규(표식 있음) · 용도 미기재",
    "n": 477,
    "p": 0.4969,
    "r_mean": 21776.3713,
@@ -256,7 +256,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "고액 · 신규(표식 있음) · 대출 대환",
    "n": 922,
    "p": 0.5412,
    "r_mean": 21099.3988,
@@ -269,7 +269,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "10,000~15,500 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "중액 · 신규(표식 있음) · 주택 개량",
    "n": 938,
    "p": 0.6119,
    "r_mean": 14702.5261,
@@ -282,7 +282,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | 기타",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · 기타",
+   "label": "고액 · 신규(표식 있음) · 소수 용도 묶음",
    "n": 314,
    "p": 0.5446,
    "r_mean": 20714.3275,
@@ -295,7 +295,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 있음 | Car",
-   "label": "10,000~15,500 · 신규·A_Submitted 있음 · Car",
+   "label": "중액 · 신규(표식 있음) · 자동차 구입",
    "n": 1458,
    "p": 0.5137,
    "r_mean": 14179.773,
@@ -308,7 +308,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 없음",
-   "label": "10,000~15,500 · 신규·A_Submitted 없음",
+   "label": "중액 · 신규(표식 없음) · 용도 전체",
    "n": 960,
    "p": 0.6396,
    "r_mean": 14485.114,
@@ -321,7 +321,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 한도 증액",
-   "label": "6,500~10,000 · 한도 증액",
+   "label": "중소액 · 한도 증액 · 용도 전체",
    "n": 369,
    "p": 0.6938,
    "r_mean": 9170.3125,
@@ -334,7 +334,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "10,000~15,500 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "중액 · 신규(표식 있음) · 대출 대환",
    "n": 635,
    "p": 0.5764,
    "r_mean": 14572.541,
@@ -347,7 +347,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "10,000~15,500 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "중액 · 신규(표식 있음) · 용도 미기재",
    "n": 414,
    "p": 0.5048,
    "r_mean": 13964.1148,
@@ -360,7 +360,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "6,500~10,000 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "중소액 · 신규(표식 있음) · 주택 개량",
    "n": 1015,
    "p": 0.5704,
    "r_mean": 9820.38,
@@ -373,7 +373,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 없음 | Car",
-   "label": "6,500~10,000 · 신규·A_Submitted 없음 · Car",
+   "label": "중소액 · 신규(표식 없음) · 자동차 구입",
    "n": 314,
    "p": 0.5191,
    "r_mean": 9837.4233,
@@ -386,7 +386,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 없음 | 기타",
-   "label": "6,500~10,000 · 신규·A_Submitted 없음 · 기타",
+   "label": "중소액 · 신규(표식 없음) · 소수 용도 묶음",
    "n": 579,
    "p": 0.5976,
    "r_mean": 9514.0173,
@@ -399,7 +399,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 있음 | Car",
-   "label": "6,500~10,000 · 신규·A_Submitted 있음 · Car",
+   "label": "중소액 · 신규(표식 있음) · 자동차 구입",
    "n": 1667,
    "p": 0.4721,
    "r_mean": 9423.4435,
@@ -412,7 +412,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "6,500~10,000 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "중소액 · 신규(표식 있음) · 대출 대환",
    "n": 530,
    "p": 0.4528,
    "r_mean": 9529.6875,
@@ -425,7 +425,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "6,500~10,000 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "중소액 · 신규(표식 있음) · 용도 미기재",
    "n": 478,
    "p": 0.4268,
    "r_mean": 9585.0904,
@@ -438,7 +438,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "6,500 이하 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "소액 · 신규(표식 있음) · 주택 개량",
    "n": 1034,
    "p": 0.4932,
    "r_mean": 6353.0392,
@@ -451,7 +451,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 없음",
-   "label": "6,500 이하 · 신규·A_Submitted 없음",
+   "label": "소액 · 신규(표식 없음) · 용도 전체",
    "n": 686,
    "p": 0.5204,
    "r_mean": 6135.5322,
@@ -464,7 +464,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 있음 | 기타",
-   "label": "6,500 이하 · 신규·A_Submitted 있음 · 기타",
+   "label": "소액 · 신규(표식 있음) · 소수 용도 묶음",
    "n": 368,
    "p": 0.4103,
    "r_mean": 6523.5563,
@@ -477,7 +477,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 있음 | Car",
-   "label": "6,500 이하 · 신규·A_Submitted 있음 · Car",
+   "label": "소액 · 신규(표식 있음) · 자동차 구입",
    "n": 1908,
    "p": 0.3973,
    "r_mean": 6096.2216,
@@ -490,7 +490,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "6,500 이하 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "소액 · 신규(표식 있음) · 대출 대환",
    "n": 494,
    "p": 0.4211,
    "r_mean": 6325.0,
@@ -503,7 +503,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "6,500 이하 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "소액 · 신규(표식 있음) · 용도 미기재",
    "n": 782,
    "p": 0.3529,
    "r_mean": 6766.8478,
@@ -660,7 +660,7 @@ window.DASHBOARD = {
  "mismatch": [
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Existing loan takeover",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Existing loan takeover",
+   "label": "초고액 · 신규(표식 있음) · 대출 대환",
    "n": 1003,
    "p": 0.5533,
    "r_mean": 40000.6306,
@@ -672,7 +672,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "초고액 · 신규(표식 있음) · 용도 미기재",
    "n": 543,
    "p": 0.442,
    "r_mean": 39184.375,
@@ -684,7 +684,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "초고액 · 신규(표식 있음) · 주택 개량",
    "n": 755,
    "p": 0.4728,
    "r_mean": 37462.605,
@@ -696,7 +696,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(25000.0, 450000.0] | 신규·A_Submitted 있음 | Car",
-   "label": "25,000 초과 · 신규·A_Submitted 있음 · Car",
+   "label": "초고액 · 신규(표식 있음) · 자동차 구입",
    "n": 336,
    "p": 0.497,
    "r_mean": 32334.4311,
@@ -708,7 +708,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(15500.0, 25000.0] | 신규·A_Submitted 있음 | 용도 불명",
-   "label": "15,500~25,000 · 신규·A_Submitted 있음 · 용도 불명",
+   "label": "고액 · 신규(표식 있음) · 용도 미기재",
    "n": 477,
    "p": 0.4969,
    "r_mean": 21776.3713,
@@ -720,7 +720,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(10000.0, 15500.0] | 신규·A_Submitted 없음",
-   "label": "10,000~15,500 · 신규·A_Submitted 없음",
+   "label": "중액 · 신규(표식 없음) · 용도 전체",
    "n": 960,
    "p": 0.6396,
    "r_mean": 14485.114,
@@ -732,7 +732,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 한도 증액",
-   "label": "6,500~10,000 · 한도 증액",
+   "label": "중소액 · 한도 증액 · 용도 전체",
    "n": 369,
    "p": 0.6938,
    "r_mean": 9170.3125,
@@ -744,7 +744,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 있음 | Home improvement",
-   "label": "6,500~10,000 · 신규·A_Submitted 있음 · Home improvement",
+   "label": "중소액 · 신규(표식 있음) · 주택 개량",
    "n": 1015,
    "p": 0.5704,
    "r_mean": 9820.38,
@@ -756,7 +756,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(6500.0, 10000.0] | 신규·A_Submitted 없음 | 기타",
-   "label": "6,500~10,000 · 신규·A_Submitted 없음 · 기타",
+   "label": "중소액 · 신규(표식 없음) · 소수 용도 묶음",
    "n": 579,
    "p": 0.5976,
    "r_mean": 9514.0173,
@@ -768,7 +768,7 @@ window.DASHBOARD = {
   },
   {
    "segment": "(599.999, 6500.0] | 신규·A_Submitted 없음",
-   "label": "6,500 이하 · 신규·A_Submitted 없음",
+   "label": "소액 · 신규(표식 없음) · 용도 전체",
    "n": 686,
    "p": 0.5204,
    "r_mean": 6135.5322,

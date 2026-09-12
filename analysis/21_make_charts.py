@@ -11,8 +11,8 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter, MultipleLocator, PercentFormatter
 
-from charts import (BASE, CHANNELS, GRAY, INK, INK2, MUTED, SERIES, SURFACE, channel_of, footnote, headline,
-                    pretty_segment, save, setup)
+from charts import (BASE, CHANNEL_DISPLAY, CHANNELS, GRAY, INK, INK2, MUTED, SERIES, SURFACE, channel_of,
+                    footnote, headline, pretty_segment, save, setup)
 from config import OUT_DIR
 from efficiency import targeting_curve
 from loader import load_population
@@ -26,7 +26,7 @@ def _channel_scatter(ax, table: pd.DataFrame, x: str, y: str) -> None:
     for color, name in zip(SERIES, CHANNELS):
         part = table[channel == name]
         ax.scatter(part[x], part[y], s=48, color=color, edgecolor=SURFACE, linewidth=1.5,
-                   label=name, zorder=3)
+                   label=CHANNEL_DISPLAY[name], zorder=3)
 
 
 def _two_line(segment: str) -> str:
