@@ -75,9 +75,9 @@
   cards.appendChild(card("세그먼트", data.segment_count + "<small>개</small>", "접수 시점 변수 3축 교차"));
 
   document.getElementById("overview-verdict").innerHTML =
-    "성사율 순위와 효율 순위의 상관은 <b>" + data.alignment.rho.toFixed(3) + "</b>이며 90% 구간 " +
+    "성사율 순위와 효율 순위의 상관은 <b>" + data.alignment.rho.toFixed(3) + "</b>이며, 90% 구간 " +
     data.alignment.ci_lo.toFixed(3) + "~" + data.alignment.ci_hi.toFixed(3) +
-    "가 모두 판정 경계 0.7 아래에 있습니다. 성사율이 높은 신청과 이익이 되는 신청은 같지 않습니다.";
+    "는 모두 판정 경계 0.7 미만입니다. 성사율이 높은 신청과 이익이 되는 신청은 일치하지 않습니다.";
 
   var chips = document.getElementById("core-chips");
   [["ρ(성사율, η)", data.alignment.rho.toFixed(3)],
@@ -127,8 +127,8 @@
     }));
 
   document.getElementById("page-note").textContent =
-    "수치는 outputs/의 산출물에서 그대로 옮겼습니다. 배분 비교는 관측된 세그먼트 평균으로 계산한 가상 배분이어서 " +
-    "개입으로 얻은 효과를 잰 값이 아닙니다. 참조 인건비 " + data.reference_cost + "유로/시간 — 출처: " +
+    "본 화면의 수치는 outputs/의 산출물에서 그대로 인용했습니다. 배분 비교는 관측된 세그먼트 평균으로 산출한 " +
+    "가상 배분이며, 개입 효과가 아님을 명시합니다. 참조 인건비 " + data.reference_cost + "유로/시간 — 출처: " +
     data.reference_cost_source;
 
   /* ---------- 계산 (analysis/calculator.py와 같은 정의) ---------- */
@@ -207,12 +207,12 @@
 
     var byEta = volumeAt(curves.eta, budget), byRate = volumeAt(curves.p, budget);
     document.getElementById("breakeven").innerHTML =
-      "순마진 비중이 <b>" + fmt.pct(totals.firstPositive, 2) + "</b>를 넘으면 첫 세그먼트가, <b>" +
-      fmt.pct(totals.allPositive, 2) + "</b>를 넘으면 " + priced.length + "개 모두 흑자가 됩니다. 두 값의 배율 " +
-      (totals.allPositive / totals.firstPositive).toFixed(1) + "배는 시간당 비용을 바꿔도 변하지 않습니다." +
+      "순마진 비중이 <b>" + fmt.pct(totals.firstPositive, 2) + "</b>를 초과하면 첫 세그먼트가, <b>" +
+      fmt.pct(totals.allPositive, 2) + "</b>를 초과하면 " + priced.length + "개 전부가 흑자로 전환됩니다. 두 값의 배율 " +
+      (totals.allPositive / totals.firstPositive).toFixed(1) + "배는 시간당 비용과 무관하게 유지됩니다." +
       "<br><br>공수 " + (budget * 100).toFixed(0) + "%에서 효율 순서는 <b>" + fmt.million(byEta) +
       "백만 유로</b>, 성사율 순서는 " + fmt.million(byRate) + "백만 유로로 " +
-      fmt.pct(byEta / byRate - 1) + " 차이가 납니다.";
+      fmt.pct(byEta / byRate - 1) + "의 차이가 발생합니다.";
 
     table(document.getElementById("calc-table"),
       ["세그먼트", "신청 수", "성사율", "효율 η", "필요 순마진", "신청당 기대값", "합계"],

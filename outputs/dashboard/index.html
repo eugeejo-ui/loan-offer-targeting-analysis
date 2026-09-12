@@ -34,33 +34,33 @@
     <section class="section" id="overview">
       <div class="section-head">
         <h2>개요</h2>
-        <p>네덜란드 금융기관의 대출 신청 처리 로그에서는 접수 시점 정보만으로도 세그먼트별 공수 대비 가치가 달라집니다. 이 화면의 수치는 그 가치를 세그먼트마다 계산한 결과입니다.</p>
+        <p>네덜란드 금융기관의 대출 신청 처리 로그를 분석한 결과, 접수 시점 정보만으로도 세그먼트별 공수 대비 가치에 차이가 확인됩니다. 본 화면의 수치는 해당 가치를 세그먼트 단위로 산출한 결과입니다.</p>
       </div>
       <div class="grid cols-4" id="overview-cards"></div>
-      <div class="grid cols-2" style="margin-top:16px">
+      <div class="grid split" style="margin-top:16px">
         <div class="card">
           <h3>한 줄 결론</h3>
           <p id="overview-verdict" style="margin:0;font-size:15px;color:var(--ink)"></p>
-          <p class="note">성사율은 대출 규모와 약하게만 같이 움직이기 때문에 성사율만 보면 규모의 차이를 놓칩니다.</p>
+          <p class="note">성사율은 대출 규모와의 연관이 약하므로, 성사율만으로 판단할 경우 규모의 차이를 반영하지 못합니다.</p>
         </div>
-        <div class="card">
+        <div class="card figure">
           <h3>30일 자동 취소 규칙</h3>
-          <div class="figure"><img src="../charts/p1_cancel_gap.png" alt="취소는 마지막 오퍼 발송 30일 뒤에 집중된다"></div>
+          <img src="../charts/p1_cancel_gap.png" alt="취소는 마지막 오퍼 발송 30일 뒤에 집중된다">
         </div>
       </div>
     </section>
 
     <section class="section" id="core">
       <div class="section-head">
-        <h2>핵심 결론 — 성사율과 효율의 어긋남</h2>
-        <p>성사율로 매긴 세그먼트 순위와 효율(η)로 매긴 순위는 서로 어긋납니다. 대형 신규 신청과 소액·중액 신청이 반대 방향으로 벌어져 있습니다.</p>
+        <h2>핵심 결론 — 성사율과 효율의 불일치</h2>
+        <p>성사율 기준 세그먼트 순위와 효율(η) 기준 순위는 일치하지 않습니다. 대형 신규 신청과 소액·중액 신청이 서로 반대 방향에 위치합니다.</p>
       </div>
       <div class="chips" id="core-chips"></div>
       <div class="grid split">
         <div class="card">
-          <h3>순위 어긋남 상위 세그먼트</h3>
+          <h3>순위 불일치 상위 세그먼트</h3>
           <div id="core-mismatch"></div>
-          <p class="note">위는 성사율 순위가 효율 순위보다 낮은 쪽(대형 신규), 아래는 그 반대(소액·중액)입니다.</p>
+          <p class="note">상단은 성사율 순위가 효율 순위보다 낮은 구간(대형 신규), 하단은 그 반대 구간(소액·중액)에 해당합니다.</p>
         </div>
         <div class="card figure">
           <h3>성사율 × 효율</h3>
@@ -72,13 +72,13 @@
     <section class="section" id="allocation">
       <div class="section-head">
         <h2>같은 공수, 다른 배분</h2>
-        <p>공수 예산을 성사율 순서로 쓸 때와 효율 순서로 쓸 때 확보되는 기대 대출 규모가 갈립니다. 예산 구간마다 차이의 크기가 다릅니다.</p>
+        <p>공수 예산을 성사율 순서로 배분할 때와 효율 순서로 배분할 때 확보되는 기대 대출 규모에 차이가 발생합니다. 차이의 크기는 예산 구간별로 상이합니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
           <h3>예산별 비교</h3>
           <div class="scroll-x"><table id="allocation-table"></table></div>
-          <p class="note">관측된 세그먼트 평균으로 계산한 가상 배분입니다. 개입 효과는 아닙니다.</p>
+          <p class="note">관측된 세그먼트 평균으로 산출한 가상 배분이며, 개입 효과가 아님을 명시합니다.</p>
         </div>
         <div class="card figure">
           <h3>배분 곡선</h3>
@@ -90,13 +90,13 @@
     <section class="section" id="multioffer">
       <div class="section-head">
         <h2>복수 오퍼</h2>
-        <p>복수 오퍼의 성사율 우위는 나중 상담에서 나오며 그 대가로 공수가 더 듭니다.</p>
+        <p>복수 오퍼의 성사율 우위는 나중 상담에서만 발생하며, 그에 따라 공수가 추가로 투입됩니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
           <h3>그룹별 성사율과 공수</h3>
           <div id="multioffer-bars"></div>
-          <p class="note">나중 상담은 고객이 남아 있어야 생기기 때문에 이 우위는 상한입니다.</p>
+          <p class="note">나중 상담은 고객이 이탈하지 않은 경우에만 성립하므로, 해당 우위는 상한값으로 해석합니다.</p>
         </div>
         <div class="card figure">
           <h3>층화 후 비교</h3>
@@ -108,13 +108,13 @@
     <section class="section" id="failures">
       <div class="section-head">
         <h2>실패 신청의 공수</h2>
-        <p>실패한 신청에도 공수가 들어가며 그 공수는 실패 유형과 첫 오퍼 발송 전후로 나뉩니다.</p>
+        <p>실패한 신청에도 공수가 투입되며, 해당 공수는 실패 유형과 첫 오퍼 발송 전후로 구분됩니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
           <h3>유형별 공수 (전체 대비)</h3>
           <div id="failure-bars"></div>
-          <p class="note">접촉 정책은 자동 취소의 발송 후 공수만 다룰 수 있습니다.</p>
+          <p class="note">접촉 정책의 적용 범위는 자동 취소의 발송 후 공수에 한정됩니다.</p>
         </div>
         <div class="card figure">
           <h3>발송 전후 분해</h3>
@@ -126,13 +126,13 @@
     <section class="section" id="intervention">
       <div class="section-head">
         <h2>개입 여지</h2>
-        <p>병목은 은행 처리보다 고객 응답 대기 쪽에 있습니다. 지금의 처리 순서가 효율을 반영하는지가 개입 여지를 가릅니다.</p>
+        <p>병목은 은행 처리 구간이 아니라 고객 응답 대기 구간에 존재합니다. 현재 처리 순서의 효율 반영 여부가 개입 여지를 결정합니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
           <h3>판정</h3>
           <div class="scroll-x"><table id="checks-table"></table></div>
-          <p class="note">영업시간을 보정하지 않은 값입니다. 다만 대기가 대부분이라는 방향은 보정해도 바뀌지 않습니다.</p>
+          <p class="note">영업시간을 보정하지 않은 값입니다. 다만 대기가 대부분이라는 결론은 보정 이후에도 유지됩니다.</p>
         </div>
         <div class="card figure">
           <h3>효율과 은행 처리 대기</h3>
@@ -144,7 +144,7 @@
     <section class="section" id="validation">
       <div class="section-head">
         <h2>검증 설계</h2>
-        <p>A/B에 필요한 기간은 월 유입량에 따라 실험마다 다릅니다. 효과 크기는 설계 파라미터이며 추정치가 아닙니다.</p>
+        <p>A/B 검증에 필요한 기간은 월 유입량에 따라 실험별로 상이합니다. 효과 크기는 설계 파라미터이며, 추정치가 아님을 명시합니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
@@ -161,7 +161,7 @@
     <section class="section" id="calculator">
       <div class="section-head">
         <h2>계산기</h2>
-        <p>로그에 없는 두 값을 바꿔 가며 세그먼트의 부호와 배분 차이를 볼 수 있습니다. 예측 도구가 아니라 규칙표 계산기입니다.</p>
+        <p>로그에 기록되지 않은 두 값을 조정하여 세그먼트별 부호와 배분 차이를 확인할 수 있습니다. 예측 도구가 아닌 규칙표 계산기임을 명시합니다.</p>
       </div>
       <div class="grid split">
         <div class="card">
@@ -174,12 +174,12 @@
           <div class="control">
             <label>총이자 중 순마진 비중 <b id="margin-value"></b></label>
             <input type="range" id="margin" min="0" max="30" step="0.1" value="5">
-            <div class="hint">이자 총액에서 조달비용과 손실을 뺀 뒤 남는 몫의 비중입니다</div>
+            <div class="hint">이자 총액에서 조달비용과 손실을 차감한 후의 잔여 비중을 의미합니다</div>
           </div>
           <div class="control">
             <label>투입 공수 (전체 공수 대비) <b id="budget-value"></b></label>
             <input type="range" id="budget" min="10" max="100" step="5" value="50">
-            <div class="hint">이 예산에서 효율 순서와 성사율 순서를 비교합니다</div>
+            <div class="hint">해당 예산에서 효율 순서와 성사율 순서를 비교합니다</div>
           </div>
           <p class="note" id="breakeven"></p>
         </div>
@@ -188,7 +188,7 @@
           <div class="card" style="margin-top:16px">
             <h3>세그먼트 (효율 순)</h3>
             <div class="scroll-x"><table id="calc-table"></table></div>
-            <p class="note">두 값은 모든 세그먼트에 같은 방식으로 곱해지므로 순위는 두 입력과 무관합니다.</p>
+            <p class="note">두 입력값은 모든 세그먼트에 동일하게 적용되므로, 순위는 입력값과 무관합니다.</p>
           </div>
         </div>
       </div>
