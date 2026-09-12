@@ -6,7 +6,8 @@
 
 | 산출물 | 상태 | 결정 |
 |---|---|---|
-| README 국·영 | ✅ 2026-09-12 | [`README.ko.md`](../../README.ko.md) · [`README.md`](../../README.md). 국문은 humanize-korean standard 경로 |
+| README 국문 | ✅ 2026-09-12 (재작성) | [`README.ko.md`](../../README.ko.md). 초판은 결론 나열에 그쳐 프로젝트 전체를 담지 못했다. 맥락 → 분석 범위 → 가설 → 검증 과정 → 결과 → 권고 → 의의 → 한계 → 출처 순으로 다시 쓰고 차트 7개를 본문에 배치했다. humanize-korean heavy 경로(진단 → 겨냥 윤문 → finalize), 게이트 문자율 6.8% |
+| README 영문 | 대기 | [`README.md`](../../README.md)이 국문 초판 기준이라 재작성 필요 |
 | 차트 7개 | ✅ 2026-09-11 | [`visuals.md`](visuals.md) |
 | 계산기(MVP) | ✅ 2026-09-12 | 새로 만들었다. 계산은 `analysis/calculator.py`, 화면은 대시보드의 마지막 구역. Streamlit 화면은 대시보드로 대체하며 삭제 |
 | 대시보드 | ✅ 2026-09-12 | [`dashboard.md`](dashboard.md). 시안 양식 + 스크롤 연동 사이드바. `outputs/dashboard/index.html` |
