@@ -3,3 +3,4 @@ pm4py>=2.7
 pyarrow>=15
 matplotlib>=3.8
 pytest>=8
+streamlit>=1.36   # 계산기 화면(app/)에만 필요하다. 분석 스크립트는 이 패키지 없이 돌아간다
