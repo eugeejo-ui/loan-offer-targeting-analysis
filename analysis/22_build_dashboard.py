@@ -1,7 +1,7 @@
 """대시보드 빌드 — 산출물을 읽어 `outputs/dashboard/`에 열 수 있는 한 페이지를 만든다.
 
 이 폴더는 그대로 GitHub Pages에 배포된다(.github/workflows/pages.yml). 그래서 차트를 폴더 안에 복사하고,
-링크 미리보기용 og 태그를 절대경로로 넣는다. 미리보기 이미지는 23_capture_preview.py가 만든다.
+링크 미리보기용 og 태그를 절대경로로 넣는다. 미리보기 이미지는 23_capture_screens.py가 만든다.
 
 Run from the project root, after the phase scripts:
 
@@ -104,7 +104,7 @@ def main() -> None:
     print(f"wrote {TARGET / 'index.html'} (+ data.js, {', '.join(STATIC)}, charts/ x{len(charts)})")
     print(f"summary: {summary}")
     if png_size(preview) is None:
-        print(f"WARNING: {preview.name} missing — run analysis/23_capture_preview.py, then build again")
+        print(f"WARNING: {preview.name} missing — run analysis/23_capture_screens.py preview, then build again")
     else:
         print(f"preview: {preview.name} {png_size(preview)[0]}x{png_size(preview)[1]}")
 

@@ -12,6 +12,20 @@
 
 ![Segments that convert best are not the segments that run most efficiently](outputs/charts/p5_rate_vs_eta.png)
 
+## Dashboard
+
+The results and the calculator are published as a single-page dashboard. **[Open the dashboard](https://eugeejo-ui.github.io/loan-offer-targeting-analysis/)**
+
+![Dashboard landing view with headline metrics and the conclusion](outputs/dashboard/preview.png)
+
+| Core finding | Calculator |
+|---|---|
+| ![Core finding section with the widest rank gaps and the conversion–efficiency scatter](docs/assets/dashboard-core.png) | ![Calculator section with assumption inputs and per-segment economics](docs/assets/dashboard-calculator.png) |
+
+- Eight sections — overview, core finding, effort allocation, multiple offers, failure effort, intervention, measurement design and calculator — with a sidebar that follows the scroll position.
+- The calculator takes the two values missing from the log, hourly cost and net margin share, and recomputes each segment's profit sign and the allocation gap. Browser results are cross-checked against the Python reference values.
+- Every figure is read from `outputs/`; build locally with `analysis/22_build_dashboard.py`. Dashboard text is in Korean, with the headline result in English at the top.
+
 ## 1. Context and positioning
 
 The data is the 2016 loan handling log of a Dutch financial institute — 1,202,267 events, 31,509 applications and 26 activities, published as BPI Challenge 2017 by 4TU.ResearchData.
@@ -140,7 +154,7 @@ The source log is not included in the repository. Download the BPI Challenge 201
 - `tests/` — 76 module-level tests
 - `docs/` — 11 stage conclusion documents in Korean; the three core documents are also in English
 - `docs/plans/` — plans and execution records per stage
-- `app/dashboard/` — a single-page dashboard with the results and the calculator. `analysis/22_build_dashboard.py` builds it to `outputs/dashboard/index.html`
+- `app/dashboard/` — a single-page dashboard with the results and the calculator. `analysis/22_build_dashboard.py` builds it to `outputs/dashboard/`, which is deployed to GitHub Pages
 - `outputs/` — derived CSV and parquet files, and the seven charts
 
 Charts and dashboard text are in Korean; the English documents carry the same figures.

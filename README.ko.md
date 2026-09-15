@@ -12,6 +12,20 @@
 
 ![성사율 순위와 효율 순위 불일치](outputs/charts/p5_rate_vs_eta.png)
 
+## 대시보드
+
+분석 결과와 계산기를 한 페이지로 구성한 대시보드를 공개했습니다. **[대시보드 열기](https://eugeejo-ui.github.io/loan-offer-targeting-analysis/)**
+
+![대시보드 첫 화면의 핵심 지표와 결론](outputs/dashboard/preview.png)
+
+| 핵심 결론 | 계산기 |
+|---|---|
+| ![핵심 결론 구역의 순위 불일치 세그먼트와 성사율·효율 산점도](docs/assets/dashboard-core.png) | ![계산기 구역의 가정 입력과 세그먼트별 손익](docs/assets/dashboard-calculator.png) |
+
+- 개요, 핵심 결론, 공수 배분, 복수 오퍼, 실패 공수, 개입 여지, 검증 설계, 계산기의 8개 구역으로 구성되며 스크롤 위치에 따라 사이드바의 활성 항목이 전환됩니다.
+- 계산기는 로그에 기록되지 않은 두 값(시간당 비용, 순마진 비중)을 입력받아 세그먼트별 손익 부호와 배분 차이를 다시 계산합니다. 브라우저의 계산값은 파이썬 기준값과 대조됩니다.
+- 수치는 모두 `outputs/`의 산출물에서 읽습니다. 로컬 빌드는 `analysis/22_build_dashboard.py`로 수행합니다.
+
 ## 1. 배경과 위치 선정
 
 분석 대상은 네덜란드 금융기관의 2016년 대출 신청 처리 로그입니다. 이벤트 1,202,267건, 신청 31,509건, 활동 26종이 기록되어 있으며, 4TU.ResearchData가 공개한 BPI Challenge 2017 데이터입니다.
@@ -140,7 +154,7 @@ py -3.12 -m venv .venv
 - `tests/` — 모듈 단위 테스트 76개
 - `docs/` — 단계별 결론 문서 11개(국문), 핵심 3개는 영문 병행
 - `docs/plans/` — 단계별 진행계획과 실행 기록
-- `app/dashboard/` — 결과와 계산기를 담은 대시보드 한 페이지. `analysis/22_build_dashboard.py`로 빌드하면 `outputs/dashboard/index.html`이 생성됩니다
+- `app/dashboard/` — 결과와 계산기를 담은 대시보드 한 페이지. `analysis/22_build_dashboard.py`로 생성되며 GitHub Pages로 배포됩니다
 - `outputs/` — 산출 CSV·parquet와 차트 7개
 
 ## 11. 출처

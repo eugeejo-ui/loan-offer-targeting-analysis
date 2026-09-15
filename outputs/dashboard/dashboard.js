@@ -5,7 +5,7 @@
   var data = window.DASHBOARD;
   if (!data) { return; }
 
-  /* 링크 미리보기 캡처용 (analysis/23_capture_preview.py). 첫 화면에 지표 카드가 들어오도록 용어 카드를 접는다. */
+  /* 링크 미리보기 캡처용 (analysis/23_capture_screens.py). 첫 화면에 지표 카드가 들어오도록 용어 카드를 접는다. */
   if (/[?&]preview\b/.test(window.location.search)) { document.body.classList.add("preview-mode"); }
 
   var fmt = {
@@ -297,4 +297,16 @@
 
   sections.forEach(function (section) { if (section) { observer.observe(section); } });
   activate(sections[0].id);
+
+  /* README 화면 캡처용 (analysis/23_capture_screens.py). headless 캡처는 스크롤한 화면을 다시 그리지 않으므로,
+     스크롤 대신 다른 구역을 숨겨 대상 구역을 첫 화면에 둔다. */
+  var shot = /[?&]shot=([\w-]+)/.exec(window.location.search);
+  if (shot && document.getElementById(shot[1])) {
+    document.querySelector(".topbar").style.display = "none";
+    document.getElementById("page-note").style.display = "none";
+    sections.forEach(function (section) {
+      if (section && section.id !== shot[1]) { section.style.display = "none"; }
+    });
+    activate(shot[1]);
+  }
 })();
