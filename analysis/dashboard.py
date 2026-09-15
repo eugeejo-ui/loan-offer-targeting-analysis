@@ -4,6 +4,10 @@
 """
 from __future__ import annotations
 
+import html
+import struct
+from pathlib import Path
+
 import pandas as pd
 
 from charts import pretty_segment
@@ -144,3 +148,57 @@ def build_payload(frames: dict) -> dict:
     if "mismatch" in frames:
         payload["mismatch"] = _segments(frames["mismatch"])
     return payload
+
+
+# ---------- 배포 페이지 (링크 미리보기) ----------
+
+def english_summary(payload: dict) -> str:
+    """링크 미리보기와 화면 상단에 같은 문장으로 들어가는 영문 요약. 수치는 산출물에서 읽는다."""
+    rho = payload["alignment"]["rho"]
+    gain = next(row["gain"] for row in payload["allocation"] if row["budget"] == 50)
+    return (f"Rank correlation {rho:.3f} between conversion and effort efficiency. "
+            f"Allocating in efficiency order adds {gain:.1%} of loan volume.")
+
+
+def png_size(path: Path) -> tuple[int, int] | None:
+    """PNG 헤더에서 가로·세로 픽셀을 읽는다. 파일이 없으면 None."""
+    try:
+        header = Path(path).read_bytes()[:24]
+    except FileNotFoundError:
+        return None
+    if header[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", header[16:24])
+
+
+def render_page(template: str, summary: str, site: dict, image_size: tuple[int, int] | None) -> str:
+    """템플릿의 head에 링크 미리보기 태그를 넣고, 영문 요약과 저장소 주소를 채운다.
+
+    링크드인 등은 상대경로를 읽지 못하므로 사이트 주소는 https로 시작하는 절대경로만 받는다.
+    """
+    url = site["url"]
+    if not url.startswith("https://") or not url.endswith("/"):
+        raise ValueError(f"site url must be an absolute https URL ending with '/': {url!r}")
+
+    def esc(value) -> str:
+        return html.escape(str(value), quote=True)
+
+    tags = [
+        f'<meta name="description" content="{esc(summary)}">',
+        '<meta property="og:type" content="website">',
+        f'<meta property="og:title" content="{esc(site["title"])}">',
+        f'<meta property="og:description" content="{esc(summary)}">',
+        f'<meta property="og:url" content="{esc(url)}">',
+        f'<meta property="og:image" content="{esc(url + site["image"])}">',
+    ]
+    if image_size:
+        tags += [f'<meta property="og:image:width" content="{image_size[0]}">',
+                 f'<meta property="og:image:height" content="{image_size[1]}">']
+    tags += [
+        f'<meta property="og:image:alt" content="{esc(site["image_alt"])}">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        f'<link rel="canonical" href="{esc(url)}">',
+    ]
+    page = template.replace("</head>", "\n".join(tags) + "\n</head>", 1)
+    return page.replace("__SUMMARY_EN__", esc(summary)).replace("__REPO_URL__", esc(site["repo"]))
+

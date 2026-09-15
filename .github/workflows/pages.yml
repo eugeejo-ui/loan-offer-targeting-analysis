@@ -1,0 +1,40 @@
+# 대시보드를 GitHub Pages에 게시한다.
+# outputs/dashboard/는 로컬 빌드(analysis/22·23)로 만들어 커밋한 결과물이다.
+# 원본 로그가 저장소에 없어 CI에서는 다시 빌드하지 않고, 커밋된 폴더를 그대로 올린다.
+name: Deploy dashboard
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "outputs/dashboard/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: outputs/dashboard
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -5,6 +5,9 @@
   var data = window.DASHBOARD;
   if (!data) { return; }
 
+  /* 링크 미리보기 캡처용 (analysis/23_capture_preview.py). 첫 화면에 지표 카드가 들어오도록 용어 카드를 접는다. */
+  if (/[?&]preview\b/.test(window.location.search)) { document.body.classList.add("preview-mode"); }
+
   var fmt = {
     int: function (v) { return Math.round(v).toLocaleString("ko-KR"); },
     pct: function (v, digits) { return (v * 100).toFixed(digits === undefined ? 1 : digits) + "%"; },

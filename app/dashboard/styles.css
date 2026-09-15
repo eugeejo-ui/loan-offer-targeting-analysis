@@ -80,15 +80,39 @@ body {
 
 .topbar {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--line);
   margin-bottom: 28px;
 }
 .topbar h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
-.topbar .meta { font-size: 13px; color: var(--muted); }
+.topbar .lede-en { margin: 6px 0 0; font-size: 14px; color: var(--ink-2); max-width: 72ch; }
+.topbar-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex: 0 0 auto; }
+.topbar .meta { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.repo-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+}
+.repo-link:hover { background: var(--accent-soft); }
+
+@media (max-width: 860px) {
+  .topbar { flex-direction: column; }
+  .topbar-side { align-items: flex-start; }
+}
+
+/* 링크 미리보기 캡처 전용 — 평소 화면에는 적용되지 않는다 */
+.preview-mode .glossary,
+.preview-mode #overview .section-head { display: none; }
+.preview-mode #overview-cards { margin-top: 0 !important; }
 
 /* ---------- 구역 ---------- */
 

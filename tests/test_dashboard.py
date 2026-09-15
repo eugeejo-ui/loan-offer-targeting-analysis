@@ -1,8 +1,11 @@
 import json
+import struct
 
 import pandas as pd
+import pytest
 
-from dashboard import build_payload
+from config import ROOT
+from dashboard import build_payload, english_summary, png_size, render_page
 
 FRAMES = {
     "efficiency": pd.DataFrame({
@@ -73,3 +76,57 @@ def test_build_payload_renames_checks_and_formats_their_values():
 def test_build_payload_keeps_an_unmapped_check_visible_without_a_verdict():
     checks = build_payload(CHECK_FRAMES)["checks"]
     assert checks[4] == {"check": "9 새로 추가된 판정", "value": "1.5", "verdict": ""}
+
+
+SITE = {
+    "url": "https://example.github.io/repo/",
+    "repo": "https://github.com/example/repo",
+    "title": "Loan Offer Targeting",
+    "image": "preview.png",
+    "image_alt": "Dashboard overview",
+}
+
+
+def test_english_summary_reads_its_numbers_from_the_payload():
+    summary = english_summary(build_payload(FRAMES))
+    assert "0.669" in summary
+    assert "13.2%" in summary
+
+
+def test_render_page_adds_absolute_open_graph_tags_before_the_head_closes():
+    template = ('<html><head><title>t</title></head><body>'
+                '<p>__SUMMARY_EN__</p><a href="__REPO_URL__">repo</a></body></html>')
+    page = render_page(template, 'Rank "0.669"', SITE, image_size=(2400, 1254))
+    head = page[:page.index("</head>")]
+    assert '<meta property="og:image" content="https://example.github.io/repo/preview.png">' in head
+    assert '<meta property="og:url" content="https://example.github.io/repo/">' in head
+    assert '<meta property="og:image:width" content="2400">' in head
+    assert '<meta name="twitter:card" content="summary_large_image">' in head
+    assert "&quot;0.669&quot;" in page
+    assert '<a href="https://github.com/example/repo">' in page
+    assert "__" not in page
+
+
+def test_render_page_refuses_a_relative_site_url():
+    with pytest.raises(ValueError):
+        render_page("<head></head>", "summary", dict(SITE, url="/repo/"), image_size=None)
+
+
+def test_render_page_omits_image_size_when_the_preview_is_missing():
+    page = render_page("<head></head>", "summary", SITE, image_size=None)
+    assert "og:image:width" not in page
+    assert '<meta property="og:image" content="https://example.github.io/repo/preview.png">' in page
+
+
+def test_png_size_reads_the_header(tmp_path):
+    png = tmp_path / "preview.png"
+    png.write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00\x00\x00\rIHDR" + struct.pack(">II", 2400, 1254))
+    assert png_size(png) == (2400, 1254)
+    assert png_size(tmp_path / "missing.png") is None
+
+
+def test_dashboard_template_is_deployable_on_its_own():
+    template = (ROOT / "app" / "dashboard" / "template.html").read_text(encoding="utf-8")
+    assert "../charts/" not in template
+    assert "__SUMMARY_EN__" in template
+    assert "__REPO_URL__" in template

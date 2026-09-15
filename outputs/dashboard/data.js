@@ -783,7 +783,7 @@ window.DASHBOARD = {
    "rank_gap": -11
   }
  ],
- "built_on": "2026-09-12",
+ "built_on": "2026-09-15",
  "reference_check": {
   "cost": 57.6,
   "margin_share": 0.05,

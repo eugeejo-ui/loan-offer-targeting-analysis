@@ -1,5 +1,8 @@
 """대시보드 빌드 — 산출물을 읽어 `outputs/dashboard/`에 열 수 있는 한 페이지를 만든다.
 
+이 폴더는 그대로 GitHub Pages에 배포된다(.github/workflows/pages.yml). 그래서 차트를 폴더 안에 복사하고,
+링크 미리보기용 og 태그를 절대경로로 넣는다. 미리보기 이미지는 23_capture_preview.py가 만든다.
+
 Run from the project root, after the phase scripts:
 
     .venv\\Scripts\\python analysis/22_build_dashboard.py
@@ -15,7 +18,7 @@ import pandas as pd
 
 from calculator import allocation_compare, breakeven_margin_shares, load_segments, segment_economics, summarise
 from config import OUT_DIR, ROOT
-from dashboard import build_payload
+from dashboard import build_payload, english_summary, png_size, render_page
 
 CHECK_MARGIN_SHARE = 0.05  # 화면 기본값과 같아야 한다
 CHECK_BUDGET = 0.5
@@ -23,6 +26,16 @@ CHECK_BUDGET = 0.5
 SOURCE = ROOT / "app" / "dashboard"
 TARGET = OUT_DIR / "dashboard"
 STATIC = ["styles.css", "dashboard.js"]
+CHARTS = OUT_DIR / "charts"
+
+# 배포 주소가 바뀌면 여기만 고친다. 링크 미리보기는 절대경로만 읽는다.
+SITE = {
+    "url": "https://eugeejo-ui.github.io/loan-offer-targeting-analysis/",
+    "repo": "https://github.com/eugeejo-ui/loan-offer-targeting-analysis",
+    "title": "Loan Offer Targeting — Where Conversion and Efficiency Disagree",
+    "image": "preview.png",
+    "image_alt": "Dashboard overview: conversion rate and effort efficiency across 39 loan application segments",
+}
 
 
 def read(name: str) -> pd.DataFrame:
@@ -75,14 +88,25 @@ def main() -> None:
     TARGET.mkdir(parents=True, exist_ok=True)
     (TARGET / "data.js").write_text(
         "window.DASHBOARD = " + json.dumps(payload, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
-    shutil.copyfile(SOURCE / "template.html", TARGET / "index.html")
+    summary = english_summary(payload)
+    preview = TARGET / SITE["image"]
+    page = render_page((SOURCE / "template.html").read_text(encoding="utf-8"), summary, SITE, png_size(preview))
+    (TARGET / "index.html").write_text(page, encoding="utf-8")
     for name in STATIC:
         shutil.copyfile(SOURCE / name, TARGET / name)
+    (TARGET / "charts").mkdir(exist_ok=True)
+    charts = sorted(CHARTS.glob("*.png"))
+    for chart in charts:
+        shutil.copyfile(chart, TARGET / "charts" / chart.name)
 
     print(f"segments={payload['segment_count']}  cases={payload['cases_in_segments']:,}  "
           f"population={payload['population']['cases']:,}  effort={payload['population']['effort_hours']:,.1f}h")
-    print(f"wrote {TARGET / 'index.html'} (+ data.js, {', '.join(STATIC)})")
-    print("charts are referenced from ../charts/ — keep outputs/charts/ next to it")
+    print(f"wrote {TARGET / 'index.html'} (+ data.js, {', '.join(STATIC)}, charts/ x{len(charts)})")
+    print(f"summary: {summary}")
+    if png_size(preview) is None:
+        print(f"WARNING: {preview.name} missing — run analysis/23_capture_preview.py, then build again")
+    else:
+        print(f"preview: {preview.name} {png_size(preview)[0]}x{png_size(preview)[1]}")
 
 
 if __name__ == "__main__":
